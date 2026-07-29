@@ -1,0 +1,6 @@
+{
+  "name": "Commerce Zon",
+  "description": "Enterprise multi-vendor e-commerce marketplace featuring Module 20 Super Admin Control Panel, Security & Fraud Detection, BI Analytics, AI Search Engine, Commerce Zon Pay Wallet, and full multi-vendor Commerce Zon platform management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
