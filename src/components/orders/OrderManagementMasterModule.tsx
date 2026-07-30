@@ -203,7 +203,7 @@ export const OrderManagementMasterModule: React.FC = () => {
           status: 'ORDER_CONFIRMED',
           actorRole: 'BUYER',
           actorName: order.customerName,
-          note: 'Reorder placed via 1-Click Amazon Checkout',
+          note: 'Reorder placed via 1-Click Commerce Zon Checkout',
           timestamp: new Date().toISOString(),
         },
       ],
@@ -236,7 +236,7 @@ export const OrderManagementMasterModule: React.FC = () => {
       };
 
       setRefunds((prev) => [newRefundRecord, ...prev]);
-      handleUpdateOrderStatus(retObj.orderId, 'REFUNDED', 'Amazon Refund Engine', 'Instant wallet refund processed');
+      handleUpdateOrderStatus(retObj.orderId, 'REFUNDED', 'Commerce Zon Refund Engine', 'Instant wallet refund processed');
     }
   };
 
@@ -264,7 +264,7 @@ export const OrderManagementMasterModule: React.FC = () => {
               <ShoppingBag className="w-4 h-4 text-amber-400" />
               <span>MODULE 9 • ENTERPRISE ORDER MANAGEMENT SYSTEM (OMS)</span>
             </div>
-            <h1 className="text-2xl font-black text-white mt-1">Amazon-Class Order Control Hub</h1>
+            <h1 className="text-2xl font-black text-white mt-1">Commerce Zon-Class Order Control Hub</h1>
             <p className="text-xs text-slate-400 mt-0.5">
               Multi-vendor order splitting, 14-stage state machine, live shipment radar, RMA portal & financial settlements
             </p>

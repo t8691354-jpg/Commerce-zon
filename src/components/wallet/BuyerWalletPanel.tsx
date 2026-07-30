@@ -85,7 +85,7 @@ export const BuyerWalletPanel: React.FC<BuyerWalletPanelProps> = ({
       setGiftCode('');
       setTimeout(() => setGiftSuccess(null), 4000);
     } else {
-      setGiftError('Invalid or already redeemed voucher code. Try "ZONE-PAY-50" or "AMAZON-BONUS"');
+      setGiftError('Invalid or already redeemed voucher code. Try "ZONE-PAY-50" or "COMMERCE_ZON-BONUS"');
       setGiftSuccess(null);
     }
   };
@@ -303,7 +303,7 @@ export const BuyerWalletPanel: React.FC<BuyerWalletPanelProps> = ({
 
             <div className="pt-1 flex flex-wrap items-center gap-1.5">
               <span className="text-[10px] text-slate-500">Quick Test Vouchers:</span>
-              {['ZONE-PAY-50', 'AMAZON-BONUS', 'PRIME-2026'].map((code) => (
+              {['ZONE-PAY-50', 'COMMERCE_ZON-BONUS', 'PRIME-2026'].map((code) => (
                 <button
                   key={code}
                   type="button"

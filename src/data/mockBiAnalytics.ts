@@ -286,7 +286,7 @@ export const MOCK_MARKETING_METRICS: MarketingBiMetrics[] = [
 ];
 
 export const MOCK_LOGISTICS_METRICS: LogisticsBiMetrics[] = [
-  { carrier: 'Amazon Logistics (In-House)', shipmentVolume: 12400000, deliverySuccessRatePct: 99.4, avgDelayHours: 0.8, returnLogisticsRatePct: 2.1, shippingCostPerOrder: 3.80 },
+  { carrier: 'Commerce Zon Logistics (In-House)', shipmentVolume: 12400000, deliverySuccessRatePct: 99.4, avgDelayHours: 0.8, returnLogisticsRatePct: 2.1, shippingCostPerOrder: 3.80 },
   { carrier: 'FedEx Express Air & Ground', shipmentVolume: 3200000, deliverySuccessRatePct: 98.2, avgDelayHours: 1.4, returnLogisticsRatePct: 3.4, shippingCostPerOrder: 5.40 },
   { carrier: 'UPS Next-Day & Priority', shipmentVolume: 2100000, deliverySuccessRatePct: 98.7, avgDelayHours: 1.1, returnLogisticsRatePct: 2.9, shippingCostPerOrder: 5.90 },
   { carrier: 'DHL Express International', shipmentVolume: 720900, deliverySuccessRatePct: 97.5, avgDelayHours: 2.3, returnLogisticsRatePct: 4.2, shippingCostPerOrder: 8.20 },
@@ -353,8 +353,8 @@ export const MOCK_REALTIME_METRICS: RealtimeMonitoringMetric[] = [
 ];
 
 export const MOCK_CUSTOM_REPORTS: CustomReportConfig[] = [
-  { id: 'RPT-001', title: 'Q3 Executive GMV & Margin Breakdown', dataSources: ['Sales', 'Financial'], metrics: ['GMV', 'Marketplace Revenue', 'Net Profit'], chartType: 'area', timeframe: '90d', createdAt: '2026-07-01', isScheduled: true, scheduleFrequency: 'monthly', recipients: ['executive-team@amazon.com'] },
-  { id: 'RPT-002', title: 'FBA Inventory Turnover & Overstock Audit', dataSources: ['Inventory', 'Logistics'], metrics: ['Inventory Turnover', 'Dead Stock', 'Warehouse Capacity'], chartType: 'bar', timeframe: '30d', createdAt: '2026-07-15', isScheduled: true, scheduleFrequency: 'weekly', recipients: ['fba-ops@amazon.com'] },
+  { id: 'RPT-001', title: 'Q3 Executive GMV & Margin Breakdown', dataSources: ['Sales', 'Financial'], metrics: ['GMV', 'Marketplace Revenue', 'Net Profit'], chartType: 'area', timeframe: '90d', createdAt: '2026-07-01', isScheduled: true, scheduleFrequency: 'monthly', recipients: ['executive-team@commercezon.com'] },
+  { id: 'RPT-002', title: 'FBA Inventory Turnover & Overstock Audit', dataSources: ['Inventory', 'Logistics'], metrics: ['Inventory Turnover', 'Dead Stock', 'Warehouse Capacity'], chartType: 'bar', timeframe: '30d', createdAt: '2026-07-15', isScheduled: true, scheduleFrequency: 'weekly', recipients: ['fba-ops@commercezon.com'] },
   { id: 'RPT-003', title: 'Top 100 Seller Compliance & Return Rates', dataSources: ['Sellers', 'Orders'], metrics: ['Order Volume', 'Return Rate', 'Customer Rating'], chartType: 'table', timeframe: '30d', createdAt: '2026-07-20', isScheduled: false },
 ];
 

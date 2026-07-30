@@ -91,7 +91,7 @@ export const CustomerOrderManagementPortal: React.FC<CustomerOrderManagementPort
       <div className="bg-[#131921] border border-[#37475a] p-6 rounded-2xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2 text-xs font-black text-[#febd69] uppercase tracking-wider">
-            <span>OFFICIAL AMAZON BUYER PORTAL</span>
+            <span>OFFICIAL COMMERCE_ZON BUYER PORTAL</span>
             <span>•</span>
             <span className="text-emerald-400">Prime Member Account</span>
           </div>
@@ -276,7 +276,7 @@ export const CustomerOrderManagementPortal: React.FC<CustomerOrderManagementPort
           <form onSubmit={handleReturnSubmit} className="bg-slate-900 border border-slate-800 p-6 rounded-3xl max-w-lg w-full space-y-4 shadow-2xl">
             <h3 className="text-base font-black text-white flex items-center space-x-2">
               <RotateCcw className="w-5 h-5 text-rose-400" />
-              <span>Initiate Amazon Express Return Request</span>
+              <span>Initiate Commerce Zon Express Return Request</span>
             </h3>
 
             <div className="space-y-3 text-xs">

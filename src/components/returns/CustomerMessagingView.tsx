@@ -56,7 +56,7 @@ export const CustomerMessagingView: React.FC<Props> = ({ messages, returnRequest
           >
             <option value="BUYER">Buyer (David Miller)</option>
             <option value="SELLER">Merchant Support</option>
-            <option value="ADMIN">Amazon Marketplace Disputes Admin</option>
+            <option value="ADMIN">Commerce Zon Marketplace Disputes Admin</option>
           </select>
         </div>
       </div>

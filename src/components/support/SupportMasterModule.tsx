@@ -210,7 +210,7 @@ export const SupportMasterModule: React.FC = () => {
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-xl font-extrabold text-white tracking-tight">
-                Amazon Customer Support & Live Chat Management
+                Commerce Zon Customer Support & Live Chat Management
               </h1>
               <span className="px-2 py-0.5 bg-[#febd69]/20 text-[#febd69] border border-[#febd69]/40 text-[10px] font-mono font-bold rounded">
                 MODULE 15

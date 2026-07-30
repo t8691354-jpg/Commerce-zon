@@ -152,7 +152,7 @@ export const CheckoutMultiStepFlow: React.FC<CheckoutMultiStepFlowProps> = ({
   const handleApplyCoupon = () => {
     if (checkout.couponCode.toUpperCase() === 'PRIME100') {
       setCheckout((prev) => ({ ...prev, appliedDiscountUSD: 100.00 }));
-    } else if (checkout.couponCode.toUpperCase().includes('AMAZON')) {
+    } else if (checkout.couponCode.toUpperCase().includes('COMMERCE_ZON')) {
       setCheckout((prev) => ({ ...prev, appliedDiscountUSD: 50.00 }));
     } else {
       setCheckout((prev) => ({ ...prev, appliedDiscountUSD: 20.00 }));
@@ -232,7 +232,7 @@ export const CheckoutMultiStepFlow: React.FC<CheckoutMultiStepFlowProps> = ({
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>256-BIT PCI-DSS SECURE CHECKOUT PIPELINE</span>
           </div>
-          <h2 className="text-xl font-black mt-1 text-white">Amazon-Grade Enterprise Multi-Step Checkout</h2>
+          <h2 className="text-xl font-black mt-1 text-white">Commerce Zon Grade Enterprise Multi-Step Checkout</h2>
           <p className="text-xs text-slate-400 mt-1">
             Idempotent payment processing, 3D Secure 2.0 OTP verification, Sentinel AI fraud shield & instant wallet ledger updates
           </p>
@@ -426,7 +426,7 @@ export const CheckoutMultiStepFlow: React.FC<CheckoutMultiStepFlowProps> = ({
                 {[
                   {
                     id: 'PRIME_EXPRESS',
-                    label: 'Amazon Prime Express Air (Guaranteed Tomorrow)',
+                    label: 'Commerce Zon Prime Express Air (Guaranteed Tomorrow)',
                     cost: 25.00,
                     desc: 'Priority air transport directly from Silicon Valley Logistics Hub',
                     badge: 'RECOMMENDED FOR ENTERPRISE',

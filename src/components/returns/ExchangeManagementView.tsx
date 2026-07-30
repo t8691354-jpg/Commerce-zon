@@ -137,7 +137,7 @@ export const ExchangeManagementView: React.FC<Props> = ({ returnRequests, onDisp
                   <option value="DHL Express Priority">DHL Express Priority</option>
                   <option value="UPS Next Day Air">UPS Next Day Air</option>
                   <option value="FedEx 2Day">FedEx 2Day</option>
-                  <option value="Amazon Logistics Prime Delivery">Amazon Logistics Prime Delivery</option>
+                  <option value="Commerce Zon Logistics Prime Delivery">Commerce Zon Logistics Prime Delivery</option>
                 </select>
               </div>
 

@@ -182,7 +182,7 @@ export const AgentDepartmentManagerView: React.FC<Props> = ({
                 <label className="block text-xs font-semibold text-slate-300 mb-1">Internal Email</label>
                 <input
                   type="email"
-                  placeholder="rachel.a@amazon-support.internal"
+                  placeholder="rachel.a@commercezon-support.internal"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#febd69]"

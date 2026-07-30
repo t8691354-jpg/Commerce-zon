@@ -11,7 +11,7 @@ export const BiLogisticsAnalyticsView: React.FC = () => {
         <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl space-y-2">
           <span className="text-xs text-slate-400">Total Parcels Dispatched</span>
           <p className="text-2xl font-black text-slate-100 font-mono">{(totalShipments / 1e6).toFixed(2)}M</p>
-          <p className="text-xs text-emerald-400 font-semibold">Amazon Logistics 67% Share</p>
+          <p className="text-xs text-emerald-400 font-semibold">Commerce Zon Logistics 67% Share</p>
         </div>
         <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-2xl space-y-2">
           <span className="text-xs text-slate-400">Delivery Success Rate</span>

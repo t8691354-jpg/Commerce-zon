@@ -200,7 +200,7 @@ export const BiSalesAnalyticsView: React.FC<Props> = () => {
             <div className="space-y-3 text-xs">
               {[
                 { brand: 'Anker Tech', revenue: 48200000, marketShare: '11.4%', rating: 4.88 },
-                { brand: 'Amazon Basics', revenue: 94200000, marketShare: '22.4%', rating: 4.65 },
+                { brand: 'Commerce Zon Basics', revenue: 94200000, marketShare: '22.4%', rating: 4.65 },
                 { brand: 'Sony Electronics', revenue: 82400000, marketShare: '19.6%', rating: 4.91 },
                 { brand: 'Philips Consumer', revenue: 38200000, marketShare: '9.1%', rating: 4.74 },
                 { brand: 'Logitech Gear', revenue: 42100000, marketShare: '10.0%', rating: 4.82 },

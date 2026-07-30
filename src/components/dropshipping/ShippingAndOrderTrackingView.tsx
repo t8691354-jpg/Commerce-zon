@@ -26,7 +26,7 @@ export const ShippingAndOrderTrackingView: React.FC<ShippingAndOrderTrackingView
     { code: 'FEDEX', name: 'FedEx Express & Ground', ratePerKg: '$4.20', avgTransitDays: '1-3 Days', APIStatus: 'CONNECTED' },
     { code: 'UPS', name: 'UPS Worldwide Saver', ratePerKg: '$3.90', avgTransitDays: '2-4 Days', APIStatus: 'CONNECTED' },
     { code: 'DHL', name: 'DHL Express International', ratePerKg: '$6.50', avgTransitDays: '2-5 Days', APIStatus: 'CONNECTED' },
-    { code: 'AMAZON_LOGISTICS', name: 'Amazon Logistics Prime (AMZL)', ratePerKg: '$2.80', avgTransitDays: '1-2 Days', APIStatus: 'CONNECTED' },
+    { code: 'COMMERCE_ZON_LOGISTICS', name: 'Commerce Zon Logistics Prime (AMZL)', ratePerKg: '$2.80', avgTransitDays: '1-2 Days', APIStatus: 'CONNECTED' },
   ];
 
   return (

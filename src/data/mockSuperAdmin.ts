@@ -42,7 +42,7 @@ export const MOCK_GLOBAL_USERS: GlobalUserRecord[] = [
   { id: 'USR-8821', name: 'Sophia Martinez', email: 'sophia.m@gmail.com', role: 'Buyer', status: 'Active', mfaEnabled: true, registeredDate: '2024-01-15', lastLoginIp: '198.51.100.42', lastLoginDate: '2026-07-28 06:12', totalTransactions: 142, country: 'United States' },
   { id: 'USR-9012', name: 'TechHaven Official Store', email: 'support@techhaven.io', role: 'Professional Seller', status: 'Active', mfaEnabled: true, registeredDate: '2023-08-10', lastLoginIp: '54.210.12.99', lastLoginDate: '2026-07-28 06:05', totalTransactions: 12400, country: 'United States' },
   { id: 'USR-7734', name: 'Liam Chen', email: 'liam.c@affiliates.com', role: 'Affiliate', status: 'Active', mfaEnabled: false, registeredDate: '2024-05-20', lastLoginIp: '103.251.170.12', lastLoginDate: '2026-07-27 18:30', totalTransactions: 890, country: 'Singapore' },
-  { id: 'USR-3310', name: 'Global Logistics Hub North', email: 'wh-north@amazon-fake.com', role: 'Warehouse Staff', status: 'Active', mfaEnabled: true, registeredDate: '2023-11-01', lastLoginIp: '192.168.10.4', lastLoginDate: '2026-07-28 05:45', totalTransactions: 45200, country: 'Germany' },
+  { id: 'USR-3310', name: 'Global Logistics Hub North', email: 'wh-north@commercezon-hub.com', role: 'Warehouse Staff', status: 'Active', mfaEnabled: true, registeredDate: '2023-11-01', lastLoginIp: '192.168.10.4', lastLoginDate: '2026-07-28 05:45', totalTransactions: 45200, country: 'Germany' },
   { id: 'USR-1109', name: 'Express Freight Corp', email: 'partner@expressfreight.com', role: 'Delivery Partner', status: 'Active', mfaEnabled: true, registeredDate: '2024-02-18', lastLoginIp: '185.220.101.9', lastLoginDate: '2026-07-28 06:00', totalTransactions: 8900, country: 'United Kingdom' },
   { id: 'USR-6652', name: 'Suspicious Bot Account 89', email: 'bot89@scamdomain.xyz', role: 'Buyer', status: 'Banned', mfaEnabled: false, registeredDate: '2026-07-26', lastLoginIp: '185.220.101.4', lastLoginDate: '2026-07-26 14:12', totalTransactions: 0, country: 'Unknown' },
   { id: 'USR-5541', name: 'Elena Rostova', email: 'elena@support-desk.com', role: 'Support Agent', status: 'Active', mfaEnabled: true, registeredDate: '2024-04-12', lastLoginIp: '82.165.10.55', lastLoginDate: '2026-07-28 06:20', totalTransactions: 1420, country: 'Estonia' },
@@ -59,7 +59,7 @@ export const MOCK_FINANCIAL_RULES: FinancialFeeRule[] = [
   { id: 'FEE-01', feeType: 'Marketplace Commission', ratePct: 8.5, flatFeeUsd: 0.30, appliesTo: 'Standard Electronics & Retail', status: 'Active' },
   { id: 'FEE-02', feeType: 'Seller Subscription', ratePct: 0, flatFeeUsd: 39.99, appliesTo: 'Professional Seller Monthly Plan', status: 'Active' },
   { id: 'FEE-03', feeType: 'Affiliate Payout', ratePct: 4.0, flatFeeUsd: 0, appliesTo: 'Qualified Affiliate Referrals', status: 'Active' },
-  { id: 'FEE-04', feeType: 'FBA Storage Fee', ratePct: 0, flatFeeUsd: 2.50, appliesTo: 'Fulfillment by Amazon Cubic Foot Storage', status: 'Active' },
+  { id: 'FEE-04', feeType: 'FBA Storage Fee', ratePct: 0, flatFeeUsd: 2.50, appliesTo: 'Fulfillment by Commerce Zon Cubic Foot Storage', status: 'Active' },
   { id: 'FEE-05', feeType: 'Withdrawal Fee', ratePct: 0.5, flatFeeUsd: 1.00, appliesTo: 'Express Merchant Wallet Bank Withdrawal', status: 'Active' },
 ];
 
@@ -101,7 +101,7 @@ export const MOCK_AI_SERVICES: AiServiceConfig[] = [
 
 export const MOCK_INTEGRATIONS: IntegrationGateway[] = [
   { id: 'INT-01', providerName: 'Stripe Connect & Card Processing', category: 'Payment Gateway', status: 'Connected', environment: 'Production', lastPingMs: 320, apiKeyMasked: 'sk_live_51M...9x4A' },
-  { id: 'INT-02', providerName: 'Amazon Shipping & FedEx Logistics API', category: 'Shipping Carrier', status: 'Connected', environment: 'Production', lastPingMs: 180, apiKeyMasked: 'fedex_prod_99...21' },
+  { id: 'INT-02', providerName: 'Commerce Zon Shipping & FedEx Logistics API', category: 'Shipping Carrier', status: 'Connected', environment: 'Production', lastPingMs: 180, apiKeyMasked: 'fedex_prod_99...21' },
   { id: 'INT-03', providerName: 'SendGrid Enterprise Email Dispatcher', category: 'Email Service', status: 'Connected', environment: 'Production', lastPingMs: 95, apiKeyMasked: 'SG.xK2...890' },
   { id: 'INT-04', providerName: 'Twilio Programmable SMS & OTP Gateway', category: 'SMS Gateway', status: 'Connected', environment: 'Production', lastPingMs: 110, apiKeyMasked: 'AC_89a...77' },
   { id: 'INT-05', providerName: 'Google Cloud Storage & Cloudfront CDN', category: 'Cloud Storage', status: 'Connected', environment: 'Production', lastPingMs: 12, apiKeyMasked: 'gcp_s3_key_...44' },
@@ -127,13 +127,13 @@ export const MOCK_FEATURE_FLAGS: FeatureFlag[] = [
 ];
 
 export const MOCK_CENTRAL_AUDIT_LOGS: CentralAuditLog[] = [
-  { id: 'AUD-9001', actor: 'superadmin@amazon-fake.com', role: 'Super Admin', action: 'Updated Global Commission Fee Policy for Retail', targetModule: 'Financial Controls', ipAddress: '54.210.12.99', timestamp: '2026-07-28 06:10:22', severity: 'WARN' },
-  { id: 'AUD-9002', actor: 'sec-ops@amazon-fake.com', role: 'Security Admin', action: 'Banned Malicious Bot Account USR-6652 & Revoked Tokens', targetModule: 'User Management', ipAddress: '198.51.100.42', timestamp: '2026-07-28 05:42:11', severity: 'CRITICAL' },
-  { id: 'AUD-9003', actor: 'superadmin@amazon-fake.com', role: 'Super Admin', action: 'Triggered Manual Multi-Region DB Backup Snapshot', targetModule: 'Backup & Restore', ipAddress: '54.210.12.99', timestamp: '2026-07-28 02:00:00', severity: 'INFO' },
+  { id: 'AUD-9001', actor: 'superadmin@commercezon-hub.com', role: 'Super Admin', action: 'Updated Global Commission Fee Policy for Retail', targetModule: 'Financial Controls', ipAddress: '54.210.12.99', timestamp: '2026-07-28 06:10:22', severity: 'WARN' },
+  { id: 'AUD-9002', actor: 'sec-ops@commercezon-hub.com', role: 'Security Admin', action: 'Banned Malicious Bot Account USR-6652 & Revoked Tokens', targetModule: 'User Management', ipAddress: '198.51.100.42', timestamp: '2026-07-28 05:42:11', severity: 'CRITICAL' },
+  { id: 'AUD-9003', actor: 'superadmin@commercezon-hub.com', role: 'Super Admin', action: 'Triggered Manual Multi-Region DB Backup Snapshot', targetModule: 'Backup & Restore', ipAddress: '54.210.12.99', timestamp: '2026-07-28 02:00:00', severity: 'INFO' },
 ];
 
 export const MOCK_SYSTEM_ALERT_ROUTES: SystemAlertRoute[] = [
-  { id: 'ALT-01', triggerEvent: 'Critical Database Failover or Loss', channel: 'PagerDuty Webhook', recipients: ['oncall-devops@amazon-fake.com', '+1 (555) 019-2831'], severity: 'CRITICAL', status: 'Active' },
-  { id: 'ALT-02', triggerEvent: 'Payment Gateway Error Rate > 2%', channel: 'Email', recipients: ['fintech-alerts@amazon-fake.com'], severity: 'HIGH', status: 'Active' },
+  { id: 'ALT-01', triggerEvent: 'Critical Database Failover or Loss', channel: 'PagerDuty Webhook', recipients: ['oncall-devops@commercezon-hub.com', '+1 (555) 019-2831'], severity: 'CRITICAL', status: 'Active' },
+  { id: 'ALT-02', triggerEvent: 'Payment Gateway Error Rate > 2%', channel: 'Email', recipients: ['fintech-alerts@commercezon-hub.com'], severity: 'HIGH', status: 'Active' },
   { id: 'ALT-03', triggerEvent: 'AI Model Rate Limit or High Latency', channel: 'In-App Alert', recipients: ['ai-ops-leads'], severity: 'MEDIUM', status: 'Active' },
 ];

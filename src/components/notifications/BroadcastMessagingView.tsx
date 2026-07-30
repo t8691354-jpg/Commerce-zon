@@ -26,7 +26,7 @@ export const BroadcastMessagingView: React.FC<Props> = ({ onAddNotification }) =
     telegram: false
   });
 
-  const [broadcastTitle, setBroadcastTitle] = useState<string>('Important Amazon Marketplace Platform Notice');
+  const [broadcastTitle, setBroadcastTitle] = useState<string>('Important Commerce Zon Marketplace Platform Notice');
   const [broadcastBody, setBroadcastBody] = useState<string>('Scheduled database maintenance will occur tonight at 02:00 UTC. Orders and payments remain active.');
 
   const toggleChannel = (ch: NotificationChannel) => {
@@ -144,7 +144,7 @@ export const BroadcastMessagingView: React.FC<Props> = ({ onAddNotification }) =
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white"
               >
                 <option value="All">All Tiers</option>
-                <option value="Prime">Amazon Prime Members</option>
+                <option value="Prime">Commerce Zon Prime Members</option>
                 <option value="Professional">Professional Sellers</option>
               </select>
             </div>

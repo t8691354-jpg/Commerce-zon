@@ -29,14 +29,14 @@ export const ShipmentTrackingEngineView: React.FC<ShipmentTrackingEngineViewProp
         <div>
           <div className="flex items-center space-x-2 text-xs font-black text-[#febd69] uppercase tracking-wider">
             <Truck className="w-4 h-4 text-sky-400" />
-            <span>AMAZON LOGISTICS REAL-TIME RADAR</span>
+            <span>COMMERCE_ZON LOGISTICS REAL-TIME RADAR</span>
           </div>
           <h2 className="text-xl font-black text-white mt-1">
             Shipment Tracking: {order.trackingNumber}
           </h2>
           <p className="text-xs text-slate-400 mt-0.5">
             Order <strong className="text-white font-mono">{order.orderNumber}</strong> • Carrier:{' '}
-            <strong className="text-sky-300">Amazon Logistics Prime Express</strong>
+            <strong className="text-sky-300">Commerce Zon Logistics Prime Express</strong>
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export const ShipmentTrackingEngineView: React.FC<ShipmentTrackingEngineViewProp
         <div className="bg-slate-900 border border-slate-800 h-28 rounded-xl flex items-center justify-center text-center p-4 relative">
           <div className="space-y-1 z-10">
             <Plane className="w-8 h-8 mx-auto text-sky-400 animate-bounce" />
-            <div className="text-xs font-bold text-white">In Transit via Amazon Regional Freight Van #882</div>
+            <div className="text-xs font-bold text-white">In Transit via Commerce Zon Regional Freight Van #882</div>
             <div className="text-[10px] text-slate-400 font-mono">Next Destination: San Jose Final-Mile Sorting Facility</div>
           </div>
         </div>

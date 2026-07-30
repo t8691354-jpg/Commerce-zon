@@ -22,7 +22,7 @@ export const MultiVendorOrderSplittingView: React.FC<MultiVendorOrderSplittingVi
           Unified Customer Checkout → Multi-Seller Sub-Order Splitting
         </h2>
         <p className="text-xs text-slate-400">
-          When a buyer purchases items from multiple distinct sellers in a single transaction, the Amazon OMS engine automatically splits the master order into separate seller sub-orders with isolated fulfillment tasks, warehouses, and carrier tracking labels.
+          When a buyer purchases items from multiple distinct sellers in a single transaction, the Commerce Zon OMS engine automatically splits the master order into separate seller sub-orders with isolated fulfillment tasks, warehouses, and carrier tracking labels.
         </p>
       </div>
 
@@ -65,7 +65,7 @@ export const MultiVendorOrderSplittingView: React.FC<MultiVendorOrderSplittingVi
               </div>
               <div className="flex justify-between text-[11px] text-slate-400">
                 <span>Sub-Order Carrier:</span>
-                <span className="font-bold text-indigo-300 font-mono">Amazon Express (TRK-AMZ-992014)</span>
+                <span className="font-bold text-indigo-300 font-mono">Commerce Zon Express (TRK-AMZ-992014)</span>
               </div>
               <div className="flex justify-between text-[11px] text-slate-400">
                 <span>Sub-Order Status:</span>

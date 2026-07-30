@@ -59,7 +59,7 @@ export const ProductApprovalWorkflowView: React.FC<ProductApprovalWorkflowViewPr
       case 'APPROVED':
         return <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded-md text-[10px] font-bold flex items-center space-x-1"><CheckCircle2 className="w-3 h-3"/><span>APPROVED</span></span>;
       case 'PUBLISHED':
-        return <span className="bg-green-500 text-slate-950 font-black px-2.5 py-1 rounded-md text-[10px] uppercase">LIVE ON AMAZON</span>;
+        return <span className="bg-green-500 text-slate-950 font-black px-2.5 py-1 rounded-md text-[10px] uppercase">LIVE ON COMMERCE_ZON</span>;
       case 'REJECTED':
         return <span className="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-2.5 py-1 rounded-md text-[10px] font-bold flex items-center space-x-1"><XCircle className="w-3 h-3"/><span>REJECTED</span></span>;
       case 'SUSPENDED':

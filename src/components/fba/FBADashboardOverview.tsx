@@ -49,7 +49,7 @@ export const FBADashboardOverview: React.FC<FBADashboardOverviewProps> = ({
         <div>
           <div className="flex items-center space-x-2 text-xs font-black text-[#febd69] uppercase tracking-wider">
             <Warehouse className="w-4 h-4 text-[#febd69]" />
-            <span>AMAZON-GRADE FBA (FULFILMENT BY MARKETPLACE) COMMAND CENTER</span>
+            <span>COMMERCE_ZON-GRADE FBA (FULFILMENT BY MARKETPLACE) COMMAND CENTER</span>
           </div>
           <h2 className="text-xl font-black text-white mt-1">Multi-Warehouse Robotics, Inventory & Order Fulfilment Engine</h2>
           <p className="text-xs text-slate-400 mt-1">

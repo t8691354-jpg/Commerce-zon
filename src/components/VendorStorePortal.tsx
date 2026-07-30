@@ -916,7 +916,7 @@ export const VendorStorePortal: React.FC<VendorStorePortalProps> = ({
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
             <h3 className="text-base font-bold text-white flex items-center space-x-2 border-b border-slate-800 pb-3">
               <Truck className="w-5 h-5 text-sky-400" />
-              <span>Fulfillment by Amazon (FBA) Capacity</span>
+              <span>Fulfillment by Commerce Zon (FBA) Capacity</span>
             </h3>
 
             <div className="space-y-3 text-xs">

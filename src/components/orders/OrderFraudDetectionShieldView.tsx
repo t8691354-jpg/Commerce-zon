@@ -22,7 +22,7 @@ export const OrderFraudDetectionShieldView: React.FC<OrderFraudDetectionShieldVi
         <div>
           <div className="flex items-center space-x-2 text-xs font-black text-rose-400 uppercase tracking-wider">
             <ShieldAlert className="w-4 h-4 text-rose-500" />
-            <span>AMAZON SENTINEL AI FRAUD ENGINE</span>
+            <span>COMMERCE_ZON SENTINEL AI FRAUD ENGINE</span>
           </div>
           <h2 className="text-xl font-black text-white mt-1">Autonomous Order Fraud & High-Risk Risk Shield</h2>
           <p className="text-xs text-slate-400 mt-1">

@@ -101,7 +101,7 @@ export const FBAAnalyticsDashboard: React.FC = () => {
 
           <div className="space-y-3 pt-2">
             {[
-              { carrier: 'Amazon Logistics (AMZL Prime)', pct: 99.8, status: 'EXCEEDS SLA' },
+              { carrier: 'Commerce Zon Logistics Prime', pct: 99.8, status: 'EXCEEDS SLA' },
               { carrier: 'UPS Freight Linehaul', pct: 98.9, status: 'MET SLA' },
               { carrier: 'FedEx Express Freight', pct: 99.2, status: 'MET SLA' },
               { carrier: 'DHL Express International', pct: 97.8, status: 'MET SLA' },

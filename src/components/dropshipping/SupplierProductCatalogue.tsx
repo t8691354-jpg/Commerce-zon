@@ -372,7 +372,7 @@ export const SupplierProductCatalogue: React.FC<SupplierProductCatalogueProps> =
               Bulk CSV Catalogue Import
             </h3>
             <p className="text-slate-400">
-              Upload standard Amazon Dropship CSV file (SKU, Title, WholesalePrice, Stock, MOQ, Barcode).
+              Upload standard Commerce Zon Dropship CSV file (SKU, Title, WholesalePrice, Stock, MOQ, Barcode).
             </p>
 
             <div className="border-2 border-dashed border-slate-700 p-6 rounded-xl text-center space-y-2">

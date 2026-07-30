@@ -29,10 +29,10 @@ export const RealTimeNotificationCenter: React.FC<Props> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>(ROLE_CATEGORIES['Buyer'][0]);
   const [selectedChannel, setSelectedChannel] = useState<NotificationChannel>('in_app');
   const [recipientName, setRecipientName] = useState<string>('Alex Wright');
-  const [recipientEmail, setRecipientEmail] = useState<string>('alex.wright@amazon-market.com');
+  const [recipientEmail, setRecipientEmail] = useState<string>('alex.wright@commercezon.com');
   const [recipientPhone, setRecipientPhone] = useState<string>('+1 (555) 019-2831');
   const [customTitle, setCustomTitle] = useState<string>('Your order is out for delivery');
-  const [customBody, setCustomBody] = useState<string>('Order #AMZ-99201 is out for delivery with driver Carlos M.');
+  const [customBody, setCustomBody] = useState<string>('Order #CZ-99201 is out for delivery with driver Carlos M.');
   const [priority, setPriority] = useState<'low' | 'normal' | 'high' | 'critical'>('high');
 
   const [autoSimulate, setAutoSimulate] = useState<boolean>(false);

@@ -99,7 +99,7 @@ export const AutoOrderRoutingSimulator: React.FC<AutoOrderRoutingSimulatorProps>
             {
               id: `TRK-${Date.now()}`,
               status: 'PENDING_ROUTING',
-              location: 'Amazon Order Router',
+              location: 'Commerce Zon Order Router',
               description: `Routed to Apex Electronics via ${routingPriority}`,
               timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16),
             },
@@ -123,7 +123,7 @@ export const AutoOrderRoutingSimulator: React.FC<AutoOrderRoutingSimulatorProps>
             <GitBranch className="w-4 h-4 text-emerald-400" />
             <span>AUTOMATIC ORDER ROUTING & FULFILMENT DISPATCH PIPELINE</span>
           </div>
-          <h2 className="text-xl font-black text-white mt-1">Amazon-Grade Automated Order Routing Engine</h2>
+          <h2 className="text-xl font-black text-white mt-1">Commerce Zon Grade Automated Order Routing Engine</h2>
           <p className="text-xs text-slate-400 mt-1">
             9-step automated pipeline executing instant supplier matching, stock lock reservation, ERP EDI dispatch & buyer updates
           </p>

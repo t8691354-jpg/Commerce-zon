@@ -76,7 +76,7 @@ export const ReturnRequestPortalView: React.FC<Props> = ({ onRequestSubmitted })
         trackingNumber: `1Z999999${Math.floor(10000000 + Math.random() * 90000000)}`,
         labelUrl: 'https://api.qrserver.com/v1/create-qr-code/?data=UPS-LABEL-RMA-GENERATED',
         qrCodeUrl: 'https://api.qrserver.com/v1/create-qr-code/?data=UPS-LABEL-RMA-GENERATED',
-        returnAddress: 'Amazon Global Return FC Hub #7, Louisville KY 40201',
+        returnAddress: 'Commerce Zon Global Return FC Hub #7, Louisville KY 40201',
       },
       fraudDetails: {
         fraudRiskScore: 4,
@@ -294,7 +294,7 @@ export const ReturnRequestPortalView: React.FC<Props> = ({ onRequestSubmitted })
                 {resolutionRequested === 'REFUND' && <CheckCircle2 className="w-5 h-5 text-[#febd69]" />}
               </div>
               <p className="text-xs text-slate-400">
-                Receive 100% refund to original payment method or instant credit to Amazon Marketplace Wallet.
+                Receive 100% refund to original payment method or instant credit to Commerce Zon Marketplace Wallet.
               </p>
             </div>
 

@@ -52,7 +52,7 @@ export const PickupManagementView: React.FC<PickupManagementViewProps> = ({
           </div>
           <h2 className="text-xl font-black text-white mt-1">Schedule First-Mile Warehouse Courier Pickups</h2>
           <p className="text-xs text-slate-400 mt-1">
-            Dispatch dedicated Amazon Logistics freight trucks & vans to seller facilities and fulfillment docks
+            Dispatch dedicated Commerce Zon Logistics freight trucks & vans to seller facilities and fulfillment docks
           </p>
         </div>
 

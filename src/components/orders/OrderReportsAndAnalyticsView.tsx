@@ -24,7 +24,7 @@ export const OrderReportsAndAnalyticsView: React.FC<OrderReportsAndAnalyticsView
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Amazon_OMS_Report_${reportType}_${Date.now()}.csv`;
+    a.download = `Commerce Zon_OMS_Report_${reportType}_${Date.now()}.csv`;
     a.click();
   };
 

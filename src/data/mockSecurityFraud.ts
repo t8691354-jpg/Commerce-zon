@@ -71,7 +71,7 @@ export const MOCK_USER_SECURITY_ACCOUNTS: UserAccountSecurity[] = [
   {
     id: 'USR-9001',
     name: 'Sarah Connor (Super Admin)',
-    email: 'sarah.connor@amazon-sec.com',
+    email: 'sarah.connor@commercezon-security.com',
     role: 'Super Admin',
     accountType: 'Admin',
     mfaStatus: 'TOTP App',

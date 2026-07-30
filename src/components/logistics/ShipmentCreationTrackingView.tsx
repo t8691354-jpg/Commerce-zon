@@ -54,7 +54,7 @@ export const ShipmentCreationTrackingView: React.FC<ShipmentCreationTrackingView
       orderId: `ORD-${Math.floor(98000 + Math.random() * 900)}`,
       trackingNumber: newTracking,
       carrierId: 'CARRIER-AMZL',
-      carrierName: 'Amazon Logistics (AMZL)',
+      carrierName: 'Commerce Zon Logistics',
       shippingMethod: country === 'USA' ? 'EXPRESS' : 'INTERNATIONAL',
       originAddress: 'FBA Warehouse EWR4, Robbinsville, NJ',
       destinationAddress: address,
@@ -66,7 +66,7 @@ export const ShipmentCreationTrackingView: React.FC<ShipmentCreationTrackingView
       items: [
         {
           sku: 'SKU-LOGISTICS-GENERIC',
-          name: 'Amazon Marketplace Customer Order Goods',
+          name: 'Commerce Zon Marketplace Customer Order Goods',
           quantity: 1,
           unitWeightKg: weightKg,
           unitValueUSD: 149.99,

@@ -212,7 +212,7 @@ export const ReturnsMasterModule: React.FC = () => {
               <span>Returns, Refunds & Exchange Management System</span>
             </h1>
             <p className="text-xs text-slate-400 max-w-3xl">
-              End-to-end Amazon-grade reverse commerce engine: Automated return eligibility checks, buyer RMA portal, FC quality inspections, instant wallet refunds, variant exchanges, and AI abuse prevention.
+              End-to-end Commerce Zon reverse commerce engine: Automated return eligibility checks, buyer RMA portal, FC quality inspections, instant wallet refunds, variant exchanges, and AI abuse prevention.
             </p>
           </div>
 

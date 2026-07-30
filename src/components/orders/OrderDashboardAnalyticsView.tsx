@@ -86,7 +86,7 @@ export const OrderDashboardAnalyticsView: React.FC<OrderDashboardAnalyticsViewPr
             <span>REAL-TIME OMS CONTROL CENTER</span>
           </div>
           <h1 className="text-xl sm:text-2xl font-black text-white mt-1">
-            Amazon-Class Order Analytics & Fulfillment Dashboard
+            Commerce Zon-Class Order Analytics & Fulfillment Dashboard
           </h1>
           <p className="text-xs text-slate-400 mt-1">
             Global multi-vendor throughput, status breakdown, revenue velocity & SLA performance

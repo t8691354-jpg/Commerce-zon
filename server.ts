@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import { createServer as createViteServer } from 'vite';
 import { GoogleGenAI } from '@google/genai';
 import { MOCK_PRODUCTS, MOCK_WAREHOUSES, MOCK_ORDERS, MOCK_AUDIT_LOGS, MOCK_MERCHANTS } from './src/data/mockData.js';
@@ -8,9 +7,6 @@ import { MASTER_ROADMAP } from './src/data/roadmapData.js';
 import { Product, Order, AuditLog, DomainEvent } from './src/types/domain.js';
 import { eventBus } from './src/lib/eventBus.js';
 import { stockAllocationEngine } from './src/lib/stockAllocator.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // In-memory state for development mock database
 let products: Product[] = [...MOCK_PRODUCTS];

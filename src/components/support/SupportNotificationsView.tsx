@@ -15,7 +15,7 @@ export const SupportNotificationsView: React.FC = () => {
       ticketId: 'TCK-90124',
       recipientRole: 'BUYER',
       title: 'SMS & Push Notification Test',
-      body: 'Your Amazon support ticket status was refreshed by AI Copilot Engine.',
+      body: 'Your Commerce Zon support ticket status was refreshed by AI Copilot Engine.',
       channels: ['EMAIL', 'SMS', 'PUSH', 'IN_APP'],
       sentAt: new Date().toISOString(),
       isRead: false,

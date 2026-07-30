@@ -76,7 +76,7 @@ export const BulkCatalogOperationsView: React.FC<BulkCatalogOperationsViewProps>
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Amazon_Catalog_Bulk_Export_${Date.now()}.csv`;
+    a.download = `Commerce Zon_Catalog_Bulk_Export_${Date.now()}.csv`;
     a.click();
     setLogs((prev) => [`[${new Date().toLocaleTimeString()}] Exported CSV for ${products.length} catalog items.`, ...prev]);
   };

@@ -33,7 +33,7 @@ export const AffiliateWalletPanel: React.FC<AffiliateWalletPanelProps> = ({
   const [paypalEmail, setPaypalEmail] = useState('payouts@techprime.network');
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
 
-  const referralLink = `https://amazon.commercezone.com/ref/${affiliate.affiliateId}?promo=PRIME2026`;
+  const referralLink = `https://commercezon.com/ref/${affiliate.affiliateId}?promo=PRIME2026`;
 
   const handleCopy = () => {
     navigator.clipboard?.writeText(referralLink);
@@ -162,7 +162,7 @@ export const AffiliateWalletPanel: React.FC<AffiliateWalletPanelProps> = ({
         <div className="flex items-center justify-between border-b border-slate-800 pb-2">
           <div className="flex items-center space-x-2 text-sm font-bold text-white">
             <Link className="w-5 h-5 text-purple-400" />
-            <span>Your Exclusive Amazon Trackable Affiliate Link</span>
+            <span>Your Exclusive Commerce Zon Trackable Affiliate Link</span>
           </div>
           <span className="text-xs text-purple-400 font-mono font-bold">3.0% Commission Rate</span>
         </div>

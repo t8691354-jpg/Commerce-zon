@@ -53,7 +53,7 @@ export const GlobalCommandPaletteModal: React.FC<GlobalCommandPaletteModalProps>
     { title: 'Vendor & Seller Store Portal', category: 'Seller', tab: 'vendor', icon: Store, desc: 'Manage products, inventory & orders' },
     { title: 'Order Management System (OMS)', category: 'Orders', tab: 'orders', icon: Package, desc: 'Track & fulfill customer purchases' },
     { title: 'Multi-Warehouse Inventory & Allocation', category: 'Logistics', tab: 'warehouses', icon: Warehouse, desc: 'Monitor 4 global warehouse hubs' },
-    { title: 'Fulfillment by Amazon (FBA) Desk', category: 'FBA', tab: 'fba', icon: Package, desc: 'FBA shipments & inbound receiving' },
+    { title: 'Fulfillment by Commerce Zon (FBA) Desk', category: 'FBA', tab: 'fba', icon: Package, desc: 'FBA shipments & inbound receiving' },
     { title: 'Commerce Zone Pay Wallet & Cards', category: 'Finance', tab: 'wallet', icon: DollarSign, desc: 'Balance, virtual cards & withdrawals' },
     { title: 'Payments & Stripe Processing', category: 'Finance', tab: 'payments', icon: DollarSign, desc: 'Stripe transactions & refund desk' },
     { title: 'Delivery Fleet & Logistics Dispatch', category: 'Delivery', tab: 'logistics', icon: Truck, desc: 'Fleet routing & proof of delivery' },

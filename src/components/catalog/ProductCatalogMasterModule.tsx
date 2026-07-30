@@ -92,7 +92,7 @@ export const ProductCatalogMasterModule: React.FC<ProductCatalogMasterModuleProp
                 MODULE 8 ARCHITECTURE
               </span>
               <span className="text-xs text-amber-300 font-extrabold">
-                Amazon-Level Catalog & Listing Management
+                Commerce Zon Level Catalog & Listing Management
               </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">

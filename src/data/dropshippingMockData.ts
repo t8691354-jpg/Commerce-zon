@@ -40,7 +40,7 @@ export const MOCK_SUPPLIERS: SupplierRecord[] = [
         country: 'United States',
         contactPhone: '+1 (973) 555-0112',
         dockHours: '06:00 - 22:00 EST',
-        supportedCarriers: ['FEDEX', 'UPS', 'DHL', 'AMAZON_LOGISTICS'],
+        supportedCarriers: ['FEDEX', 'UPS', 'DHL', 'COMMERCE_ZON_LOGISTICS'],
         isPrimary: true,
       },
     ],
@@ -386,7 +386,7 @@ export const MOCK_DROPSHIP_ORDERS: DropshipOrder[] = [
     labelUrl: '#',
     estimatedDeliveryDate: '2026-07-29',
     trackingTimeline: [
-      { id: 'TRK-01', status: 'PENDING_ROUTING', location: 'Amazon Cloud Router', description: 'Order routed to Apex Electronics WH-US-EAST', timestamp: '2026-07-26 14:00' },
+      { id: 'TRK-01', status: 'PENDING_ROUTING', location: 'Commerce Zon Cloud Router', description: 'Order routed to Apex Electronics WH-US-EAST', timestamp: '2026-07-26 14:00' },
       { id: 'TRK-02', status: 'SUPPLIER_ACCEPTED', location: 'Newark Hub', description: 'Supplier accepted order & locked stock', timestamp: '2026-07-26 14:15' },
       { id: 'TRK-03', status: 'PACKED', location: 'Newark Hub Dock 14', description: 'Parcel packed with barcode scan AMZ-88201', timestamp: '2026-07-26 16:30' },
       { id: 'TRK-04', status: 'SHIPPED', location: 'FedEx Newark Sorting Center', description: 'Picked up by FedEx Express truck', timestamp: '2026-07-26 19:10' },
@@ -551,7 +551,7 @@ export const MOCK_DROPSHIP_AUDIT_LOGS: DropshipAuditLog[] = [
   },
   {
     id: 'LOG-3003',
-    actor: 'admin@amazon-marketplace.com',
+    actor: 'admin@commercezon-marketplace.com',
     role: 'ADMIN',
     action: 'SUPPLIER_COMMISSION_UPDATED',
     details: 'Updated commission override for Apex Electronics from 10.0% to 8.5% for high-volume performance.',

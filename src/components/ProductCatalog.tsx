@@ -42,7 +42,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
     for (let i = 0; i < qty; i++) {
       onAddToCart(prod);
     }
-    setAddedNotification(`Added ${qty}x "${prod.title}" to your Amazon Cart!`);
+    setAddedNotification(`Added ${qty}x "${prod.title}" to your Commerce Zon Cart!`);
     setTimeout(() => setAddedNotification(null), 3500);
   };
 
@@ -64,7 +64,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         </div>
       )}
 
-      {/* Amazon Official Welcome Hero Banner */}
+      {/* Commerce Zon Official Welcome Hero Banner */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#131921] via-[#232f3e] to-[#131921] border border-[#37475a] p-6 shadow-2xl text-white">
         <div className="absolute -right-10 -bottom-10 w-72 h-72 bg-[#febd69]/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -114,7 +114,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         </div>
       </div>
 
-      {/* Amazon Department & Filter Bar */}
+      {/* Commerce Zon Department & Filter Bar */}
       <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center space-x-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
           <Filter className="w-4 h-4 text-[#febd69] shrink-0" />
@@ -163,13 +163,13 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         <div className="p-3 bg-[#1e293b] border-l-4 border-[#febd69] rounded-r-xl text-xs text-slate-200 flex items-start space-x-2 shadow">
           <Sparkles className="w-4 h-4 text-[#febd69] mt-0.5 shrink-0" />
           <div>
-            <span className="font-bold text-[#febd69]">Amazon Gemini Recommendation Insight: </span>
+            <span className="font-bold text-[#febd69]">Commerce Zon Gemini Recommendation Insight: </span>
             {aiExplanation}
           </div>
         </div>
       )}
 
-      {/* Amazon Product Cards Grid */}
+      {/* Commerce Zon Product Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
         {products.map((product, idx) => {
           const listPrice = Math.round(product.price.amount * 1.22 * 100) / 100;
@@ -180,11 +180,11 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
               key={product.id}
               className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden hover:border-[#febd69] transition-all duration-200 flex flex-col justify-between group shadow-lg relative"
             >
-              {/* Top Amazon Badge */}
+              {/* Top Commerce Zon Badge */}
               <div className="p-3 pb-0 flex items-center justify-between">
                 {idx % 2 === 0 ? (
                   <span className="bg-[#002f36] text-[#00a8e1] border border-[#005f73] px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider">
-                    Amazon's <span className="text-white font-bold">Choice</span>
+                    Commerce Zon's <span className="text-white font-bold">Choice</span>
                   </span>
                 ) : (
                   <span className="bg-[#131921] text-amber-400 border border-[#37475a] px-2 py-0.5 rounded text-[10px] font-bold">
@@ -242,7 +242,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     <span className="text-slate-400 text-[10px]">({product.reviewCount || 128})</span>
                   </div>
 
-                  {/* Amazon Price Display */}
+                  {/* Commerce Zon Price Display */}
                   <div className="pt-1">
                     <div className="flex items-baseline space-x-2">
                       <span className="text-xs text-red-400 font-bold">-{discountPct}%</span>
@@ -267,7 +267,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                   </div>
                 </div>
 
-                {/* Amazon Buy Buttons */}
+                {/* Commerce Zon Buy Buttons */}
                 <div className="pt-2 border-t border-slate-800 space-y-2">
                   <button
                     onClick={() => handleAddToCartWithNotify(product, 1)}
@@ -293,7 +293,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         })}
       </div>
 
-      {/* Detailed Amazon Buy Box Product Modal */}
+      {/* Detailed Commerce Zon Buy Box Product Modal */}
       {selectedProductModal && (
         <div className="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto font-sans">
@@ -355,7 +355,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     ${selectedProductModal.price.amount.toFixed(2)}
                   </div>
                   <div className="text-xs text-slate-400">
-                    Includes FREE Amazon Prime Delivery & FREE Returns
+                    Includes FREE Commerce Zon Prime Delivery & FREE Returns
                   </div>
                 </div>
 
@@ -368,7 +368,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                 </div>
               </div>
 
-              {/* Right Side Amazon Buy Box */}
+              {/* Right Side Commerce Zon Buy Box */}
               <div className="lg:col-span-3 bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3 flex flex-col justify-between">
                 <div className="space-y-3">
                   <div className="text-xl font-black text-white font-mono">
@@ -383,7 +383,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                   <div className="text-[11px] text-slate-300 space-y-1 border-t border-slate-800 pt-2">
                     <div className="flex justify-between">
                       <span className="text-slate-400">Ships from:</span>
-                      <span className="font-semibold text-white">Amazon FBA Hub</span>
+                      <span className="font-semibold text-white">Commerce Zon FBA Hub</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-slate-400">Sold by:</span>

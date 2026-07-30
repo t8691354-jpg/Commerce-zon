@@ -38,7 +38,7 @@ export const ProductReviewsQAView: React.FC = () => {
     const newQa: ProductQuestionAnswer = {
       id: `qa-${Date.now()}`,
       productId: 'prod-01',
-      buyerName: newQuestionBuyer.trim() || 'Verified Amazon Buyer',
+      buyerName: newQuestionBuyer.trim() || 'Verified Commerce Zon Buyer',
       question: newQuestionInput.trim(),
       upvotes: 0,
       answers: [],

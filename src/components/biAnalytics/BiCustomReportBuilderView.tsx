@@ -12,7 +12,7 @@ export const BiCustomReportBuilderView: React.FC = () => {
   const [timeframe, setTimeframe] = useState<BiTimeframe>('30d');
   const [isScheduled, setIsScheduled] = useState(false);
   const [scheduleFrequency, setScheduleFrequency] = useState<ScheduledFrequency>('monthly');
-  const [emailRecipients, setEmailRecipients] = useState('executive-reports@amazon.com');
+  const [emailRecipients, setEmailRecipients] = useState('executive-reports@commercezon.com');
   const [notificationMsg, setNotificationMsg] = useState<string | null>(null);
 
   const availableDataSources = ['Sales', 'Financial', 'Customers', 'Sellers', 'Affiliates', 'Inventory', 'Orders', 'Marketing', 'Logistics'];

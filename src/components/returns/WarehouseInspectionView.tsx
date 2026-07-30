@@ -141,7 +141,7 @@ export const WarehouseInspectionView: React.FC<Props> = ({ returnRequests, onSav
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
               {[
                 { id: 'RESELLABLE_NEW', label: 'Resellable (Like New)', desc: 'Re-stock to prime tier' },
-                { id: 'RESELLABLE_OPEN_BOX', label: 'Resellable (Open Box)', desc: 'Re-stock to Amazon Warehouse Deals' },
+                { id: 'RESELLABLE_OPEN_BOX', label: 'Resellable (Open Box)', desc: 'Re-stock to Commerce Zon Warehouse Deals' },
                 { id: 'REPAIR_REQUIRED', label: 'Repair Required', desc: 'Send to refurbishment hub' },
                 { id: 'DAMAGED_SCRAP', label: 'Damaged / Scrap', desc: 'Liquidate or recycle' },
                 { id: 'RETURN_TO_SELLER', label: 'Return to Seller', desc: 'Ship back to vendor' },

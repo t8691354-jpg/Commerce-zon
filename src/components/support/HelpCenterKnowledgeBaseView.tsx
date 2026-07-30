@@ -88,7 +88,7 @@ export const HelpCenterKnowledgeBaseView: React.FC = () => {
             <span>How can we help you today?</span>
           </h2>
           <p className="text-xs text-slate-400">
-            Search our self-service Knowledge Base, Amazon buyer guides, merchant FBA policies, and payment security procedures.
+            Search our self-service Knowledge Base, Commerce Zon buyer guides, merchant FBA policies, and payment security procedures.
           </p>
         </div>
 

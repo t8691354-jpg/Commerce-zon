@@ -110,7 +110,7 @@ export const BiAnalyticsMasterModule: React.FC = () => {
               Business Intelligence, Analytics & Reporting System
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-3xl">
-              Amazon-scale marketplace intelligence processing real-time telemetry, predictive AI forecasts, fraud prevention, custom report builder, and executive scorecards across all modules.
+              Commerce Zon-scale marketplace intelligence processing real-time telemetry, predictive AI forecasts, fraud prevention, custom report builder, and executive scorecards across all modules.
             </p>
           </div>
 

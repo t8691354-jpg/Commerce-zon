@@ -80,7 +80,7 @@ export const PaymentGatewayMasterModule: React.FC<PaymentGatewayMasterModuleProp
             <span>MODULE 10: ENTERPRISE PAYMENT GATEWAY & CHECKOUT SYSTEM</span>
           </div>
           <h1 className="text-2xl font-black text-white tracking-tight">
-            Amazon-Grade Payment Gateway, Multi-Step Checkout & Billing Subsystem
+            Commerce Zon Grade Payment Gateway, Multi-Step Checkout & Billing Subsystem
           </h1>
           <p className="text-xs text-slate-400 max-w-3xl">
             256-bit tokenized checkout pipeline, multi-gateway router (Stripe, PayPal, Adyen, Wallet), 3DS 2.0 OTP, recurring seller subscriptions, COD risk rules, Sentinel AI fraud shield & tax compliance engine.

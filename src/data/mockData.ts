@@ -485,7 +485,7 @@ export const INITIAL_WALLET_STATE: WalletState = {
     },
     {
       id: 'gc-02',
-      code: 'AMAZON-BONUS',
+      code: 'COMMERCE_ZON-BONUS',
       initialBalance: 50.00,
       currentBalance: 50.00,
       currency: 'USD',
@@ -1024,7 +1024,7 @@ export const MOCK_ADMIN_USERS = [
   {
     id: 'admin-01',
     name: 'Alexandra Vance',
-    email: 'alexandra.vance@amazon.commercezone.com',
+    email: 'alexandra.vance@commercezon.com',
     role: 'SUPER_ADMIN',
     permissions: ['ALL_SYSTEM_PERMISSIONS'],
     status: 'ACTIVE',
@@ -1034,7 +1034,7 @@ export const MOCK_ADMIN_USERS = [
   {
     id: 'admin-02',
     name: 'Marcus Brody',
-    email: 'marcus.b@amazon.commercezone.com',
+    email: 'marcus.b@commercezon.com',
     role: 'FINANCE_ADMIN',
     permissions: ['FINANCE_READ', 'FINANCE_WRITE', 'WALLETS_MANAGE', 'PAYOUTS_APPROVE'],
     status: 'ACTIVE',
@@ -1044,7 +1044,7 @@ export const MOCK_ADMIN_USERS = [
   {
     id: 'admin-03',
     name: 'Elena Rostova',
-    email: 'elena.r@amazon.commercezone.com',
+    email: 'elena.r@commercezon.com',
     role: 'OPERATIONS_ADMIN',
     permissions: ['CATALOG_WRITE', 'SELLERS_MANAGE', 'ORDERS_MANAGE', 'SHIPPING_MANAGE'],
     status: 'ACTIVE',
@@ -1054,7 +1054,7 @@ export const MOCK_ADMIN_USERS = [
   {
     id: 'admin-04',
     name: 'David Chen',
-    email: 'david.c@amazon.commercezone.com',
+    email: 'david.c@commercezon.com',
     role: 'SECURITY_ADMIN',
     permissions: ['SECURITY_READ', 'SECURITY_WRITE', 'AUDIT_LOGS_MANAGE', 'IP_WHITELIST'],
     status: 'ACTIVE',
@@ -1232,7 +1232,7 @@ export const MOCK_REVIEWS_MODERATION = [
 ];
 
 export const MOCK_MARKETPLACE_SETTINGS = {
-  marketplaceName: 'Amazon Commerce Zone Enterprise',
+  marketplaceName: 'Commerce Zon Enterprise',
   logoUrl: 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=200&q=80',
   primaryCurrency: 'USD',
   taxRatePct: 8.5,
@@ -1241,7 +1241,7 @@ export const MOCK_MARKETPLACE_SETTINGS = {
   jwtExpiryHours: 24,
   maintenanceMode: false,
   aiFraudAutoBlock: true,
-  supportEmail: 'support@amazon.commercezone.com',
+  supportEmail: 'support@commercezon.com',
   sellerCommissionPct: 8.0,
 };
 

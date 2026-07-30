@@ -37,7 +37,7 @@ export const ShippingManagementView: React.FC<ShippingManagementViewProps> = ({
           </div>
           <h2 className="text-xl font-black text-white mt-1">Multi-Carrier Integration & Real-Time Tracking Number Engine</h2>
           <p className="text-xs text-slate-400 mt-1">
-            Least-cost carrier routing (Amazon Logistics Prime, FedEx, UPS, DHL) with automated tracking barcoding & Manifest generation
+            Least-cost carrier routing (Commerce Zon Logistics Prime, FedEx, UPS, DHL) with automated tracking barcoding & Manifest generation
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export const ShippingManagementView: React.FC<ShippingManagementViewProps> = ({
             className="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-bold focus:outline-none"
           >
             <option value="ALL">All Shipping Carriers</option>
-            <option value="AMAZON_LOGISTICS_PRIME">Amazon Logistics (AMZL Prime)</option>
+            <option value="COMMERCE_ZON_LOGISTICS_PRIME">Commerce Zon Logistics Prime</option>
             <option value="FEDEX_EXPRESS">FedEx Express</option>
             <option value="UPS_WORLDWIDE">UPS Worldwide</option>
             <option value="DHL_EXPRESS">DHL Express</option>

@@ -160,7 +160,7 @@ export interface FBAPackingTask {
   timestamp: string;
 }
 
-export type FBACarrier = 'AMAZON_LOGISTICS_PRIME' | 'FEDEX_EXPRESS' | 'UPS_WORLDWIDE' | 'DHL_EXPRESS';
+export type FBACarrier = 'COMMERCE_ZON_LOGISTICS_PRIME' | 'FEDEX_EXPRESS' | 'UPS_WORLDWIDE' | 'DHL_EXPRESS';
 
 export type FBAOrderStatus =
   | 'ORDER_RECEIVED'

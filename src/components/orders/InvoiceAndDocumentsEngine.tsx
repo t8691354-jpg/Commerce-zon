@@ -74,7 +74,7 @@ export const InvoiceAndDocumentsEngine: React.FC<InvoiceAndDocumentsEngineProps>
             <div>
               <div className="text-2xl font-black tracking-tighter text-slate-900 flex items-center space-x-2">
                 <span className="bg-slate-950 text-[#febd69] px-3 py-1 rounded-xl text-lg font-black">
-                  AMAZON
+                  COMMERCE_ZON
                 </span>
                 <span>ENTERPRISE MARKETPLACE</span>
               </div>
@@ -108,7 +108,7 @@ export const InvoiceAndDocumentsEngine: React.FC<InvoiceAndDocumentsEngineProps>
               <div className="font-black text-slate-900 text-sm">
                 {selectedOrder.items[0]?.merchantName || 'CyberTech Enterprise'}
               </div>
-              <div className="text-slate-600">Amazon Logistics Verified Seller</div>
+              <div className="text-slate-600">Commerce Zon Logistics Verified Seller</div>
               <div className="text-slate-600">Tracking #: {selectedOrder.trackingNumber}</div>
               <div className="text-slate-600">Payment: {selectedOrder.paymentMethod}</div>
             </div>

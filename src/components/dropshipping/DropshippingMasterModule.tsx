@@ -235,7 +235,7 @@ export const DropshippingMasterModule: React.FC = () => {
             <span>MODULE 11: ENTERPRISE DROPSHIPPING MANAGEMENT SYSTEM</span>
           </div>
           <h1 className="text-2xl font-black text-white tracking-tight">
-            Amazon-Grade Dropshipping, Multi-Supplier Inventory Sync & Order Routing System
+            Commerce Zon Grade Dropshipping, Multi-Supplier Inventory Sync & Order Routing System
           </h1>
           <p className="text-xs text-slate-400 max-w-3xl">
             Enterprise multi-vendor supply chain orchestrator supporting KYC registration, 1-click seller imports, automated order routing, 256-bit inventory reservation lock, multi-carrier shipping labels, RMA returns & instant wallet settlement splits.

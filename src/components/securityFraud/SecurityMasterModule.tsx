@@ -83,7 +83,7 @@ export const SecurityMasterModule: React.FC = () => {
               Security, Fraud Detection & Compliance System
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 max-w-3xl">
-              Amazon-grade security infrastructure protecting Buyers, Sellers, Affiliates, Suppliers, Delivery Partners, Warehouse Staff, and Administrators against cyber threats, fraud, ATO, payment abuse, and regulatory compliance breaches.
+              Commerce Zon security infrastructure protecting Buyers, Sellers, Affiliates, Suppliers, Delivery Partners, Warehouse Staff, and Administrators against cyber threats, fraud, ATO, payment abuse, and regulatory compliance breaches.
             </p>
           </div>
 

@@ -94,7 +94,7 @@ export const LogisticsReportsExportView: React.FC = () => {
           <div className="flex justify-between items-center border-b border-slate-800 pb-3 font-mono">
             <div>
               <span className="text-xs font-black text-white uppercase block">Logistics Live Audit Statement</span>
-              <span className="text-emerald-400 text-[10px]">Generated for Amazon Transportation Network</span>
+              <span className="text-emerald-400 text-[10px]">Generated for Commerce Zon Transportation Network</span>
             </div>
 
             <span className="px-3 py-1 bg-slate-950 border border-slate-800 rounded-lg text-slate-300 text-[10px]">

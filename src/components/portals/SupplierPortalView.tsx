@@ -15,7 +15,7 @@ import {
 
 export const SupplierPortalView: React.FC = () => {
   const [purchaseOrders, setPurchaseOrders] = useState([
-    { id: 'PO-8810', buyer: 'Amazon FBA EU-Central-1', items: '2,000x Quantum Noise-Canceling Headphones', total: '$84,000.00', status: 'DISPATCHED' },
+    { id: 'PO-8810', buyer: 'Commerce Zon FBA EU-Central-1', items: '2,000x Quantum Noise-Canceling Headphones', total: '$84,000.00', status: 'DISPATCHED' },
     { id: 'PO-8811', buyer: 'TechZone Merchant LLC', items: '500x Industrial Robotic Arm V4', total: '$145,000.00', status: 'IN_PRODUCTION' },
     { id: 'PO-8812', buyer: 'Global Logistics Hub', items: '1,200x Smart Wearable Fitness Trackers', total: '$36,000.00', status: 'PENDING_APPROVAL' },
   ]);
@@ -61,7 +61,7 @@ export const SupplierPortalView: React.FC = () => {
         <div className="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-2">
           <span className="text-[10px] text-slate-400 font-mono uppercase">FBA Inbound Shipments</span>
           <div className="text-2xl font-black text-amber-400">12 Shipments</div>
-          <div className="text-[10px] text-slate-400 font-mono">Auto-synced with Amazon OMS</div>
+          <div className="text-[10px] text-slate-400 font-mono">Auto-synced with Commerce Zon OMS</div>
         </div>
 
         <div className="bg-slate-900 border border-slate-800 p-5 rounded-3xl space-y-2">

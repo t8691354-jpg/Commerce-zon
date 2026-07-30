@@ -112,7 +112,7 @@ export const SupplierRegistrationKYC: React.FC<SupplierRegistrationKYCProps> = (
             country: formData.country,
             contactPhone: formData.phone,
             dockHours: '08:00 - 18:00 Local Time',
-            supportedCarriers: ['FEDEX', 'UPS', 'DHL', 'AMAZON_LOGISTICS'],
+            supportedCarriers: ['FEDEX', 'UPS', 'DHL', 'COMMERCE_ZON_LOGISTICS'],
             isPrimary: true,
           },
         ],
@@ -137,7 +137,7 @@ export const SupplierRegistrationKYC: React.FC<SupplierRegistrationKYCProps> = (
           </div>
           <h2 className="text-xl font-black text-white mt-1">Marketplace Supplier Portal Registration</h2>
           <p className="text-xs text-slate-400 mt-1">
-            Register your wholesale manufacturing or distribution business to fulfill dropship orders directly to Amazon global buyers
+            Register your wholesale manufacturing or distribution business to fulfill dropship orders directly to Commerce Zon global buyers
           </p>
         </div>
 
@@ -347,7 +347,7 @@ export const SupplierRegistrationKYC: React.FC<SupplierRegistrationKYCProps> = (
                   className="mt-1 rounded bg-slate-950 border-slate-800 text-[#febd69] focus:ring-0"
                 />
                 <span className="text-[11px] text-slate-300 leading-snug">
-                  I agree to the <strong className="text-white">Amazon Marketplace Supplier Master Terms</strong>, SLA delivery deadlines (98%+ on-time), real-time inventory synchronization, and 10% standard marketplace commission split.
+                  I agree to the <strong className="text-white">Commerce Zon Marketplace Supplier Master Terms</strong>, SLA delivery deadlines (98%+ on-time), real-time inventory synchronization, and 10% standard marketplace commission split.
                 </span>
               </label>
             </div>

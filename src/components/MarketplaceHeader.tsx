@@ -366,7 +366,7 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({
             <span>Super Admin (Mod 20)</span>
           </button>
 
-          {/* Amazon Orders */}
+          {/* Commerce Zon Orders */}
           <button
             onClick={() => setActiveTab('orders')}
             className={`px-3 py-1 rounded text-xs font-bold transition flex items-center space-x-1.5 ${
@@ -379,7 +379,7 @@ export const MarketplaceHeader: React.FC<MarketplaceHeaderProps> = ({
             <span>Returns & Orders</span>
           </button>
 
-          {/* Amazon Seller Store Portal */}
+          {/* Commerce Zon Seller Store Portal */}
           <button
             onClick={() => setActiveTab('vendor')}
             className={`px-3 py-1 rounded text-xs font-bold transition flex items-center space-x-1.5 ${

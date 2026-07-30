@@ -82,7 +82,7 @@ export interface ShipmentTrackingLog {
   orderId: EntityId;
   subOrderId?: EntityId;
   trackingNumber: string;
-  carrier: 'Amazon Logistics' | 'DHL Express' | 'FedEx' | 'UPS' | 'Prime Air';
+  carrier: 'Commerce Zon Logistics' | 'DHL Express' | 'FedEx' | 'UPS' | 'Prime Air';
   stage: 'CREATED' | 'PICKED_UP' | 'IN_TRANSIT' | 'LOCAL_DISTRIBUTION_CENTER' | 'OUT_FOR_DELIVERY' | 'DELIVERED';
   location: string;
   description: string;
@@ -216,7 +216,7 @@ export interface ComprehensiveMasterOrder {
   customerName: string;
   customerEmail: string;
   customerPhone?: string;
-  paymentMethod: 'AMAZON_PAY' | 'CREDIT_CARD' | 'WALLET' | 'BANK_WIRE';
+  paymentMethod: 'COMMERCE_ZON_PAY' | 'CREDIT_CARD' | 'WALLET' | 'BANK_WIRE';
   status: OrderLifecycleStatus;
   items: OrderItemDetail[];
   subOrders: MultiSellerSubOrder[];

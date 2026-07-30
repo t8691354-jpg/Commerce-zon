@@ -18,12 +18,12 @@ export const MOCK_KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     content: `
 # Order Delivery & Carrier Telemetry Guide
 
-When an order is placed on our global marketplace, a multi-stage fulfillment pipeline is triggered across Amazon Warehouses and Logistics Hubs.
+When an order is placed on our global marketplace, a multi-stage fulfillment pipeline is triggered across Commerce Zon Warehouses and Logistics Hubs.
 
 ### Tracking Stages:
 1. **Order Confirmed**: Payment verified and escrow reserved.
 2. **FC Intake & Packing**: Item picked at regional fulfillment center (e.g. SEA-1).
-3. **Outbound Dispatch**: Carrier (DHL, FedEx, UPS, or Amazon Logistics) scans package barcode.
+3. **Outbound Dispatch**: Carrier (DHL, FedEx, UPS, or Commerce Zon Logistics) scans package barcode.
 4. **In Transit**: Real-time GPS coordinates updated every 15 minutes.
 5. **Out for Delivery**: Local driver assigned with OTP security passcode.
 
@@ -35,7 +35,7 @@ Check your SMS or in-app notification 30 minutes before driver arrival for your 
     helpfulYes: 1240,
     helpfulNo: 32,
     lastUpdated: '2026-07-20T10:00:00Z',
-    author: 'Amazon Customer Excellence Team',
+    author: 'Commerce Zon Customer Excellence Team',
     relatedArticleIds: ['KB-102', 'KB-105'],
   },
   {
@@ -53,7 +53,7 @@ Our 30-Day Hassle-Free Return Policy guarantees instant customer satisfaction.
 2. Select the item and choose a buyer return reason (e.g., *Defective*, *Size Mismatch*, *Changed Mind*).
 3. Select your refund destination: **Marketplace Wallet Credit (Instant)** or **Original Payment Card (3-5 Business Days)**.
 4. Download or display the **Paperless Mobile QR Barcode** on your phone.
-5. Drop off at any authorized UPS, FedEx, or Amazon Locker station. No box label printing required!
+5. Drop off at any authorized UPS, FedEx, or Commerce Zon Locker station. No box label printing required!
     `,
     tags: ['Returns', 'RMA', 'Refund', 'Wallet Credit', 'QR Code'],
     readTimeMinutes: 3,
@@ -65,19 +65,19 @@ Our 30-Day Hassle-Free Return Policy guarantees instant customer satisfaction.
   },
   {
     articleId: 'KB-103',
-    title: 'Merchant Seller Central: Managing Fulfillment By Amazon (FBA) Inbound Shipments',
+    title: 'Merchant Seller Central: Managing Fulfillment By Commerce Zon (FBA) Inbound Shipments',
     category: 'FBA_GUIDES',
     summary: 'Guide for third-party marketplace sellers on creating inbound shipment plans, ASIN barcoding, and FC storage fees.',
     content: `
 # FBA Inbound Shipment Guide for Sellers
 
-Third-party merchants can leverage Amazon Fulfillment Centers to offer Prime 1-Day shipping to millions of buyers worldwide.
+Third-party merchants can leverage Commerce Zon Fulfillment Centers to offer Prime 1-Day shipping to millions of buyers worldwide.
 
 ### Inbound Workflow:
 1. Open **FBA Logistics Module** in Seller Central.
 2. Specify unit counts, pallet configurations, and hazardous material disclosures.
-3. Print **Amazon FNSKU Barcode Labels** for each item.
-4. Schedule carrier pickup with Amazon Freight or partner carriers.
+3. Print **Commerce Zon FNSKU Barcode Labels** for each item.
+4. Schedule carrier pickup with Commerce Zon Freight or partner carriers.
 5. Track FC receiving status in real-time as inventory is stowed into automated robotics racks.
     `,
     tags: ['Seller', 'FBA', 'Inventory', 'Shipment Plan', 'FNSKU'],
@@ -145,7 +145,7 @@ Protecting your account data is our top priority.
 ### Recommended Security Steps:
 1. Enable **Two-Factor Authentication (2FA)** using Google Authenticator or YubiKey hardware tokens.
 2. Review active sessions in **Security Settings**.
-3. Never share your 6-digit OTP codes with anyone, including support staff. Amazon staff will never ask for your password.
+3. Never share your 6-digit OTP codes with anyone, including support staff. Commerce Zon staff will never ask for your password.
     `,
     tags: ['Security', '2FA', 'Passkeys', 'Fraud', 'Protection'],
     readTimeMinutes: 3,
@@ -169,7 +169,7 @@ export const MOCK_SUPPORT_TICKETS: SupportTicket[] = [
     priority: 'HIGH',
     status: 'IN_PROGRESS',
     subject: 'Package marked delivered but not received at doorstep',
-    description: 'Carrier status shows delivered by Amazon Logistics at 2:15 PM, but my front porch is empty and security camera shows no delivery truck.',
+    description: 'Carrier status shows delivered by Commerce Zon Logistics at 2:15 PM, but my front porch is empty and security camera shows no delivery truck.',
     attachments: ['https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80'],
     assignedAgentId: 'AGT-101',
     assignedAgentName: 'Sarah Jenkins (Senior CX)',
@@ -188,14 +188,14 @@ export const MOCK_SUPPORT_TICKETS: SupportTicket[] = [
         ticketId: 'TCK-90124',
         senderRole: 'BUYER',
         senderName: 'David Miller',
-        message: 'Carrier status shows delivered by Amazon Logistics at 2:15 PM, but my front porch is empty and security camera shows no delivery truck.',
+        message: 'Carrier status shows delivered by Commerce Zon Logistics at 2:15 PM, but my front porch is empty and security camera shows no delivery truck.',
         timestamp: '2026-07-28T01:15:00Z',
       },
       {
         messageId: 'MSG-802',
         ticketId: 'TCK-90124',
         senderRole: 'AI_COPILOT',
-        senderName: 'Amazon AI Support Assistant',
+        senderName: 'Commerce Zon AI Support Assistant',
         message: 'Hello David! I have analyzed your order ORD-2026-8812. Carrier tracking indicates driver misplacement risk. I have flagged this ticket with Tier 2 Logistics Dispatch for immediate driver callback.',
         timestamp: '2026-07-28T01:16:00Z',
         isAiGenerated: true,
@@ -334,7 +334,7 @@ export const MOCK_LIVE_CHAT_SESSIONS: LiveChatSession[] = [
         messageId: 'CMSG-2',
         chatSessionId: 'CHAT-7701',
         senderRole: 'BOT',
-        senderName: 'Amazon AI Virtual Assistant',
+        senderName: 'Commerce Zon AI Virtual Assistant',
         text: 'Hello David! I see your order ORD-2026-8812 is currently under investigation by Tier 2 Support. Would you like me to connect you directly with Senior Agent Sarah Jenkins?',
         timestamp: '2026-07-28T01:50:05Z',
         isRead: true,
@@ -396,7 +396,7 @@ export const MOCK_LIVE_CHAT_SESSIONS: LiveChatSession[] = [
         messageId: 'CMSG-11',
         chatSessionId: 'CHAT-7702',
         senderRole: 'BOT',
-        senderName: 'Amazon AI Virtual Assistant',
+        senderName: 'Commerce Zon AI Virtual Assistant',
         text: 'For Q4 sales (Oct 1 to Dec 31), items can be returned through January 31 of the following year. Restocking fees are waived for apparel with original tags attached.',
         timestamp: '2026-07-28T02:00:04Z',
         isRead: true,
@@ -410,7 +410,7 @@ export const MOCK_SUPPORT_AGENTS: SupportAgent[] = [
   {
     agentId: 'AGT-101',
     name: 'Sarah Jenkins',
-    email: 'sarah.j@amazon-support.internal',
+    email: 'sarah.j@commercezon-support.internal',
     avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
     role: 'SENIOR_SUPPORT_AGENT',
     department: 'Customer Support Tier 2',
@@ -423,7 +423,7 @@ export const MOCK_SUPPORT_AGENTS: SupportAgent[] = [
   {
     agentId: 'AGT-102',
     name: 'Alex Rivera',
-    email: 'alex.r@amazon-support.internal',
+    email: 'alex.r@commercezon-support.internal',
     avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
     role: 'FINANCE_SUPPORT',
     department: 'Finance & Payments Support',
@@ -436,7 +436,7 @@ export const MOCK_SUPPORT_AGENTS: SupportAgent[] = [
   {
     agentId: 'AGT-103',
     name: 'Marcus Vance',
-    email: 'marcus.v@amazon-support.internal',
+    email: 'marcus.v@commercezon-support.internal',
     avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
     role: 'WAREHOUSE_SUPPORT',
     department: 'Warehouse & FBA Seller Ops',
@@ -449,7 +449,7 @@ export const MOCK_SUPPORT_AGENTS: SupportAgent[] = [
   {
     agentId: 'AGT-104',
     name: 'Jessica Wong',
-    email: 'jessica.w@amazon-support.internal',
+    email: 'jessica.w@commercezon-support.internal',
     avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80',
     role: 'SELLER_SUPPORT',
     department: 'Merchant Partner Success',

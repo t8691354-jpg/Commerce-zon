@@ -116,7 +116,7 @@ export const ProductModerationShieldView: React.FC<ProductModerationShieldViewPr
             <div className="bg-rose-500/10 border-l-4 border-rose-500 p-3 rounded-r-xl text-xs text-rose-200 flex items-start space-x-2">
               <AlertTriangle className="w-4 h-4 text-rose-400 mt-0.5 shrink-0" />
               <div>
-                <span className="font-bold">Amazon AI Compliance Alert: </span>
+                <span className="font-bold">Commerce Zon AI Compliance Alert: </span>
                 {item.flagReason || 'Automated policy flag triggered during listing intake.'}
               </div>
             </div>
@@ -127,7 +127,7 @@ export const ProductModerationShieldView: React.FC<ProductModerationShieldViewPr
           <div className="p-8 text-center bg-slate-900 border border-slate-800 rounded-2xl space-y-2">
             <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
             <h3 className="text-sm font-bold text-white">All Clear! No Flagged Listings</h3>
-            <p className="text-xs text-slate-400">Your marketplace catalog is 100% compliant with Amazon IP guidelines.</p>
+            <p className="text-xs text-slate-400">Your marketplace catalog is 100% compliant with Commerce Zon IP guidelines.</p>
           </div>
         )}
       </div>

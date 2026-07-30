@@ -102,7 +102,7 @@ export const TemplateManager: React.FC<Props> = ({ templates, onSaveTemplate }) 
       .replace(/\{\{user_name\}\}/g, 'Alexander Wright')
       .replace(/\{\{order_id\}\}/g, 'AMZ-99201')
       .replace(/\{\{product_name\}\}/g, 'Studio Monitor Headphones')
-      .replace(/\{\{carrier\}\}/g, 'Amazon Logistics')
+      .replace(/\{\{carrier\}\}/g, 'Commerce Zon Logistics')
       .replace(/\{\{tracking_number\}\}/g, 'TBA9821039821')
       .replace(/\{\{estimated_delivery\}\}/g, 'Tomorrow, Jul 29')
       .replace(/\{\{amount\}\}/g, '$149.99')
@@ -405,7 +405,7 @@ export const TemplateManager: React.FC<Props> = ({ templates, onSaveTemplate }) 
               ) : (
                 <div className="bg-slate-950 rounded-xl border border-slate-800 p-4 space-y-3">
                   <div className="border-b border-slate-800 pb-2 text-xs text-slate-400 space-y-1">
-                    <div><strong>From:</strong> Amazon Marketplace Notifications &lt;no-reply@amazon-marketplace.com&gt;</div>
+                    <div><strong>From:</strong> Commerce Zon Marketplace Notifications &lt;no-reply@commercezon-marketplace.com&gt;</div>
                     <div><strong>Subject:</strong> {compileSamplePreview(subject || 'Notification Notice')}</div>
                   </div>
                   {channel === 'email' && bodyHtml ? (

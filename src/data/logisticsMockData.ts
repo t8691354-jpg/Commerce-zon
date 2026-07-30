@@ -12,9 +12,9 @@ import {
 export const MOCK_CARRIERS: ShippingCarrier[] = [
   {
     id: 'CARRIER-AMZL',
-    name: 'Amazon Logistics (AMZL)',
+    name: 'Commerce Zon Logistics',
     code: 'AMZL',
-    contactEmail: 'logistics-ops@amazon.com',
+    contactEmail: 'logistics-ops@commercezon.com',
     contactPhone: '+1-800-280-4331',
     supportedCountries: ['USA', 'CAN', 'GBR', 'DEU', 'FRA', 'JPN'],
     supportedRegions: ['North America', 'Western Europe', 'East Asia'],
@@ -141,7 +141,7 @@ export const MOCK_SHIPPING_METHODS: ShippingMethodConfig[] = [
   {
     id: 'STORE_PICKUP',
     name: 'Locker & Hub Store Pickup',
-    description: 'Zero-cost pickup at Amazon Hub Lockers & partner retail counters',
+    description: 'Zero-cost pickup at Commerce Zon Hub Lockers & partner retail counters',
     estimatedDays: 'Ready in 2 Hours',
     baseCostUSD: 0.00,
     perKgCostUSD: 0.00,
@@ -194,7 +194,7 @@ export const MOCK_SHIPMENTS: Shipment[] = [
     orderId: 'ORD-98210',
     trackingNumber: 'TRK-900281901',
     carrierId: 'CARRIER-AMZL',
-    carrierName: 'Amazon Logistics (AMZL)',
+    carrierName: 'Commerce Zon Logistics',
     shippingMethod: 'SAME_DAY',
     originAddress: 'FBA Fulfillment Center EWR4, Robbinsville, NJ',
     destinationAddress: '124 Market St, Apt 4B, New York, NY 10001',

@@ -24,7 +24,7 @@ export type ReturnStatus =
   | 'REFUNDED'
   | 'REJECTED';
 
-export type CarrierCode = 'FEDEX' | 'UPS' | 'DHL' | 'AMAZON_LOGISTICS' | 'USPS' | 'SHIPROCKET';
+export type CarrierCode = 'FEDEX' | 'UPS' | 'DHL' | 'COMMERCE_ZON_LOGISTICS' | 'USPS' | 'SHIPROCKET';
 
 export interface WarehouseDetail {
   id: string;

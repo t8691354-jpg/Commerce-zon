@@ -196,7 +196,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     category: 'Out for Delivery',
     channel: 'sms',
     title: 'Package Out for Delivery',
-    body: 'Your Amazon order #AMZ-99201 is out for delivery with driver Carlos M. Track live in app.',
+    body: 'Your Commerce Zon order #AMZ-99201 is out for delivery with driver Carlos M. Track live in app.',
     status: 'delivered',
     priority: 'high',
     timestamp: '2026-07-28 09:14:02',
@@ -207,7 +207,7 @@ export const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     clicked: true,
     retryAttempts: 0,
     maxRetries: 3,
-    metadata: { orderId: 'AMZ-99201', carrier: 'Amazon Logistics', trackingNo: 'TBA9821039821' }
+    metadata: { orderId: 'AMZ-99201', carrier: 'Commerce Zon Logistics', trackingNo: 'TBA9821039821' }
   },
   {
     id: 'NTF-9022',
@@ -446,10 +446,10 @@ export const INITIAL_TEMPLATES: NotificationTemplate[] = [
     role: 'Buyer',
     category: 'Order Shipped',
     channel: 'email',
-    subject: 'Good news! Your Amazon order #{{order_id}} has shipped',
+    subject: 'Good news! Your Commerce Zon order #{{order_id}} has shipped',
     bodyText: 'Hi {{user_name}},\n\nYour order #{{order_id}} containing {{product_name}} has been shipped via {{carrier}}.\nTracking Number: {{tracking_number}}\nEstimated Delivery: {{estimated_delivery}}.\n\nThank you for shopping with us!',
     bodyHtml: `<div style="font-family: Arial, sans-serif; background: #0f172a; color: #f8fafc; padding: 24px; border-radius: 8px;">
-      <h2 style="color: #febd69; margin-top: 0;">Your Amazon Order Has Shipped!</h2>
+      <h2 style="color: #febd69; margin-top: 0;">Your Commerce Zon Order Has Shipped!</h2>
       <p>Hi <strong>{{user_name}}</strong>,</p>
       <p>Great news! Your package is on its way.</p>
       <div style="background: #1e293b; padding: 16px; border-left: 4px solid #febd69; border-radius: 4px; margin: 16px 0;">
@@ -478,7 +478,7 @@ export const INITIAL_TEMPLATES: NotificationTemplate[] = [
     role: 'Buyer',
     category: 'Out for Delivery',
     channel: 'sms',
-    bodyText: 'Amazon Alert: Order #{{order_id}} is out for delivery today with driver {{driver_name}}. Track driver location: {{track_link}}',
+    bodyText: 'Commerce Zon Alert: Order #{{order_id}} is out for delivery today with driver {{driver_name}}. Track driver location: {{track_link}}',
     variables: ['order_id', 'driver_name', 'track_link'],
     language: 'en-US',
     version: 1,

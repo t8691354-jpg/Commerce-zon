@@ -516,7 +516,7 @@ export const MOCK_PAYMENT_NOTIFICATIONS: PaymentNotificationLog[] = [
   {
     id: 'pn-102',
     transactionId: 'TX-2026-9904',
-    recipientEmail: 'security@amazon-zone.com',
+    recipientEmail: 'security@commercezon.com',
     type: 'PAYMENT_PENDING',
     channel: 'IN_APP',
     title: 'High Risk Payment Fraud Alert',

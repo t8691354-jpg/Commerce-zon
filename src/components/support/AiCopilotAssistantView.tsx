@@ -40,7 +40,7 @@ export const AiCopilotAssistantView: React.FC<Props> = ({ tickets }) => {
             <div className="flex items-center space-x-2">
               <Sparkles className="w-6 h-6 text-purple-400" />
               <h2 className="text-lg font-extrabold text-white">
-                Amazon AI Support Copilot & Intelligence Engine
+                Commerce Zon AI Support Copilot & Intelligence Engine
               </h2>
             </div>
             <p className="text-xs text-purple-200">

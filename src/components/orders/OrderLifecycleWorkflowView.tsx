@@ -44,7 +44,7 @@ export const OrderLifecycleWorkflowView: React.FC<OrderLifecycleWorkflowViewProp
 }) => {
   const [selectedOrderId, setSelectedOrderId] = useState<string>(orders[0]?.id || '');
   const [transitionNote, setTransitionNote] = useState('');
-  const [actorName, setActorName] = useState('Amazon OMS Controller');
+  const [actorName, setActorName] = useState('Commerce Zon OMS Controller');
 
   const selectedOrder = orders.find((o) => o.id === selectedOrderId) || orders[0];
 

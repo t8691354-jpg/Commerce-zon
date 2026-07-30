@@ -180,7 +180,7 @@ export const DropshippingDashboardOverview: React.FC<DropshippingDashboardOvervi
           <div>
             <span className="text-[10px] font-mono text-slate-400 uppercase block">Cancelled / Exception Rate</span>
             <div className="text-xl font-black text-rose-400 mt-1">0.42%</div>
-            <span className="text-[10px] text-emerald-400 font-bold">Below 1.5% Amazon Threshold</span>
+            <span className="text-[10px] text-emerald-400 font-bold">Below 1.5% Commerce Zon Threshold</span>
           </div>
           <div className="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl text-rose-400">
             <AlertTriangle className="w-6 h-6" />

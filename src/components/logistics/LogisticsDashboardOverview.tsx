@@ -39,7 +39,7 @@ export const LogisticsDashboardOverview: React.FC<LogisticsDashboardOverviewProp
         <div>
           <div className="flex items-center space-x-2 text-xs font-black text-[#febd69] uppercase tracking-wider">
             <Truck className="w-4 h-4 text-[#febd69]" />
-            <span>AMAZON LOGISTICS & TRANSPORTATION SYSTEM (MODULE 13)</span>
+            <span>COMMERCE_ZON LOGISTICS & TRANSPORTATION SYSTEM (MODULE 13)</span>
           </div>
           <h1 className="text-2xl font-black text-white mt-1">Global Shipping & Logistics Management System</h1>
           <p className="text-xs text-slate-400 mt-1">
@@ -150,7 +150,7 @@ export const LogisticsDashboardOverview: React.FC<LogisticsDashboardOverviewProp
 
           <div className="space-y-3 pt-2">
             {[
-              { name: 'Amazon Logistics (AMZL)', rate: 99.8, status: 'EXCEEDS SLA', color: 'text-emerald-400' },
+              { name: 'Commerce Zon Logistics', rate: 99.8, status: 'EXCEEDS SLA', color: 'text-emerald-400' },
               { name: 'UPS Worldwide Express', rate: 98.9, status: 'MET SLA', color: 'text-sky-400' },
               { name: 'FedEx Priority Freight', rate: 99.2, status: 'MET SLA', color: 'text-sky-400' },
               { name: 'DHL Express International', rate: 97.6, status: 'MONITORING', color: 'text-amber-400' },

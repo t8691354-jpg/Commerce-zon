@@ -51,7 +51,7 @@ export const RefundManagementView: React.FC<Props> = ({ returnRequests, onExecut
             <span>Automated Refund Processing & Wallet Ledger Engine</span>
           </h2>
           <p className="text-xs text-slate-400">
-            Process full or partial refunds directly to buyer payment cards, Amazon Wallet credit, or store vouchers.
+            Process full or partial refunds directly to buyer payment cards, Commerce Zon Wallet credit, or store vouchers.
           </p>
         </div>
         <div className="flex items-center space-x-2 font-mono text-xs">
@@ -141,7 +141,7 @@ export const RefundManagementView: React.FC<Props> = ({ returnRequests, onExecut
                   onChange={(e) => setRefundMethod(e.target.value as RefundMethod)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#febd69]"
                 >
-                  <option value="WALLET_CREDIT">Amazon Marketplace Wallet Credit (Instant)</option>
+                  <option value="WALLET_CREDIT">Commerce Zon Marketplace Wallet Credit (Instant)</option>
                   <option value="ORIGINAL_PAYMENT">Original Credit Card / Bank Account (3-5 Days)</option>
                   <option value="STORE_CREDIT">Store Gift Card Voucher (+5% Bonus Credit)</option>
                   <option value="PARTIAL_REFUND">Partial Refund Adjustment</option>

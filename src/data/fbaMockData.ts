@@ -330,9 +330,9 @@ export const MOCK_FBA_ORDERS: FBACustomerOrder[] = [
     ],
     subtotalUSD: 119.99,
     fulfilmentFeeUSD: 4.80,
-    shippingFeeUSD: 0.0, // Amazon Prime Free Shipping
+    shippingFeeUSD: 0.0, // Commerce Zon Prime Free Shipping
     totalUSD: 119.99,
-    carrier: 'AMAZON_LOGISTICS_PRIME',
+    carrier: 'COMMERCE_ZON_LOGISTICS_PRIME',
     trackingNumber: 'TBA3092019201920',
     status: 'IN_TRANSIT',
     estimatedDelivery: '2026-07-28',
@@ -342,7 +342,7 @@ export const MOCK_FBA_ORDERS: FBACustomerOrder[] = [
       { status: 'PICKING_ACTIVE', description: 'Pick wave PCK-7701 assigned to David Miller', timestamp: '2026-07-27 14:00' },
       { status: 'PACKING_ACTIVE', description: 'Box MEDIUM_BOX_B weight verified (0.36kg)', timestamp: '2026-07-27 14:25' },
       { status: 'LABEL_GENERATED', description: 'AMZL Prime shipping label TBA3092019201920 attached', timestamp: '2026-07-27 14:28' },
-      { status: 'CARRIER_PICKUP', description: 'Loaded into Amazon Logistics trailer #809', timestamp: '2026-07-27 15:10' },
+      { status: 'CARRIER_PICKUP', description: 'Loaded into Commerce Zon Logistics trailer #809', timestamp: '2026-07-27 15:10' },
       { status: 'IN_TRANSIT', description: 'Departed EWR4 sorting hub', timestamp: '2026-07-27 16:00' },
     ],
     createdAt: '2026-07-27 13:30',

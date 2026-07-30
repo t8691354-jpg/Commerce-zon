@@ -117,7 +117,7 @@ export const ProductListingEditorModal: React.FC<ProductListingEditorModalProps>
   );
 
   // SEO
-  const [seoTitle, setSeoTitle] = useState(product?.seoDetails?.title || `${title} | Amazon Prime Official`);
+  const [seoTitle, setSeoTitle] = useState(product?.seoDetails?.title || `${title} | Commerce Zon Prime Official`);
   const [metaDesc, setMetaDesc] = useState(
     product?.seoDetails?.metaDescription || shortDescription
   );
@@ -265,7 +265,7 @@ export const ProductListingEditorModal: React.FC<ProductListingEditorModalProps>
     brand: { '@type': 'Brand', name: brand },
     offers: {
       '@type': 'Offer',
-      url: `https://marketplace.amazon.com/dp/${sku}`,
+      url: `https://marketplace.commercezon.com/dp/${sku}`,
       priceCurrency: 'USD',
       price: salePrice || regularPrice,
       itemCondition: 'https://schema.org/NewCondition',
@@ -284,7 +284,7 @@ export const ProductListingEditorModal: React.FC<ProductListingEditorModalProps>
             </div>
             <div>
               <h2 className="text-base font-black text-white">
-                {product ? `Edit Product: ${product.title}` : 'Create Amazon-Level Product Listing'}
+                {product ? `Edit Product: ${product.title}` : 'Create Commerce Zon Level Product Listing'}
               </h2>
               <div className="text-xs text-slate-400 font-mono">
                 Catalog & SKU Management Studio (Module 8)
@@ -726,7 +726,7 @@ export const ProductListingEditorModal: React.FC<ProductListingEditorModalProps>
                 </div>
 
                 <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                  <label className="text-emerald-400 font-bold block mb-1">Amazon Sale Price ($)</label>
+                  <label className="text-emerald-400 font-bold block mb-1">Commerce Zon Sale Price ($)</label>
                   <input
                     type="number"
                     value={salePrice}

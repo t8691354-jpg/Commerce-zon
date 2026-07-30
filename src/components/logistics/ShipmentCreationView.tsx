@@ -47,7 +47,7 @@ export const ShipmentCreationView: React.FC<ShipmentCreationViewProps> = ({
       carrierId: carrierObj.id,
       carrierName: carrierObj.name,
       shippingMethod: selectedMethod,
-      originAddress: 'Amazon Logistics Fulfillment Center EWR4, Robbinsville, NJ',
+      originAddress: 'Commerce Zon Logistics Fulfillment Center EWR4, Robbinsville, NJ',
       destinationAddress,
       destinationCountry,
       recipientName,
@@ -234,7 +234,7 @@ export const ShipmentCreationView: React.FC<ShipmentCreationViewProps> = ({
               <div className="grid grid-cols-2 gap-4 text-[10px] border-b-2 border-slate-950 pb-3">
                 <div>
                   <span className="font-extrabold uppercase block text-slate-600">FROM (ORIGIN):</span>
-                  <p className="font-bold">Amazon Fulfillment Center EWR4</p>
+                  <p className="font-bold">Commerce Zon Fulfillment Center EWR4</p>
                   <p>100 Logistics Way, Robbinsville, NJ 08691</p>
                 </div>
                 <div>

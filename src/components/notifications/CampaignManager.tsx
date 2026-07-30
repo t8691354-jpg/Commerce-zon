@@ -186,7 +186,7 @@ export const CampaignManager: React.FC<Props> = ({ campaigns, onCreateCampaign, 
                     className="w-full bg-slate-900 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-white"
                   >
                     <option value="All">All Members</option>
-                    <option value="Prime">Amazon Prime Members Only</option>
+                    <option value="Prime">Commerce Zon Prime Members Only</option>
                     <option value="VIP">VIP Tier</option>
                   </select>
                 </div>
