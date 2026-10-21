@@ -18,6 +18,7 @@ import {
   ChevronDown,
   Layers,
   Sparkles,
+  Scale,
 } from 'lucide-react';
 
 export type PortalRole =
@@ -140,6 +141,19 @@ export const RolePortalHeaderBar: React.FC<RolePortalHeaderBarProps> = ({
 
         {/* Global Utilities Quick Buttons */}
         <div className="flex items-center space-x-2">
+          <button
+            onClick={() => onNavigateTab('trust_safety')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-mono transition flex items-center space-x-1.5 border ${
+              activeTab === 'trust_safety'
+                ? 'bg-[#febd69] text-slate-950 font-bold border-[#febd69]'
+                : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+            }`}
+            title="Trust, Safety & Dispute Resolution (Part 15)"
+          >
+            <Scale className="w-3.5 h-3.5 text-[#febd69]" />
+            <span className="hidden md:inline">Trust & Disputes</span>
+          </button>
+
           <button
             onClick={() => onNavigateTab('file_manager')}
             className={`px-3 py-1.5 rounded-xl text-xs font-mono transition flex items-center space-x-1.5 border ${

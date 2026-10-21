@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+[dir="rtl"] {
+  direction: rtl;
+}
+
+/* Ensure numbers and codes remain legible in RTL mode */
+[dir="rtl"] .font-mono {
+  direction: ltr;
+  display: inline-block;
+}
+
+/* Urdu font rendering enhancement */
+[lang="ur"] {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", sans-serif;
+}

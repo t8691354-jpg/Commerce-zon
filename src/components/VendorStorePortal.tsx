@@ -4,6 +4,8 @@ import { IndividualSellerDashboard } from './seller/IndividualSellerDashboard';
 import { IndividualSellerRegistrationModal } from './seller/IndividualSellerRegistrationModal';
 import { ProfessionalSellerDashboard } from './seller/ProfessionalSellerDashboard';
 import { ProfessionalSellerRegistrationModal } from './seller/ProfessionalSellerRegistrationModal';
+import { SellerAnalyticsDashboard } from './seller/SellerAnalyticsDashboard';
+import { SellerCenterMasterModule } from './seller/SellerCenterMasterModule';
 import { MOCK_INDIVIDUAL_SELLER, MOCK_SELLER_BILLING_RECORDS, MOCK_SELLER_NOTIFICATIONS, MOCK_PROFESSIONAL_SELLER, MOCK_PRO_INVOICES } from '../data/mockData';
 import {
   Store,
@@ -81,7 +83,7 @@ export const VendorStorePortal: React.FC<VendorStorePortalProps> = ({
   const [showAddProductModal, setShowAddProductModal] = useState<boolean>(false);
 
   // Active Tab within Seller Central
-  const [activeVendorSubTab, setActiveVendorSubTab] = useState<'overview' | 'listings' | 'orders' | 'health' | 'individual_plan' | 'pro_plan'>('pro_plan');
+  const [activeVendorSubTab, setActiveVendorSubTab] = useState<'seller_center' | 'analytics' | 'overview' | 'listings' | 'orders' | 'health' | 'individual_plan' | 'pro_plan'>('seller_center');
   const [timeframe, setTimeframe] = useState<'7d' | '30d' | 'ytd'>('7d');
 
   // Module 5: Individual Seller Plan States
@@ -336,6 +338,30 @@ export const VendorStorePortal: React.FC<VendorStorePortalProps> = ({
       {/* Seller Central Module Navigation Tabs */}
       <div className="bg-[#1e293b] p-1.5 border border-slate-800 rounded-xl flex items-center space-x-2 overflow-x-auto">
         <button
+          onClick={() => setActiveVendorSubTab('seller_center')}
+          className={`px-4 py-2 rounded-lg text-xs font-extrabold flex items-center space-x-2 transition shrink-0 ${
+            activeVendorSubTab === 'seller_center'
+              ? 'bg-[#febd69] text-slate-950 shadow-md'
+              : 'text-amber-300 hover:text-white hover:bg-slate-800'
+          }`}
+        >
+          <Store className="w-4 h-4 text-[#febd69]" />
+          <span>Seller Center & Operations (Part 14)</span>
+        </button>
+
+        <button
+          onClick={() => setActiveVendorSubTab('analytics')}
+          className={`px-4 py-2 rounded-lg text-xs font-extrabold flex items-center space-x-2 transition shrink-0 ${
+            activeVendorSubTab === 'analytics'
+              ? 'bg-[#febd69] text-slate-950 shadow-md'
+              : 'text-amber-300 hover:text-white hover:bg-slate-800'
+          }`}
+        >
+          <BarChart3 className="w-4 h-4 text-[#febd69]" />
+          <span>Seller Intelligence & Analytics</span>
+        </button>
+
+        <button
           onClick={() => setActiveVendorSubTab('pro_plan')}
           className={`px-4 py-2 rounded-lg text-xs font-extrabold flex items-center space-x-2 transition ${
             activeVendorSubTab === 'pro_plan'
@@ -407,6 +433,27 @@ export const VendorStorePortal: React.FC<VendorStorePortalProps> = ({
           <span>Account Health & FBA Metrics</span>
         </button>
       </div>
+
+      {/* PART 14: SELLER CENTER, VENDOR OPERATIONS & MULTI-SELLER MANAGEMENT */}
+      {activeVendorSubTab === 'seller_center' && (
+        <SellerCenterMasterModule
+          merchants={merchants}
+          allProducts={products}
+          onAddMerchant={onAddMerchant}
+          onAddProduct={onAddProduct}
+        />
+      )}
+
+      {/* PART 13: SELLER INTELLIGENCE, PRODUCT PERFORMANCE & MARKETPLACE ANALYTICS */}
+      {activeVendorSubTab === 'analytics' && (
+        <SellerAnalyticsDashboard
+          activeMerchant={activeMerchant}
+          allMerchants={merchants}
+          onSelectMerchant={setSelectedMerchantId}
+          onNavigateToListings={() => setActiveVendorSubTab('listings')}
+          onNavigateToOrders={() => setActiveVendorSubTab('orders')}
+        />
+      )}
 
       {/* MODULE 6: PROFESSIONAL SELLER PLAN DASHBOARD & SYSTEM ($36/MO) */}
       {activeVendorSubTab === 'pro_plan' && (

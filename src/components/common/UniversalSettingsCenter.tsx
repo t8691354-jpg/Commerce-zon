@@ -22,7 +22,9 @@ import {
   Save,
   CheckCircle2,
   RefreshCw,
+  TrendingUp,
 } from 'lucide-react';
+import { useI18n } from '../../i18n/I18nContext';
 
 export const UniversalSettingsCenter: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('general');
@@ -262,23 +264,32 @@ export const UniversalSettingsCenter: React.FC = () => {
 
             {activeCategory === 'feature_flags' && (
               <div className="space-y-3">
+                <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl mb-3">
+                  <div className="text-xs font-bold text-amber-300">Commerce Zone Multi-Marketplace Control Flags</div>
+                  <div className="text-[11px] text-slate-400">Enable or disable any of the 4 independent marketplace sectors platform-wide in real time.</div>
+                </div>
                 {[
-                  { title: 'Module 20 Super Admin Control Panel', state: true, tag: 'RELEASED' },
-                  { title: 'Commerce Zone Pay Virtual Card Issuing', state: true, tag: 'STABLE' },
-                  { title: 'AI Neural Fraud Detection Engine', state: true, tag: 'ACTIVE' },
-                  { title: 'FBA Multi-Region Cross-Docking', state: true, tag: 'BETA' },
-                  { title: 'Crypto Checkout (BTC / ETH / USDT)', state: false, tag: 'EXPERIMENTAL' },
-                  { title: 'Autonomous AI Inventory Restock Agent', state: true, tag: 'PREVIEW' },
+                  { title: '1. Physical Goods & FBA Marketplace', state: true, tag: 'CORE ACTIVE', desc: 'Warehouses, inventory barcodes, carrier shipping, RMA returns' },
+                  { title: '2. Digital Software & License Marketplace', state: true, tag: 'ACTIVE LIVE', desc: 'Instant-delivery code, SaaS kits, cryptographic keys, asset vault' },
+                  { title: '3. Freelancer & Talent Escrow Marketplace', state: true, tag: 'ACTIVE LIVE', desc: 'Milestone escrow contracts, proposal bidding, talent directory' },
+                  { title: '4. Autonomous AI Agent Marketplace', state: false, tag: 'CANARY PREVIEW', desc: 'Autonomous AI agents, prompt libraries, inference token billing' },
+                  { title: 'Module 20 Super Admin Control Panel', state: true, tag: 'RELEASED', desc: 'Platform-wide rule enforcement and executive overrides' },
+                  { title: 'Commerce Zone Pay Virtual Card Issuing', state: true, tag: 'STABLE', desc: 'Virtual debit card issuing with merchant cashback' },
+                  { title: 'AI Neural Fraud Detection Engine', state: true, tag: 'ACTIVE', desc: 'Continuous fraud risk scoring on orders & payouts' },
+                  { title: 'FBA Multi-Region Cross-Docking', state: true, tag: 'BETA', desc: 'Dynamic fulfillment route balancing' },
                 ].map((flag, idx) => (
                   <div
                     key={idx}
                     className="p-3 bg-slate-950 border border-slate-800 rounded-2xl flex items-center justify-between"
                   >
-                    <div>
-                      <div className="text-slate-200 font-bold">{flag.title}</div>
-                      <span className="text-[10px] px-2 py-0.5 bg-slate-800 text-amber-400 rounded">
-                        {flag.tag}
-                      </span>
+                    <div className="space-y-0.5">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-slate-200 font-bold">{flag.title}</span>
+                        <span className="text-[10px] px-2 py-0.5 bg-slate-800 text-amber-400 rounded font-mono font-bold">
+                          {flag.tag}
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-slate-500">{flag.desc}</p>
                     </div>
                     <input type="checkbox" defaultChecked={flag.state} className="w-4 h-4 accent-amber-500" />
                   </div>
@@ -286,8 +297,132 @@ export const UniversalSettingsCenter: React.FC = () => {
               </div>
             )}
 
+            {activeCategory === 'languages' && (
+              <div className="space-y-6">
+                <div className="bg-slate-950 p-4 border border-slate-800 rounded-2xl space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-black text-white text-sm flex items-center gap-2">
+                        <Globe className="w-4 h-4 text-amber-400" />
+                        <span>Part 16: Internationalization & Regional Localization Engine</span>
+                      </h4>
+                      <p className="text-xs text-slate-400 mt-0.5">
+                        Configure system-wide default language, RTL layout toggling, and multi-currency exchange rates.
+                      </p>
+                    </div>
+                    <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-full text-xs font-mono font-bold">
+                      i18n Active
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                    <div>
+                      <label className="text-slate-400 font-bold block mb-1">Default Platform Language</label>
+                      <select className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-slate-200">
+                        <option value="en">English (US) [LTR]</option>
+                        <option value="ur">اردو (Urdu) [RTL]</option>
+                        <option value="ar">العربية (Arabic) [RTL]</option>
+                        <option value="es">Español [LTR]</option>
+                        <option value="de">Deutsch [LTR]</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-slate-400 font-bold block mb-1">Default Base Currency</label>
+                      <select className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-slate-200">
+                        <option value="USD">USD ($) — US Dollar (Base)</option>
+                        <option value="PKR">PKR (Rs) — Pakistani Rupee</option>
+                        <option value="GBP">GBP (£) — British Pound</option>
+                        <option value="EUR">EUR (€) — Euro</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-slate-400 font-bold block mb-1">Default Shipping Country</label>
+                      <select className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-slate-200">
+                        <option value="US">🇺🇸 United States</option>
+                        <option value="PK">🇵🇰 Pakistan</option>
+                        <option value="GB">🇬🇧 United Kingdom</option>
+                        <option value="DE">🇩🇪 Germany</option>
+                        <option value="AE">🇦🇪 United Arab Emirates</option>
+                        <option value="SA">🇸🇦 Saudi Arabia</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Central Treasury Exchange Rates Panel */}
+                <div className="bg-slate-950 p-4 border border-slate-800 rounded-2xl space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-black text-white text-sm flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4 text-emerald-400" />
+                        <span>Central Treasury Exchange Rates & Manual Overrides</span>
+                      </h4>
+                      <p className="text-xs text-slate-400 mt-0.5">
+                        Authoritative exchange rates applied across all currency estimate displays.
+                      </p>
+                    </div>
+                    <span className="text-xs font-mono text-slate-400">
+                      Base: <strong className="text-[#febd69]">$1.00 USD</strong>
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+                    {[
+                      { code: 'PKR', symbol: 'Rs', name: 'Pakistani Rupee', rate: 278.50 },
+                      { code: 'GBP', symbol: '£', name: 'British Pound', rate: 0.79 },
+                      { code: 'EUR', symbol: '€', name: 'Euro', rate: 0.92 },
+                      { code: 'AED', symbol: 'AED', name: 'UAE Dirham', rate: 3.67 },
+                      { code: 'SAR', symbol: 'SAR', name: 'Saudi Riyal', rate: 3.75 },
+                      { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar', rate: 1.38 },
+                      { code: 'AUD', symbol: 'A$', name: 'Australian Dollar', rate: 1.54 },
+                      { code: 'USD', symbol: '$', name: 'US Dollar', rate: 1.00 },
+                    ].map((c) => (
+                      <div key={c.code} className="p-3 bg-slate-900 border border-slate-800 rounded-xl space-y-1">
+                        <div className="flex justify-between text-slate-300 font-bold">
+                          <span>{c.code} ({c.symbol})</span>
+                          <span className="text-[10px] text-emerald-400 font-normal">Active</span>
+                        </div>
+                        <input
+                          type="number"
+                          step="0.01"
+                          defaultValue={c.rate}
+                          className="w-full bg-slate-950 border border-slate-800 rounded-lg p-1.5 text-white font-mono font-bold text-xs"
+                        />
+                        <div className="text-[10px] text-slate-500 font-sans">{c.name}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Regional Compliance & RTL Rules */}
+                <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3 text-xs">
+                  <h4 className="font-bold text-slate-200">Internationalization Safeguards</h4>
+                  <div className="flex items-center space-x-3">
+                    <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-900" />
+                    <span className="text-slate-300">
+                      Preserve original seller listing currency during cross-border checkout (prevent silent price mutations)
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-900" />
+                    <span className="text-slate-300">
+                      Dynamically activate right-to-left (RTL) document direction for Urdu (ur) and Arabic (ar)
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-900" />
+                    <span className="text-slate-300">
+                      Automatic fallback to English dictionary for untranslated seller titles or third-party descriptions
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Default Placeholder for other categories */}
-            {!['general', 'marketplace', 'ai', 'feature_flags'].includes(activeCategory) && (
+            {!['general', 'marketplace', 'ai', 'feature_flags', 'languages'].includes(activeCategory) && (
               <div className="p-8 border border-dashed border-slate-800 rounded-2xl text-center space-y-3">
                 <Settings className="w-8 h-8 text-amber-400 mx-auto" />
                 <div className="text-slate-200 font-bold capitalize">{activeCategory} Configuration Engine</div>

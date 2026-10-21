@@ -11,6 +11,7 @@ import { ProductReviewsQAView } from './ProductReviewsQAView';
 import { ProductAnalyticsView } from './ProductAnalyticsView';
 import { BulkCatalogOperationsView } from './BulkCatalogOperationsView';
 import { ProductModerationShieldView } from './ProductModerationShieldView';
+import { AIDiscoveryAssistantView } from '../recommendations/AIDiscoveryAssistantView';
 import {
   ShoppingBag,
   FolderTree,
@@ -24,6 +25,7 @@ import {
   FileSpreadsheet,
   ShieldAlert,
   Plus,
+  Bot,
 } from 'lucide-react';
 
 interface ProductCatalogMasterModuleProps {
@@ -53,6 +55,7 @@ export const ProductCatalogMasterModule: React.FC<ProductCatalogMasterModuleProp
 }) => {
   const [activeSubTab, setActiveSubTab] = useState<
     | 'catalog'
+    | 'discovery_ai'
     | 'search'
     | 'taxonomy'
     | 'approval'
@@ -121,6 +124,18 @@ export const ProductCatalogMasterModule: React.FC<ProductCatalogMasterModuleProp
           >
             <ShoppingBag className="w-4 h-4" />
             <span>Prime Store Catalog</span>
+          </button>
+
+          <button
+            onClick={() => setActiveSubTab('discovery_ai')}
+            className={`px-3.5 py-2 rounded-xl transition flex items-center space-x-1.5 whitespace-nowrap ${
+              activeSubTab === 'discovery_ai'
+                ? 'bg-[#febd69] text-slate-950 font-black shadow-md'
+                : 'bg-slate-950 text-slate-300 hover:bg-slate-800'
+            }`}
+          >
+            <Bot className="w-4 h-4 text-emerald-400" />
+            <span>AI Discovery & Matchmaker</span>
           </button>
 
           <button
@@ -248,8 +263,21 @@ export const ProductCatalogMasterModule: React.FC<ProductCatalogMasterModuleProp
         />
       )}
 
+      {activeSubTab === 'discovery_ai' && (
+        <AIDiscoveryAssistantView
+          products={products}
+          onAddToCart={onAddToCart}
+          onSelectProduct={(p) => onAddToCart(p)}
+        />
+      )}
+
       {activeSubTab === 'search' && (
-        <EnterpriseSearchEngineView products={products} onAddToCart={onAddToCart} />
+        <EnterpriseSearchEngineView
+          products={products}
+          onAddToCart={onAddToCart}
+          initialQuery={searchTerm}
+          initialCategory={selectedCategory}
+        />
       )}
 
       {activeSubTab === 'taxonomy' && <CategoryManagementView />}

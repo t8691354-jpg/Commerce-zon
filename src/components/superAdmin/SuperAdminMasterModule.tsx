@@ -16,6 +16,7 @@ import { FeatureFlagsCanaryView } from './FeatureFlagsCanaryView';
 import { AuditLogsCentralView } from './AuditLogsCentralView';
 import { EnterpriseReportsExporterView } from './EnterpriseReportsExporterView';
 import { AlertNotificationsRoutingView } from './AlertNotificationsRoutingView';
+import { AdminShippingFulfillmentView } from './AdminShippingFulfillmentView';
 
 import {
   BarChart3,
@@ -36,10 +37,12 @@ import {
   Download,
   Bell,
   Crown,
+  Truck,
 } from 'lucide-react';
 
 export type SuperAdminSubTab =
   | 'executive'
+  | 'shipping_logistics'
   | 'users'
   | 'config'
   | 'policies'
@@ -62,6 +65,7 @@ export const SuperAdminMasterModule: React.FC = () => {
 
   const navTabs = [
     { id: 'executive', label: 'Executive Dashboard', icon: BarChart3 },
+    { id: 'shipping_logistics', label: 'Shipping & Fulfillment', icon: Truck },
     { id: 'users', label: 'Global Users (10 Roles)', icon: Users },
     { id: 'config', label: 'Platform & Localization', icon: Settings },
     { id: 'policies', label: 'Marketplace Policies', icon: FileText },
@@ -127,6 +131,7 @@ export const SuperAdminMasterModule: React.FC = () => {
       {/* Active Tab View Rendering */}
       <div>
         {activeTab === 'executive' && <SuperAdminExecutiveDashboard />}
+        {activeTab === 'shipping_logistics' && <AdminShippingFulfillmentView />}
         {activeTab === 'users' && <GlobalUserManagementView />}
         {activeTab === 'config' && <PlatformConfigLocalizationView />}
         {activeTab === 'policies' && <MarketplacePoliciesCmsView />}

@@ -15,6 +15,7 @@ import {
   DollarSign,
   Download,
   RotateCcw,
+  Scale,
 } from 'lucide-react';
 
 interface OrderDetailsModalProps {
@@ -98,7 +99,7 @@ export const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
             <div className="space-y-0.5 text-slate-300">
               <div>{order.shippingAddress.address}</div>
               <div>
-                {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.zipCode}
+                {order.shippingAddress.city}, {order.shippingAddress.state} {(order.shippingAddress as any).zipCode || ''}
               </div>
               <div className="font-bold text-slate-400">{order.shippingAddress.country}</div>
               <div className="text-[10px] text-emerald-400 font-bold pt-1">
@@ -151,11 +152,50 @@ export const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
                   </div>
                 </div>
 
-                <div className="text-right font-mono text-xs">
+                <div className="text-right font-mono text-xs space-y-1.5">
                   <div className="text-slate-400">
                     ${item.unitPrice.amount.toFixed(2)} × {item.quantity}
                   </div>
                   <div className="text-sm font-black text-white">${item.totalPrice.amount.toFixed(2)}</div>
+                  <button
+                    onClick={async () => {
+                      try {
+                        const res = await fetch('/api/trust-safety/disputes', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                            orderId: order.id,
+                            orderNumber: order.orderNumber,
+                            productId: item.productId,
+                            productTitle: item.productTitle,
+                            productImage: item.imageUrl,
+                            buyerId: order.customerId,
+                            buyerName: order.customerName,
+                            buyerEmail: order.customerEmail,
+                            sellerId: item.merchantId,
+                            sellerName: item.merchantName,
+                            category: 'DAMAGED_OR_DEFECTIVE',
+                            claimedAmount: item.totalPrice.amount,
+                            currency: 'USD',
+                            description: `Buyer opened dispute for item "${item.productTitle}" in order #${order.orderNumber}.`,
+                            desiredOutcome: 'REPLACEMENT',
+                          }),
+                        });
+                        if (res.ok) {
+                          alert(`Dispute filed successfully for "${item.productTitle}". Navigate to "Disputes & Trust" in the header to view and track your case.`);
+                        } else {
+                          const err = await res.json();
+                          alert(err.error || 'Failed to file dispute');
+                        }
+                      } catch (e) {
+                        alert('Network error filing dispute');
+                      }
+                    }}
+                    className="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-[#febd69] border border-amber-500/30 rounded-lg text-[10px] font-bold flex items-center space-x-1 ml-auto transition"
+                  >
+                    <Scale className="w-3 h-3 text-[#febd69]" />
+                    <span>File Dispute (Part 15)</span>
+                  </button>
                 </div>
               </div>
             ))}

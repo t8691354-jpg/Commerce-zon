@@ -27,6 +27,7 @@ import {
   MOCK_REVIEWS_MODERATION,
   MOCK_MARKETPLACE_SETTINGS,
 } from '../../data/mockData';
+import { AdminVendorOperationsModule } from './AdminVendorOperationsModule';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -45,6 +46,7 @@ import {
   Line,
 } from 'recharts';
 import {
+  Store,
   ShieldCheck,
   TrendingUp,
   DollarSign,
@@ -165,6 +167,7 @@ export const AdminDashboard: React.FC<Props> = ({
   // Admin Main Tab
   const [activeAdminTab, setActiveAdminTab] = useState<
     | 'overview'
+    | 'vendor_ops'
     | 'users'
     | 'products'
     | 'orders'
@@ -195,13 +198,13 @@ export const AdminDashboard: React.FC<Props> = ({
   const [orderSubTab, setOrderSubTab] = useState<'all' | 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled' | 'returned'>('all');
 
   // Interactive Data States
-  const [buyersList, setBuyersList] = useState<MarketplaceBuyer[]>(MOCK_BUYERS);
-  const [affiliatesList, setAffiliatesList] = useState<MarketplaceAffiliate[]>(MOCK_AFFILIATES);
-  const [suppliersList, setSuppliersList] = useState<DropshippingSupplier[]>(MOCK_DROPSHIP_SUPPLIERS);
-  const [ticketsList, setTicketsList] = useState<SupportTicket[]>(MOCK_SUPPORT_TICKETS);
-  const [reviewsList, setReviewsList] = useState<ProductReviewModeration[]>(MOCK_REVIEWS_MODERATION);
+  const [buyersList, setBuyersList] = useState<MarketplaceBuyer[]>(MOCK_BUYERS as MarketplaceBuyer[]);
+  const [affiliatesList, setAffiliatesList] = useState<MarketplaceAffiliate[]>(MOCK_AFFILIATES as MarketplaceAffiliate[]);
+  const [suppliersList, setSuppliersList] = useState<DropshippingSupplier[]>(MOCK_DROPSHIP_SUPPLIERS as DropshippingSupplier[]);
+  const [ticketsList, setTicketsList] = useState<SupportTicket[]>(MOCK_SUPPORT_TICKETS as SupportTicket[]);
+  const [reviewsList, setReviewsList] = useState<ProductReviewModeration[]>(MOCK_REVIEWS_MODERATION as ProductReviewModeration[]);
   const [settings, setSettings] = useState<MarketplaceSettings>(MOCK_MARKETPLACE_SETTINGS);
-  const [adminUsers, setAdminUsers] = useState<AdminUser[]>(MOCK_ADMIN_USERS);
+  const [adminUsers, setAdminUsers] = useState<AdminUser[]>(MOCK_ADMIN_USERS as AdminUser[]);
 
   // Search Terms
   const [userSearch, setUserSearch] = useState('');
@@ -370,6 +373,7 @@ export const AdminDashboard: React.FC<Props> = ({
       <div className="bg-[#1e293b] p-1.5 border border-slate-800 rounded-xl flex items-center space-x-1 overflow-x-auto text-xs font-bold scrollbar-thin">
         {[
           { id: 'overview', label: 'Dashboard Overview', icon: BarChart3 },
+          { id: 'vendor_ops', label: 'Vendor Operations & Approvals (Part 14)', icon: Store },
           { id: 'users', label: 'User Management', icon: Users },
           { id: 'products', label: 'Product Catalog', icon: Package },
           { id: 'orders', label: 'Order Matrix', icon: ShoppingCart },
@@ -516,6 +520,11 @@ export const AdminDashboard: React.FC<Props> = ({
             </div>
           </div>
         </div>
+      )}
+
+      {/* PART 14: ADMIN VENDOR OPERATIONS & KYC APPROVALS */}
+      {activeAdminTab === 'vendor_ops' && (
+        <AdminVendorOperationsModule />
       )}
 
       {/* MODULE 2: USER MANAGEMENT (BUYERS, SELLERS, AFFILIATES) */}
@@ -1044,10 +1053,10 @@ export const AdminDashboard: React.FC<Props> = ({
                   {auditLogs.map((log) => (
                     <tr key={log.id} className="hover:bg-slate-800/40 transition">
                       <td className="p-3 font-mono text-slate-400">{new Date(log.timestamp).toLocaleTimeString()}</td>
-                      <td className="p-3 font-bold text-white">{log.actor.id}</td>
+                      <td className="p-3 font-bold text-white">{(log as any).actor?.id || log.actorId}</td>
                       <td className="p-3 font-mono text-amber-300">{log.action}</td>
-                      <td className="p-3 text-slate-300">{log.targetEntity}</td>
-                      <td className="p-3 font-mono text-slate-400">{log.ipAddress}</td>
+                      <td className="p-3 text-slate-300">{(log as any).targetEntity || log.domain}</td>
+                      <td className="p-3 font-mono text-slate-400">{(log as any).ipAddress || '127.0.0.1'}</td>
                     </tr>
                   ))}
                 </tbody>

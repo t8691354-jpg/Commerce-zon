@@ -17,6 +17,7 @@ import {
   Database,
   ArrowRight,
   Sparkles,
+  Scale,
 } from 'lucide-react';
 
 interface GlobalCommandPaletteModalProps {
@@ -61,6 +62,7 @@ export const GlobalCommandPaletteModal: React.FC<GlobalCommandPaletteModalProps>
     { title: 'Returns & RMA Management', category: 'Support', tab: 'returns', icon: FileText, desc: 'Manage buyer returns & refunds' },
     { title: 'AI Search & Recommendation Engine', category: 'AI', tab: 'ai_engine', icon: Sparkles, desc: 'Gemini 2.5 Flash neural search' },
     { title: 'Business Intelligence & BI Analytics', category: 'Analytics', tab: 'bi_analytics', icon: Settings, desc: 'Executive charts, GMV & cohort reports' },
+    { title: 'Trust, Safety & Dispute Resolution (Part 15)', category: 'Safety', tab: 'trust_safety', icon: Scale, desc: 'Arbitration cases, counterfeit moderation, dispute claims & fraud prevention' },
     { title: 'Security & AI Fraud Detection Desk', category: 'Security', tab: 'security_fraud', icon: ShieldCheck, desc: 'Fraud risk scoring & IP blocking' },
     { title: 'Super Admin Control Panel (Module 20)', category: 'Super Admin', tab: 'super_admin', icon: Database, desc: 'Master executive command center' },
   ];

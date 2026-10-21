@@ -7,7 +7,7 @@ export const ProductContentModerationView: React.FC = () => {
   const [items, setItems] = useState<ModerationQueueItem[]>(MOCK_MODERATION_ITEMS);
   const [notification, setNotification] = useState<string | null>(null);
 
-  const handleAction = (id: string, newStatus: 'Approved' | 'Rejected' | 'Removed') => {
+  const handleAction = (id: string, newStatus: 'Approved' | 'Rejected' | 'Hidden') => {
     setItems((prev) =>
       prev.map((item) => (item.id === id ? { ...item, status: newStatus } : item))
     );
@@ -124,8 +124,8 @@ export const ProductContentModerationView: React.FC = () => {
                       </button>
 
                       <button
-                        onClick={() => handleAction(item.id, 'Removed')}
-                        title="Permanently Remove Item"
+                        onClick={() => handleAction(item.id, 'Hidden')}
+                        title="Permanently Hide Item"
                         className="p-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 border border-rose-500/40 rounded transition"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

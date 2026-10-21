@@ -70,7 +70,7 @@ export const TicketManagementView: React.FC<Props> = ({
       description,
       attachments: attachmentUrl ? [attachmentUrl] : [],
       department:
-        category === 'FBA_ISSUES' || category === 'SHIPPING_PROBLEMS'
+        (category as string) === 'FBA_ISSUES' || category === 'SHIPPING_PROBLEMS'
           ? 'Warehouse & FBA Seller Ops'
           : category === 'PAYMENTS' || category === 'REFUNDS'
           ? 'Finance & Payments Support'

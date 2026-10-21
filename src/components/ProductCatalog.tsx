@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { Product, ProductCategory } from '../types/domain';
 import { Search, Sparkles, Filter, Store, ShieldCheck, Star, Truck, Check, ShoppingCart, X } from 'lucide-react';
+import { RecommendedForYouSection } from './recommendations/RecommendedForYouSection';
+import { ProductDetailRecommendations } from './recommendations/ProductDetailRecommendations';
+import { RecentlyViewedTray } from './recommendations/RecentlyViewedTray';
+import { recommendationClient } from '../services/recommendationClient';
+import { sellerAnalyticsClient } from '../services/sellerAnalyticsClient';
+import { useI18n } from '../i18n/I18nContext';
 
 interface ProductCatalogProps {
   products: Product[];
@@ -29,6 +35,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
   const [selectedProductModal, setSelectedProductModal] = useState<Product | null>(null);
   const [buyQuantity, setBuyQuantity] = useState<number>(1);
   const [addedNotification, setAddedNotification] = useState<string | null>(null);
+  const { formatPrice, t, activeCurrencyDef } = useI18n();
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,8 +49,30 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
     for (let i = 0; i < qty; i++) {
       onAddToCart(prod);
     }
+    sellerAnalyticsClient.trackEvent({
+      eventType: 'add_to_cart',
+      productId: prod.id,
+      merchantId: prod.merchant?.id,
+      source: 'catalog',
+    });
     setAddedNotification(`Added ${qty}x "${prod.title}" to your Commerce Zon Cart!`);
     setTimeout(() => setAddedNotification(null), 3500);
+  };
+
+  const handleOpenProductModal = (prod: Product) => {
+    setSelectedProductModal(prod);
+    sellerAnalyticsClient.trackEvent({
+      eventType: 'view',
+      productId: prod.id,
+      merchantId: prod.merchant?.id,
+      source: 'catalog',
+    });
+    sellerAnalyticsClient.trackEvent({
+      eventType: 'click',
+      productId: prod.id,
+      merchantId: prod.merchant?.id,
+      source: 'catalog',
+    });
   };
 
   const categories: { label: string; value: ProductCategory | 'all' }[] = [
@@ -114,6 +143,15 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         </div>
       </div>
 
+      {/* Part 12: AI-Powered "Recommended for You" Multi-Signal Discovery Section */}
+      <RecommendedForYouSection
+        onAddToCart={onAddToCart}
+        onSelectProduct={(p) => {
+          setSelectedProductModal(p);
+          recommendationClient.trackInteraction(p, 'view');
+        }}
+      />
+
       {/* Commerce Zon Department & Filter Bar */}
       <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center space-x-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
@@ -174,6 +212,8 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
         {products.map((product, idx) => {
           const listPrice = Math.round(product.price.amount * 1.22 * 100) / 100;
           const discountPct = Math.round(((listPrice - product.price.amount) / listPrice) * 100);
+          const priceDisplay = formatPrice(product.price.amount, (product.price.currency as any) || 'USD');
+          const listPriceDisplay = formatPrice(listPrice, (product.price.currency as any) || 'USD');
 
           return (
             <div
@@ -247,11 +287,16 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     <div className="flex items-baseline space-x-2">
                       <span className="text-xs text-red-400 font-bold">-{discountPct}%</span>
                       <span className="text-lg font-extrabold text-white font-mono">
-                        ${product.price.amount.toFixed(2)}
+                        {priceDisplay.formattedConverted}
                       </span>
+                      {priceDisplay.isConverted && (
+                        <span className="text-[10px] text-amber-400/90 font-mono" title="Original Listing Price">
+                          ({priceDisplay.formattedOriginal})
+                        </span>
+                      )}
                     </div>
                     <div className="text-[10px] text-slate-400">
-                      Typical price: <span className="line-through">${listPrice.toFixed(2)}</span>
+                      Typical price: <span className="line-through">{listPriceDisplay.formattedConverted}</span>
                     </div>
                   </div>
 
@@ -274,7 +319,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     className="w-full py-2 bg-[#ffd814] hover:bg-[#f7ca00] text-slate-950 font-bold text-xs rounded-full border border-[#fcd200] transition shadow active:scale-98 flex items-center justify-center space-x-1.5"
                   >
                     <ShoppingCart className="w-3.5 h-3.5" />
-                    <span>Add to Cart</span>
+                    <span>{t('catalog.addToCart', 'Add to Cart')}</span>
                   </button>
 
                   <button
@@ -284,7 +329,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                     }}
                     className="w-full py-1.5 bg-[#ffa41c] hover:bg-[#fa8900] text-slate-950 font-bold text-xs rounded-full border border-[#ff8f00] transition shadow active:scale-98"
                   >
-                    Buy Now
+                    {t('catalog.buyNow', 'Buy Now')}
                   </button>
                 </div>
               </div>
@@ -350,14 +395,29 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                   <span className="text-[#007185] font-bold">4.8 out of 5 stars</span>
                 </div>
 
-                <div className="border-t border-b border-slate-800 py-3 my-2 space-y-2">
-                  <div className="text-2xl font-extrabold text-white font-mono">
-                    ${selectedProductModal.price.amount.toFixed(2)}
-                  </div>
-                  <div className="text-xs text-slate-400">
-                    Includes FREE Commerce Zon Prime Delivery & FREE Returns
-                  </div>
-                </div>
+                {(() => {
+                  const modalPrice = formatPrice(
+                    selectedProductModal.price.amount,
+                    (selectedProductModal.price.currency as any) || 'USD'
+                  );
+                  return (
+                    <div className="border-t border-b border-slate-800 py-3 my-2 space-y-1.5">
+                      <div className="text-2xl font-extrabold text-white font-mono">
+                        {modalPrice.formattedConverted}
+                      </div>
+                      {modalPrice.isConverted && (
+                        <div className="text-xs text-amber-400 font-mono">
+                          {t('catalog.originalPriceNotice', 'Original seller listing: {price}', {
+                            price: modalPrice.formattedOriginal,
+                          })}
+                        </div>
+                      )}
+                      <div className="text-xs text-slate-400">
+                        Includes FREE Commerce Zon Prime Delivery & FREE Returns
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 {/* Description Bullet Points */}
                 <div className="space-y-1 text-xs text-slate-300">
@@ -371,9 +431,24 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
               {/* Right Side Commerce Zon Buy Box */}
               <div className="lg:col-span-3 bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3 flex flex-col justify-between">
                 <div className="space-y-3">
-                  <div className="text-xl font-black text-white font-mono">
-                    ${selectedProductModal.price.amount.toFixed(2)}
-                  </div>
+                  {(() => {
+                    const boxPrice = formatPrice(
+                      selectedProductModal.price.amount,
+                      (selectedProductModal.price.currency as any) || 'USD'
+                    );
+                    return (
+                      <div>
+                        <div className="text-xl font-black text-white font-mono">
+                          {boxPrice.formattedConverted}
+                        </div>
+                        {boxPrice.isConverted && (
+                          <div className="text-[10px] text-amber-400 font-mono">
+                            Orig: {boxPrice.formattedOriginal}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
 
                   <div className="text-xs text-emerald-400 font-bold flex items-center space-x-1">
                     <Check className="w-4 h-4" />
@@ -434,9 +509,28 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                 </div>
               </div>
             </div>
+
+            {/* Part 12: Frequently Bought Together & Department Recommendations */}
+            <ProductDetailRecommendations
+              product={selectedProductModal}
+              onAddToCart={(p) => handleAddToCartWithNotify(p, 1)}
+              onSelectProduct={(p) => {
+                setSelectedProductModal(p);
+                recommendationClient.trackInteraction(p, 'view');
+              }}
+            />
           </div>
         </div>
       )}
+
+      {/* Part 12: Recently Viewed Product Tray */}
+      <RecentlyViewedTray
+        onAddToCart={(p) => handleAddToCartWithNotify(p, 1)}
+        onSelectProduct={(p) => {
+          setSelectedProductModal(p);
+          recommendationClient.trackInteraction(p, 'view');
+        }}
+      />
     </div>
   );
 };

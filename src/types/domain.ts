@@ -160,6 +160,7 @@ export interface Product {
   isFlaggedForModeration?: boolean;
   flagReason?: string;
   isArchived: boolean;
+  shippingWeightKg?: number;
   createdAt: string;
   updatedAt: string;
 }
@@ -264,7 +265,7 @@ export interface Order {
 export interface DomainEvent<T = unknown> {
   id: EntityId;
   eventType: string;
-  domain: 'CATALOG' | 'INVENTORY' | 'ORDER' | 'AI_SERVICE' | 'SECURITY';
+  domain: 'CATALOG' | 'INVENTORY' | 'ORDER' | 'AI_SERVICE' | 'SECURITY' | 'PAYMENT' | 'LOGISTICS' | 'COMMUNICATION';
   aggregateId: string;
   timestamp: string;
   payload: T;
@@ -280,7 +281,7 @@ export interface AuditLog {
   actorType: 'SYSTEM' | 'MOCK_USER' | 'MOCK_MERCHANT' | 'AI_ENGINE';
   actorId: string;
   action: string;
-  domain: 'CATALOG' | 'INVENTORY' | 'ORDER' | 'AI_SERVICE' | 'SECURITY';
+  domain: 'CATALOG' | 'INVENTORY' | 'ORDER' | 'AI_SERVICE' | 'SECURITY' | 'PAYMENT' | 'LOGISTICS' | 'COMMUNICATION';
   details: string;
   metadata?: Record<string, unknown>;
 }

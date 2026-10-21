@@ -20,7 +20,12 @@ import { NotificationMasterModule } from './components/notifications/Notificatio
 import { AiEngineMasterModule } from './components/aiEngine/AiEngineMasterModule';
 import { BiAnalyticsMasterModule } from './components/biAnalytics/BiAnalyticsMasterModule';
 import { SecurityMasterModule } from './components/securityFraud/SecurityMasterModule';
+import { TrustSafetyMasterModule } from './components/trustSafety/TrustSafetyMasterModule';
 import { SuperAdminMasterModule } from './components/superAdmin/SuperAdminMasterModule';
+import { EnterpriseSecurityHub } from './components/security/EnterpriseSecurityHub';
+import { EnterpriseAIGatewayHub } from './components/aiEngine/EnterpriseAIGatewayHub';
+import { EnterprisePerformanceHub } from './components/performance/EnterprisePerformanceHub';
+import { EnterpriseMarketplaceCoreHub } from './components/marketplace/EnterpriseMarketplaceCoreHub';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { CommerceZonSettingsModal, CommerceZonRole } from './components/CommerceZonSettingsModal';
 import { RolePortalHeaderBar, PortalRole } from './components/common/RolePortalHeaderBar';
@@ -32,10 +37,21 @@ import { CentralLogsCenter } from './components/common/CentralLogsCenter';
 import { AffiliatePortalView } from './components/portals/AffiliatePortalView';
 import { SupplierPortalView } from './components/portals/SupplierPortalView';
 import { DeliveryPartnerPortalView } from './components/portals/DeliveryPartnerPortalView';
+import { ComplementaryCartWidget } from './components/recommendations/ComplementaryCartWidget';
+import { sellerAnalyticsClient } from './services/sellerAnalyticsClient';
 import { Product, Warehouse, Order, AuditLog, MasterPhase, Merchant, WalletState, WalletCard, WithdrawalRequest } from './types/domain';
 import { MOCK_PRODUCTS, MOCK_WAREHOUSES, MOCK_ORDERS, MOCK_AUDIT_LOGS, MOCK_MERCHANTS, INITIAL_WALLET_STATE, MOCK_INDIVIDUAL_SELLER, MOCK_PROFESSIONAL_SELLER, MOCK_PRO_INVOICES } from './data/mockData';
 import { MASTER_ROADMAP } from './data/roadmapData';
-import { ShoppingBag, X, CheckCircle2, ShieldCheck, Activity, Terminal, Wallet, CreditCard, Sparkles, Zap, Lock } from 'lucide-react';
+import { ShoppingBag, X, CheckCircle2, ShieldCheck, Activity, Terminal, Wallet, CreditCard, Sparkles, Zap, Lock, Truck, AlertTriangle } from 'lucide-react';
+import { useI18n } from './i18n/I18nContext';
+import { ShippingRateQuote } from './types/shippingFulfillment';
+import { shippingFulfillmentClient } from './services/shippingFulfillmentClient';
+import { MarketplaceMode } from './types/marketplaceModes';
+import { DigitalMarketplaceHome } from './components/digital/DigitalMarketplaceHome';
+import { FreelanceMarketplaceHome } from './components/freelance/FreelanceMarketplaceHome';
+import { MobileSellerPortalView } from './components/seller/MobileSellerPortalView';
+import { MobileBuyerStorefrontView } from './components/buyer/MobileBuyerStorefrontView';
+import { DeviceFrameWrapper } from './components/common/DeviceFrameWrapper';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<
@@ -59,22 +75,41 @@ export default function App() {
     | 'bi_analytics'
     | 'security_fraud'
     | 'super_admin'
+    | 'security_iam'
+    | 'ai_gateway'
+    | 'performance_scale'
+    | 'marketplace_core'
     | 'settings_center'
     | 'file_manager'
     | 'logs_center'
     | 'affiliate'
     | 'supplier'
     | 'delivery'
+    | 'trust_safety'
   >('catalog');
 
   const [currentPortal, setCurrentPortal] = useState<PortalRole>('buyer');
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
+  const [marketplaceMode, setMarketplaceMode] = useState<MarketplaceMode>('physical');
+  const [isPhoneFrame, setIsPhoneFrame] = useState<boolean>(false);
+  const [storefrontViewMode, setStorefrontViewMode] = useState<'storefront' | 'console'>('storefront');
+  const [sellerViewMode, setSellerViewMode] = useState<'mobile_app' | 'portal'>('mobile_app');
 
 
   // Commerce Zon Role & Customization State
   const [currentRole, setCurrentRole] = useState<CommerceZonRole>('BUYER');
   const [deliverLocation, setDeliverLocation] = useState<string>('New York 10001, US');
-  const [currency, setCurrency] = useState<string>('USD');
+  const {
+    currency,
+    setCurrency,
+    activeCurrencyDef,
+    activeLanguageDef,
+    activeCountryDef,
+    formatPrice,
+    convertAmount,
+    t,
+    isRTL,
+  } = useI18n();
   const [primeMember, setPrimeMember] = useState<boolean>(true);
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
 
@@ -191,6 +226,12 @@ export default function App() {
       }
       return [...prev, { product, quantity: 1 }];
     });
+    sellerAnalyticsClient.trackEvent({
+      eventType: 'add_to_cart',
+      productId: product.id,
+      merchantId: product.merchant?.id,
+      source: 'cart',
+    });
     setIsCartOpen(true);
   };
 
@@ -202,7 +243,11 @@ export default function App() {
       transactions: [
         {
           id: `tx-${Date.now()}`,
-          type: 'TOPUP',
+          userId: 'usr-03',
+          userName: 'Alex Buyer',
+          walletType: 'BUYER',
+          currency: 'USD',
+          type: 'TOPUP' as any,
           amount,
           description,
           timestamp: new Date().toISOString(),
@@ -450,8 +495,18 @@ export default function App() {
     if (cart.length === 0) return;
     setCheckoutError(null);
 
+    if (!isShippingSupported) {
+      setCheckoutError(
+        unsupportedShippingReason || `Destination country '${activeCountryDef.code}' is outside Commerce Zon authorized delivery network.`
+      );
+      return;
+    }
+
+    const chosenQuote = shippingQuotes.find((q) => q.method === selectedShippingMethod) || shippingQuotes[0];
+    const shippingCostUSD = chosenQuote ? chosenQuote.costUSD : 0;
     const subtotal = cart.reduce((sum, item) => sum + item.product.price.amount * item.quantity, 0);
-    const estimatedTotal = Math.round((subtotal * 1.08) * 100) / 100;
+    const taxAmount = Math.round(subtotal * 0.08 * 100) / 100;
+    const estimatedTotal = Math.round((subtotal + taxAmount + shippingCostUSD) * 100) / 100;
 
     // Check balance if paying via Commerce Zone Pay Wallet
     if (paymentMethod === 'WALLET' && wallet.balance < estimatedTotal) {
@@ -467,6 +522,9 @@ export default function App() {
       customerName: 'Alexander Vance (Commerce Zone Member)',
       customerEmail: 'alexander@commercezone.mock',
       paymentMethod: paymentMethod === 'WALLET' ? 'COMMERCE_ZONE_PAY_WALLET' : 'CREDIT_CARD',
+      shippingMethod: selectedShippingMethod,
+      shippingCostUSD,
+      destinationCountry: activeCountryDef.code,
     };
 
     try {
@@ -492,7 +550,11 @@ export default function App() {
             transactions: [
               {
                 id: `tx-${Date.now()}-c`,
-                type: 'CASHBACK',
+                userId: 'usr-03',
+                userName: 'Alex Buyer',
+                walletType: 'BUYER',
+                currency: 'USD',
+                type: 'CASHBACK' as any,
                 amount: cashbackEarnedOnOrder,
                 description: `2% Cashback Reward for Order ${createdOrder.orderNumber}`,
                 timestamp: new Date().toISOString(),
@@ -500,7 +562,11 @@ export default function App() {
               },
               {
                 id: `tx-${Date.now()}`,
-                type: 'PURCHASE',
+                userId: 'usr-03',
+                userName: 'Alex Buyer',
+                walletType: 'BUYER',
+                currency: 'USD',
+                type: 'PURCHASE' as any,
                 amount: createdOrder.total.amount,
                 description: `Payment for Order ${createdOrder.orderNumber} via Commerce Zone Pay`,
                 timestamp: new Date().toISOString(),
@@ -582,6 +648,55 @@ export default function App() {
     0
   );
 
+  // Part 17: Global Shipping & Logistics Rates State
+  const [shippingQuotes, setShippingQuotes] = useState<ShippingRateQuote[]>([]);
+  const [selectedShippingMethod, setSelectedShippingMethod] = useState<string>('STANDARD');
+  const [isShippingSupported, setIsShippingSupported] = useState<boolean>(true);
+  const [unsupportedShippingReason, setUnsupportedShippingReason] = useState<string | null>(null);
+  const [isCalculatingShipping, setIsCalculatingShipping] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      setShippingQuotes([]);
+      setIsShippingSupported(true);
+      setUnsupportedShippingReason(null);
+      return;
+    }
+
+    const calcRates = async () => {
+      setIsCalculatingShipping(true);
+      try {
+        const totalWeightKg = cart.reduce(
+          (w, item) => w + (item.product.shippingWeightKg || 0.8) * item.quantity,
+          0
+        );
+        const res = await shippingFulfillmentClient.calculateRates({
+          destinationCountry: activeCountryDef.code,
+          subtotalUSD: cartSubtotal,
+          totalWeightKg,
+          isPrime: primeMember,
+        });
+
+        setIsShippingSupported(res.isSupportedDestination);
+        setUnsupportedShippingReason(res.unsupportedReason || null);
+        setShippingQuotes(res.quotes);
+
+        if (res.quotes.length > 0) {
+          const matching = res.quotes.find((q) => q.method === selectedShippingMethod);
+          if (!matching) {
+            setSelectedShippingMethod(res.quotes[0].method);
+          }
+        }
+      } catch (err) {
+        console.error('Shipping calculation error:', err);
+      } finally {
+        setIsCalculatingShipping(false);
+      }
+    };
+
+    calcRates();
+  }, [cartSubtotal, activeCountryDef.code, primeMember, cart.length]);
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-[#febd69] selection:text-slate-950">
       {/* Top Enterprise Role Portal Header Strip */}
@@ -604,9 +719,38 @@ export default function App() {
         setSelectedCategory={setSelectedCategory}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
-        onSearchSubmit={() => {
+        onSearchSubmit={async () => {
+          if (activeTab !== 'catalog') {
+            setActiveTab('catalog');
+          }
           if (searchTerm.trim()) {
-            handleAISearch(searchTerm);
+            try {
+              const queryUrl = `/api/products/search?q=${encodeURIComponent(searchTerm.trim())}${
+                selectedCategory !== 'all' ? `&category=${encodeURIComponent(selectedCategory)}` : ''
+              }`;
+              const res = await fetch(queryUrl);
+              if (res.ok) {
+                const data = await res.json();
+                if (data.products) {
+                  setProducts(data.products);
+                  if (data.aiExplanation) setAiExplanation(data.aiExplanation);
+                  else setAiExplanation('');
+                }
+              }
+            } catch (e) {
+              console.error('Search submit fetch error:', e);
+            }
+          } else {
+            try {
+              const pRes = await fetch('/api/products');
+              if (pRes.ok) {
+                const d = await pRes.json();
+                if (d.products) setProducts(d.products);
+              }
+              setAiExplanation('');
+            } catch (e) {
+              console.error('Reset products error:', e);
+            }
           }
         }}
         walletBalance={wallet.balance}
@@ -614,6 +758,8 @@ export default function App() {
         currentRole={currentRole}
         currency={currency}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        marketplaceMode={marketplaceMode}
+        onSelectMarketplaceMode={setMarketplaceMode}
       />
 
       {/* Command Palette Search Modal */}
@@ -623,24 +769,115 @@ export default function App() {
         onNavigateTab={setActiveTab}
       />
 
-      {/* Primary Workspace */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {activeTab === 'catalog' && (
-          <ProductCatalogMasterModule
-            products={products}
-            onAddToCart={handleAddToCart}
-            onAISearch={handleAISearch}
-            aiSearching={aiSearching}
-            aiExplanation={aiExplanation}
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            onUpdateProduct={(updatedProd) =>
-              setProducts((prev) => prev.map((p) => (p.id === updatedProd.id ? updatedProd : p)))
-            }
-          />
-        )}
+      {/* Primary Workspace: Mode 3 Freelancer OR Mode 2 Digital Marketplace OR Mode 1 Physical Marketplace */}
+      {marketplaceMode === 'freelancer' ? (
+        <FreelanceMarketplaceHome
+          walletBalance={wallet.balance}
+          onSwitchToPhysical={() => setMarketplaceMode('physical')}
+          onSwitchToDigital={() => setMarketplaceMode('digital')}
+        />
+      ) : marketplaceMode === 'digital' ? (
+        <DigitalMarketplaceHome
+          walletBalance={wallet.balance}
+          onSwitchToPhysical={() => setMarketplaceMode('physical')}
+        />
+      ) : (
+        <DeviceFrameWrapper
+          isPhoneFrame={isPhoneFrame}
+          onTogglePhoneFrame={setIsPhoneFrame}
+        >
+          <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {activeTab === 'catalog' && (
+              <div className="space-y-4">
+                {/* Storefront View Mode Switcher (Reference 1 Buyer Storefront vs Module 8 Console) */}
+                <div className="flex items-center justify-between bg-slate-900 border border-slate-800 px-4 py-2 rounded-2xl text-xs">
+                  <div className="flex items-center space-x-2">
+                    <span className="font-extrabold text-white text-xs">Buyer Layout:</span>
+                    <span className="text-[11px] text-slate-400">
+                      {storefrontViewMode === 'storefront' ? 'Clean Consumer Storefront (Noon / Dribbble)' : 'Module 8 Enterprise Operations Console'}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      type="button"
+                      onClick={() => setStorefrontViewMode('storefront')}
+                      className={`px-3 py-1 rounded-xl text-xs font-bold transition ${
+                        storefrontViewMode === 'storefront'
+                          ? 'bg-[#febd69] text-slate-950 shadow'
+                          : 'bg-slate-800 text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      🛍️ Storefront View
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setStorefrontViewMode('console')}
+                      className={`px-3 py-1 rounded-xl text-xs font-bold transition ${
+                        storefrontViewMode === 'console'
+                          ? 'bg-amber-400 text-slate-950 shadow'
+                          : 'bg-slate-800 text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      ⚙️ Operations Console
+                    </button>
+                  </div>
+                </div>
+
+                {storefrontViewMode === 'storefront' ? (
+                  <MobileBuyerStorefrontView
+                    products={filteredProducts}
+                    onAddToCart={handleAddToCart}
+                    onOpenCart={() => setIsCartOpen(true)}
+                    cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    onSearchSubmit={async () => {
+                      if (searchTerm.trim()) {
+                        try {
+                          const queryUrl = `/api/products/search?q=${encodeURIComponent(searchTerm.trim())}${
+                            selectedCategory !== 'all' ? `&category=${encodeURIComponent(selectedCategory)}` : ''
+                          }`;
+                          const res = await fetch(queryUrl);
+                          if (res.ok) {
+                            const data = await res.json();
+                            if (data.products) {
+                              setProducts(data.products);
+                              if (data.aiExplanation) setAiExplanation(data.aiExplanation);
+                              else setAiExplanation('');
+                            }
+                          }
+                        } catch (e) {
+                          console.error('Search submit fetch error:', e);
+                        }
+                      }
+                    }}
+                    deliverLocation={deliverLocation}
+                    marketplaceMode={marketplaceMode}
+                    onSelectMarketplaceMode={setMarketplaceMode}
+                    onNavigateOrders={() => setActiveTab('orders')}
+                    onOpenSettings={() => setIsSettingsOpen(true)}
+                    walletBalance={wallet.balance}
+                  />
+                ) : (
+                  <ProductCatalogMasterModule
+                    products={products}
+                    onAddToCart={handleAddToCart}
+                    onAISearch={handleAISearch}
+                    aiSearching={aiSearching}
+                    aiExplanation={aiExplanation}
+                    selectedCategory={selectedCategory}
+                    setSelectedCategory={setSelectedCategory}
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    onUpdateProduct={(updatedProd) =>
+                      setProducts((prev) => prev.map((p) => (p.id === updatedProd.id ? updatedProd : p)))
+                    }
+                  />
+                )}
+              </div>
+            )}
 
         {activeTab === 'settings_center' && (
           <UniversalSettingsCenter />
@@ -673,7 +910,7 @@ export default function App() {
         {activeTab === 'payments' && (
           <PaymentGatewayMasterModule
             walletBalance={wallet.balance}
-            onTopUpWallet={handleTopUpWallet}
+            onTopUpWallet={(amt: number) => handleTopUpWallet(amt, 'Wallet Top-Up')}
             cartItems={cart.map((i) => ({
               id: i.product.id,
               productTitle: i.product.title,
@@ -722,8 +959,29 @@ export default function App() {
           <SecurityMasterModule />
         )}
 
+        {/* PART 15: TRUST, SAFETY, FRAUD PREVENTION & DISPUTE RESOLUTION */}
+        {activeTab === 'trust_safety' && (
+          <TrustSafetyMasterModule currentRole={currentRole} onNavigateOrders={() => setActiveTab('orders')} />
+        )}
+
         {activeTab === 'super_admin' && (
           <SuperAdminMasterModule />
+        )}
+
+        {activeTab === 'security_iam' && (
+          <EnterpriseSecurityHub />
+        )}
+
+        {activeTab === 'ai_gateway' && (
+          <EnterpriseAIGatewayHub />
+        )}
+
+        {activeTab === 'performance_scale' && (
+          <EnterprisePerformanceHub />
+        )}
+
+        {activeTab === 'marketplace_core' && (
+          <EnterpriseMarketplaceCoreHub />
         )}
 
         {activeTab === 'wallet' && (
@@ -743,13 +1001,62 @@ export default function App() {
         )}
 
         {activeTab === 'vendor' && (
-          <VendorStorePortal
-            merchants={merchants}
-            products={products}
-            orders={orders}
-            onAddMerchant={handleAddMerchant}
-            onAddProduct={handleAddProduct}
-          />
+          <div className="space-y-4">
+            {/* Seller Experience Mode Switcher (Reference 2 Mobile Seller App vs Desktop Vendor Portal) */}
+            <div className="flex items-center justify-between bg-slate-900 border border-slate-800 px-4 py-2.5 rounded-2xl text-xs">
+              <div className="flex items-center space-x-2">
+                <span className="font-extrabold text-white text-xs">Seller View:</span>
+                <span className="text-[11px] text-slate-400">
+                  {sellerViewMode === 'mobile_app' ? 'Mobile Seller App (Reference 2 · 5 Tabs & Dual Form)' : 'Multi-Store Desktop Vendor Portal'}
+                </span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setSellerViewMode('mobile_app')}
+                  className={`px-3 py-1 rounded-xl text-xs font-bold transition ${
+                    sellerViewMode === 'mobile_app'
+                      ? 'bg-[#febd69] text-slate-950 shadow'
+                      : 'bg-slate-800 text-slate-300 hover:text-white'
+                  }`}
+                >
+                  📱 Mobile Seller App
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSellerViewMode('portal')}
+                  className={`px-3 py-1 rounded-xl text-xs font-bold transition ${
+                    sellerViewMode === 'portal'
+                      ? 'bg-amber-400 text-slate-950 shadow'
+                      : 'bg-slate-800 text-slate-300 hover:text-white'
+                  }`}
+                >
+                  💻 Desktop Vendor Portal
+                </button>
+              </div>
+            </div>
+
+            {sellerViewMode === 'mobile_app' ? (
+              <MobileSellerPortalView
+                products={products}
+                orders={orders}
+                walletBalance={wallet.balance}
+                onAddProduct={handleAddProduct}
+                onNavigateHome={() => {
+                  setCurrentPortal('buyer');
+                  setActiveTab('catalog');
+                }}
+              />
+            ) : (
+              <VendorStorePortal
+                merchants={merchants}
+                products={products}
+                orders={orders}
+                onAddMerchant={handleAddMerchant}
+                onAddProduct={handleAddProduct}
+              />
+            )}
+          </div>
         )}
 
         {activeTab === 'warehouses' && (
@@ -783,8 +1090,9 @@ export default function App() {
           />
         )}
 
-      </main>
-
+          </main>
+        </DeviceFrameWrapper>
+      )}
 
       {/* System Footer */}
       <footer className="bg-slate-900 border-t border-slate-800 py-6 px-4 sm:px-8 text-xs text-slate-400">
@@ -843,33 +1151,49 @@ export default function App() {
                     <span>Qualifies for FREE Commerce Zone Express Fulfillment!</span>
                   </div>
 
-                  {cart.map((item) => (
-                    <div
-                      key={item.product.id}
-                      className="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center justify-between space-x-3"
-                    >
-                      <img src={item.product?.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80'} alt="" className="w-12 h-12 rounded object-cover bg-slate-900 shrink-0" />
-                      <div className="space-y-1 flex-1 min-w-0">
-                        <div className="font-bold text-white text-xs truncate">{item.product.title}</div>
-                        <div className="text-[10px] text-slate-400">Vendor: {item.product.merchant.name}</div>
-                        <div className="text-xs text-emerald-400 font-bold font-mono">
-                          ${item.product.price.amount.toFixed(2)}
+                  {cart.map((item) => {
+                    const priceInfo = formatPrice(
+                      item.product.price.amount,
+                      (item.product.price.currency as any) || 'USD'
+                    );
+                    return (
+                      <div
+                        key={item.product.id}
+                        className="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center justify-between space-x-3"
+                      >
+                        <img src={item.product?.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80'} alt="" className="w-12 h-12 rounded object-cover bg-slate-900 shrink-0" />
+                        <div className="space-y-1 flex-1 min-w-0">
+                          <div className="font-bold text-white text-xs truncate">{item.product.title}</div>
+                          <div className="text-[10px] text-slate-400">Vendor: {item.product.merchant.name}</div>
+                          <div className="flex items-baseline space-x-1.5">
+                            <span className="text-xs text-emerald-400 font-bold font-mono">
+                              {priceInfo.formattedConverted}
+                            </span>
+                            {priceInfo.isConverted && (
+                              <span className="text-[10px] text-amber-400 font-mono">
+                                ({priceInfo.formattedOriginal})
+                              </span>
+                            )}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <span className="text-xs font-bold text-slate-950 font-mono bg-[#febd69] px-2 py-0.5 rounded-full">
+                            Qty: {item.quantity}
+                          </span>
                         </div>
                       </div>
-
-                      <div className="flex items-center space-x-2">
-                        <span className="text-xs font-bold text-slate-950 font-mono bg-[#febd69] px-2 py-0.5 rounded-full">
-                          Qty: {item.quantity}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
 
             {cart.length > 0 && (
               <div className="pt-4 border-t border-slate-800 space-y-4">
+                {/* Part 12: Complementary Verified Add-ons Widget for Cart Items */}
+                <ComplementaryCartWidget cart={cart} onAddToCart={handleAddToCart} />
+
                 {/* Select Payment Method */}
                 <div className="bg-slate-950 border border-slate-800 rounded-2xl p-3.5 space-y-3">
                   <div className="text-xs font-bold text-slate-300 flex items-center space-x-1.5">
@@ -918,33 +1242,141 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="space-y-1.5 text-xs">
-                  <div className="flex justify-between text-slate-400">
-                    <span>Subtotal ({cart.reduce((s, i) => s + i.quantity, 0)} items)</span>
-                    <span className="font-mono text-white">${cartSubtotal.toFixed(2)} USD</span>
-                  </div>
-                  <div className="flex justify-between text-slate-400">
-                    <span>Shipping & Handling</span>
-                    <span className="font-mono text-emerald-400">FREE</span>
-                  </div>
-                  <div className="flex justify-between text-slate-400">
-                    <span>Estimated Tax (8%)</span>
-                    <span className="font-mono text-white">
-                      ${(cartSubtotal * 0.08).toFixed(2)} USD
+                {/* Destination Country & Shipping Methods (Part 17) */}
+                <div className="space-y-2 border-t border-slate-800 pt-3">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-300 flex items-center space-x-1.5">
+                      <Truck className="w-3.5 h-3.5 text-[#febd69]" />
+                      <span>Delivery Method ({activeCountryDef.name} {activeCountryDef.flag})</span>
                     </span>
+                    {isCalculatingShipping && (
+                      <span className="text-[10px] text-amber-400 font-mono animate-pulse">Calculating rates...</span>
+                    )}
                   </div>
-                  <div className="flex justify-between text-base font-extrabold text-white pt-2 border-t border-slate-800">
-                    <span>Order Total</span>
-                    <span className="font-mono text-amber-400">
-                      ${(cartSubtotal * 1.08).toFixed(2)} USD
-                    </span>
-                  </div>
-                  {paymentMethod === 'WALLET' && (
-                    <div className="text-[11px] text-emerald-400 font-bold text-right">
-                      🎁 You will earn +${((cartSubtotal * 1.08) * 0.02).toFixed(2)} cashback!
+
+                  {!isShippingSupported ? (
+                    <div className="p-3 bg-rose-950/70 border border-rose-800 rounded-xl text-rose-300 text-xs space-y-1">
+                      <div className="flex items-center space-x-1.5 font-bold">
+                        <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+                        <span>Unsupported Destination</span>
+                      </div>
+                      <p className="text-[11px] leading-relaxed">
+                        {unsupportedShippingReason || `Country '${activeCountryDef.code}' is currently outside Commerce Zon authorized delivery network.`}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-1.5">
+                      {shippingQuotes.map((q) => {
+                        const isSelected = selectedShippingMethod === q.method;
+                        const quotePrice = formatPrice(q.costUSD, 'USD');
+
+                        return (
+                          <button
+                            key={q.method}
+                            type="button"
+                            onClick={() => setSelectedShippingMethod(q.method)}
+                            className={`w-full p-2.5 rounded-xl border text-left flex items-center justify-between transition ${
+                              isSelected
+                                ? 'bg-amber-500/10 border-[#febd69] text-white shadow'
+                                : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                            }`}
+                          >
+                            <div className="space-y-0.5">
+                              <div className="flex items-center space-x-2">
+                                <span className="font-bold text-xs text-white">{q.name}</span>
+                                {q.isFree && (
+                                  <span className="px-1.5 py-0.2 bg-emerald-500/20 text-emerald-300 text-[9px] font-black rounded border border-emerald-500/40">
+                                    FREE
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-[10px] text-slate-400">
+                                {q.carrierName} • Est: {q.estimatedDays}
+                              </div>
+                            </div>
+
+                            <div className="text-right">
+                              <span className="font-mono text-xs font-bold text-white">
+                                {q.isFree ? 'FREE' : quotePrice.formattedConverted}
+                              </span>
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
+
+                {(() => {
+                  const chosenQuote = shippingQuotes.find((q) => q.method === selectedShippingMethod) || shippingQuotes[0];
+                  const shippingCostUSD = chosenQuote ? chosenQuote.costUSD : 0;
+                  const subtotalInfo = formatPrice(cartSubtotal, 'USD');
+                  const taxAmount = cartSubtotal * 0.08;
+                  const taxInfo = formatPrice(taxAmount, 'USD');
+                  const shippingInfo = formatPrice(shippingCostUSD, 'USD');
+                  const orderTotal = cartSubtotal + taxAmount + shippingCostUSD;
+                  const totalInfo = formatPrice(orderTotal, 'USD');
+
+                  return (
+                    <div className="space-y-1.5 text-xs pt-2">
+                      <div className="flex justify-between text-slate-400">
+                        <span>{t('checkout.subtotal', 'Items Subtotal')} ({cart.reduce((s, i) => s + i.quantity, 0)} items)</span>
+                        <div className="text-right">
+                          <span className="font-mono text-white font-bold">{subtotalInfo.formattedConverted}</span>
+                          {subtotalInfo.isConverted && (
+                            <span className="text-[10px] text-slate-500 font-mono block">({subtotalInfo.formattedOriginal} USD)</span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-slate-400">
+                        <span>{t('checkout.shipping', 'Shipping & Handling')} ({chosenQuote?.name || 'Standard'})</span>
+                        <span className="font-mono text-white font-bold">
+                          {shippingCostUSD === 0 ? (
+                            <span className="text-emerald-400">FREE</span>
+                          ) : (
+                            shippingInfo.formattedConverted
+                          )}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-slate-400">
+                        <span>{t('checkout.tax', 'Estimated Sales Tax')} (8%)</span>
+                        <span className="font-mono text-white">
+                          {taxInfo.formattedConverted}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-base font-extrabold text-white pt-2 border-t border-slate-800">
+                        <span>{t('checkout.total', 'Order Grand Total')}</span>
+                        <div className="text-right">
+                          <span className="font-mono text-amber-400 font-black text-lg block">
+                            {totalInfo.formattedConverted}
+                          </span>
+                          {totalInfo.isConverted && (
+                            <span className="text-[11px] text-amber-400/90 font-mono block">
+                              Settled as {totalInfo.formattedOriginal} USD
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Transaction Currency Notice */}
+                      <div className="p-2.5 bg-slate-900 border border-slate-800 rounded-xl text-[10px] text-slate-400 space-y-1 mt-2">
+                        <div className="flex items-center space-x-1 text-slate-300 font-semibold">
+                          <Lock className="w-3 h-3 text-amber-400" />
+                          <span>Transaction Currency Safety Notice</span>
+                        </div>
+                        <p className="leading-relaxed">
+                          {t('checkout.transactionCurrencyNote', 'Transaction will be processed and settled in {currency}. Displayed estimate is based on treasury exchange rates.', { currency: 'USD' })}
+                        </p>
+                      </div>
+
+                      {paymentMethod === 'WALLET' && (
+                        <div className="text-[11px] text-emerald-400 font-bold text-right pt-1">
+                          🎁 You will earn +${((orderTotal) * 0.02).toFixed(2)} USD cashback!
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
 
                 {checkoutError && (
                   <div className="p-3 bg-red-950/80 border border-red-800 text-red-300 rounded-xl text-xs font-semibold">
@@ -954,10 +1386,18 @@ export default function App() {
 
                 <button
                   onClick={handleCheckout}
-                  className="w-full py-3 bg-[#ffd814] hover:bg-[#f7ca00] text-slate-950 font-extrabold text-xs rounded-full border border-[#fcd200] transition shadow-lg flex items-center justify-center space-x-2"
+                  disabled={!isShippingSupported}
+                  className="w-full py-3 bg-[#ffd814] hover:bg-[#f7ca00] text-slate-950 font-extrabold text-xs rounded-full border border-[#fcd200] transition shadow-lg flex items-center justify-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   <Lock className="w-4 h-4 text-slate-900" />
-                  <span>Pay ${(cartSubtotal * 1.08).toFixed(2)} via Commerce Zone</span>
+                  <span>
+                    {!isShippingSupported
+                      ? 'Destination Unsupported'
+                      : `${t('checkout.payNow', 'Pay Now')} (${formatPrice(
+                          (cartSubtotal * 1.08) + (shippingQuotes.find((q) => q.method === selectedShippingMethod)?.costUSD || 0),
+                          'USD'
+                        ).formattedConverted})`}
+                  </span>
                 </button>
               </div>
             )}
@@ -1022,7 +1462,7 @@ export default function App() {
           else setActiveTab('catalog');
         }}
         currentCurrency={currency}
-        onCurrencyChange={(curr) => setCurrency(curr)}
+        onCurrencyChange={(curr) => setCurrency(curr as any)}
         deliverLocation={deliverLocation}
         onDeliverLocationChange={(loc) => setDeliverLocation(loc)}
         primeMember={primeMember}

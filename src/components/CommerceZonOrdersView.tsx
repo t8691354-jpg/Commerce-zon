@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Order } from '../types/domain';
-import { Package, Truck, CheckCircle2, RotateCcw, Clock, ArrowRight, ShieldCheck, Search, Filter, ShoppingBag } from 'lucide-react';
+import { Package, Truck, CheckCircle2, RotateCcw, Clock, Search, ShoppingBag } from 'lucide-react';
 
 interface CommerceZonOrdersViewProps {
   orders: Order[];
@@ -16,14 +16,15 @@ export const CommerceZonOrdersView: React.FC<CommerceZonOrdersViewProps> = ({
   const [filter, setFilter] = useState<'ALL' | 'SHIPPED' | 'DELIVERED' | 'PROCESSING'>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredOrders = orders.filter((ord) => {
-    if (filter !== 'ALL' && ord.fulfillmentStatus !== filter) return false;
+  const filteredOrders = orders.filter((ord: any) => {
+    const status = ord.fulfillmentStatus || ord.status;
+    if (filter !== 'ALL' && status !== filter) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       return (
         ord.orderNumber.toLowerCase().includes(q) ||
-        ord.customerName.toLowerCase().includes(q) ||
-        ord.items.some((i) => i.product.title.toLowerCase().includes(q))
+        (ord.customerName && ord.customerName.toLowerCase().includes(q)) ||
+        ord.items.some((i: any) => (i.product?.title || i.productName || '').toLowerCase().includes(q))
       );
     }
     return true;
@@ -95,9 +96,12 @@ export const CommerceZonOrdersView: React.FC<CommerceZonOrdersViewProps> = ({
         </div>
       ) : (
         <div className="space-y-4">
-          {filteredOrders.map((order) => {
-            const isDelivered = order.fulfillmentStatus === 'DELIVERED';
-            const isShipped = order.fulfillmentStatus === 'SHIPPED';
+          {filteredOrders.map((order: any) => {
+            const status = order.fulfillmentStatus || order.status;
+            const isDelivered = status === 'DELIVERED';
+            const isShipped = status === 'SHIPPED';
+            const orderDate = order.timestamp || order.createdAt || new Date().toISOString();
+            const totalAmount = order.total?.amount || order.totalAmount || 0;
 
             return (
               <div
@@ -109,17 +113,17 @@ export const CommerceZonOrdersView: React.FC<CommerceZonOrdersViewProps> = ({
                   <div className="flex items-center space-x-6">
                     <div>
                       <div className="text-[10px] text-slate-400 uppercase">ORDER PLACED</div>
-                      <div className="text-white font-bold">{new Date(order.timestamp).toLocaleDateString()}</div>
+                      <div className="text-white font-bold">{new Date(orderDate).toLocaleDateString()}</div>
                     </div>
 
                     <div>
                       <div className="text-[10px] text-slate-400 uppercase">TOTAL</div>
-                      <div className="text-emerald-400 font-bold">${order.total.amount.toFixed(2)} USD</div>
+                      <div className="text-emerald-400 font-bold">${Number(totalAmount).toFixed(2)} USD</div>
                     </div>
 
                     <div>
                       <div className="text-[10px] text-slate-400 uppercase">SHIP TO</div>
-                      <div className="text-white font-bold">{order.customerName}</div>
+                      <div className="text-white font-bold">{order.customerName || 'Alex Buyer'}</div>
                     </div>
                   </div>
 
@@ -156,56 +160,63 @@ export const CommerceZonOrdersView: React.FC<CommerceZonOrdersViewProps> = ({
                     </div>
 
                     <div className="text-xs font-mono text-slate-400">
-                      Fraud Score: <span className="text-blue-400 font-bold">{order.fraudRiskScore}/100</span>
+                      Fraud Score: <span className="text-blue-400 font-bold">{order.fraudRiskScore || 5}/100</span>
                     </div>
                   </div>
 
                   {/* Order Items */}
                   <div className="space-y-3">
-                    {order.items.map((item, idx) => (
-                      <div key={idx} className="flex items-center justify-between gap-4 p-3 bg-slate-950 border border-slate-800/80 rounded-xl">
-                        <div className="flex items-center space-x-3">
-                          <img
-                            src={item.product?.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80'}
-                            alt={item.product?.title || 'Product'}
-                            className="w-14 h-14 object-cover rounded-lg bg-slate-900 border border-slate-800"
-                          />
-                          <div>
-                            <div className="text-xs font-bold text-white hover:text-[#febd69] transition cursor-pointer">
-                              {item.product?.title || 'Marketplace Item'}
-                            </div>
-                            <div className="text-[10px] text-slate-400 mt-0.5">
-                              Sold by: <span className="text-slate-300 font-semibold">{item.product?.merchant?.name || 'Verified Vendor'}</span>
-                            </div>
-                            <div className="text-xs text-emerald-400 font-mono font-bold mt-1">
-                              ${item.price.amount.toFixed(2)} x {item.quantity}
+                    {order.items.map((item: any, idx: number) => {
+                      const itemTitle = item.product?.title || item.productName || 'Marketplace Item';
+                      const itemImage = item.product?.images?.[0] || 'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=800&q=80';
+                      const merchantName = item.product?.merchant?.name || 'Verified Vendor';
+                      const unitPrice = item.price?.amount || item.unitPrice || 0;
+
+                      return (
+                        <div key={idx} className="flex items-center justify-between gap-4 p-3 bg-slate-950 border border-slate-800/80 rounded-xl">
+                          <div className="flex items-center space-x-3">
+                            <img
+                              src={itemImage}
+                              alt={itemTitle}
+                              className="w-14 h-14 object-cover rounded-lg bg-slate-900 border border-slate-800"
+                            />
+                            <div>
+                              <div className="text-xs font-bold text-white hover:text-[#febd69] transition cursor-pointer">
+                                {itemTitle}
+                              </div>
+                              <div className="text-[10px] text-slate-400 mt-0.5">
+                                Sold by: <span className="text-slate-300 font-semibold">{merchantName}</span>
+                              </div>
+                              <div className="text-xs text-emerald-400 font-mono font-bold mt-1">
+                                ${Number(unitPrice).toFixed(2)} x {item.quantity}
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className="flex items-center space-x-2 shrink-0">
-                          {onReorder && (
-                            <button
-                              onClick={() => onReorder(order)}
-                              className="px-3 py-1.5 bg-[#febd69] hover:bg-[#f3a847] text-slate-950 text-xs font-extrabold rounded-lg transition shadow flex items-center space-x-1"
-                            >
-                              <ShoppingBag className="w-3.5 h-3.5" />
-                              <span>Buy it Again</span>
-                            </button>
-                          )}
+                          <div className="flex items-center space-x-2 shrink-0">
+                            {onReorder && (
+                              <button
+                                onClick={() => onReorder(order)}
+                                className="px-3 py-1.5 bg-[#febd69] hover:bg-[#f3a847] text-slate-950 text-xs font-extrabold rounded-lg transition shadow flex items-center space-x-1"
+                              >
+                                <ShoppingBag className="w-3.5 h-3.5" />
+                                <span>Buy it Again</span>
+                              </button>
+                            )}
 
-                          {onInitiateReturn && (
-                            <button
-                              onClick={() => onInitiateReturn(order.id)}
-                              className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center space-x-1"
-                            >
-                              <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
-                              <span>Return Item</span>
-                            </button>
-                          )}
+                            {onInitiateReturn && (
+                              <button
+                                onClick={() => onInitiateReturn(order.id)}
+                                className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition flex items-center space-x-1"
+                              >
+                                <RotateCcw className="w-3.5 h-3.5 text-amber-400" />
+                                <span>Return Item</span>
+                              </button>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               </div>
