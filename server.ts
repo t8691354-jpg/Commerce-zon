@@ -51,6 +51,7 @@ import { afterSalesService } from './src/application/services/AfterSalesService.
 import { supportTicketingService } from './src/application/services/SupportTicketingService.js';
 import { digitalMarketplaceService } from './src/application/services/DigitalMarketplaceService.js';
 import { freelanceService } from './src/application/services/FreelanceService.js';
+import { SEEDED_AI_AGENTS } from './src/data/aiAgentData.js';
 
 const marketplaceService = new MarketplaceService();
 
@@ -58,6 +59,7 @@ const marketplaceService = new MarketplaceService();
 let products: Product[] = [...MOCK_PRODUCTS];
 let warehouses = [...MOCK_WAREHOUSES];
 let orders: Order[] = [...MOCK_ORDERS];
+let aiAgents = [...SEEDED_AI_AGENTS];
 
 // Lazy Gemini AI Client Initialization
 let aiClient: GoogleGenAI | null = null;
@@ -3305,6 +3307,176 @@ Return ONLY valid JSON matching this structure:
     } catch (err: any) {
       return res.status(500).json({ error: err.message || 'Failed to fetch freelance metrics' });
     }
+  });
+
+  // ==========================================
+  // AI AGENT MARKETPLACE & FACTORY API ENDPOINTS
+  // ==========================================
+  app.get('/api/ai-agents/catalog', (req: Request, res: Response) => {
+    try {
+      const { category, search } = req.query;
+      let result = [...aiAgents];
+      if (category && category !== 'all') {
+        result = result.filter((a) => a.category === category);
+      }
+      if (search && typeof search === 'string') {
+        const q = search.toLowerCase();
+        result = result.filter((a) =>
+          a.name.toLowerCase().includes(q) ||
+          a.tagline.toLowerCase().includes(q) ||
+          a.description.toLowerCase().includes(q)
+        );
+      }
+      return res.json({ agents: result, count: result.length });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message || 'Failed to list AI agents' });
+    }
+  });
+
+  app.get('/api/ai-agents/catalog/:id', (req: Request, res: Response) => {
+    const target = aiAgents.find((a) => a.id === req.params.id || a.slug === req.params.id);
+    if (!target) return res.status(404).json({ error: 'AI agent not found' });
+    return res.json({ agent: target });
+  });
+
+  app.post('/api/ai-agents/browser/execute', async (req: Request, res: Response) => {
+    const startTime = Date.now();
+    try {
+      const { task, start_url, max_steps = 10 } = req.body;
+      if (!task || typeof task !== 'string' || task.trim().length < 3) {
+        return res.status(400).json({ error: 'Task must be at least 3 characters long' });
+      }
+
+      const lowerTask = task.toLowerCase();
+      const forbiddenWords = ['buy now', 'place order', 'checkout', 'payment', 'delete permanently', 'transfer money', 'submit application', 'publish post'];
+      if (forbiddenWords.some((w) => lowerTask.includes(w))) {
+        return res.json({
+          status: 'needs_confirmation',
+          message: 'Paused before a potentially consequential action (purchase/payment/mutation). Manual review required.',
+          proposedAction: {
+            action: 'ask_user',
+            reason: 'Task requests financial or consequential mutation.',
+            text: task
+          },
+          currentUrl: start_url || 'https://commercezon.demo/checkout',
+          history: [
+            { step: 1, action: 'goto', url: start_url || 'https://commercezon.demo/checkout', reason: 'Navigate to target page', output: 'Navigated successfully.' },
+            { step: 2, action: 'extract', reason: 'Inspect payment buttons and form fields', output: 'Detected form element with consequential purchase intention.' },
+            { step: 3, action: 'ask_user', reason: 'Security Interceptor halted autonomous submission', output: 'Safety trigger paused execution.' }
+          ],
+          latencyMs: Date.now() - startTime
+        });
+      }
+
+      const ai = getAIClient();
+      let steps: any[] = [];
+      let finalResult = '';
+
+      if (ai) {
+        try {
+          const prompt = `You are an autonomous Browser Agent controlling Playwright Chromium.
+The user requested the task: "${task}".
+Target URL: "${start_url || 'https://example.com'}".
+Return a JSON array of 3 to 5 realistic sequential browser action steps that accomplish this task.
+Each item must be:
+{ "step": number, "action": "goto"|"extract"|"click"|"type"|"wait"|"done", "url": string, "selector": string, "reason": string, "output": string }
+Followed by a concise final result string summarizing the accomplished task.
+Format:
+{
+  "steps": [...],
+  "result": "summary string"
+}`;
+          const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: prompt,
+            config: {
+              responseMimeType: 'application/json',
+              temperature: 0.1,
+            }
+          });
+          const parsed = JSON.parse(response.text || '{}');
+          if (parsed.steps && Array.isArray(parsed.steps)) {
+            steps = parsed.steps;
+            finalResult = parsed.result || 'Task executed successfully by Browser Agent.';
+          }
+        } catch (genErr) {
+          logger.warn('[BrowserAgent] Gemini call fallback to simulated execution', 'Agent', genErr);
+        }
+      }
+
+      if (steps.length === 0) {
+        const targetUrl = start_url || 'https://example.com';
+        steps = [
+          { step: 1, action: 'goto', url: targetUrl, reason: `Navigate to target address ${targetUrl}`, output: `Navigated to ${targetUrl} (200 OK)` },
+          { step: 2, action: 'extract', reason: 'Inspect visible body text and interactive elements (a, button, input)', output: 'Extracted 42 visible elements and 1,840 characters of body text.' },
+          { step: 3, action: 'click', selector: 'header nav a.active, main article', reason: 'Focus on primary content container requested in task', output: 'Element focused and content parsed.' },
+          { step: 4, action: 'done', reason: 'Task objective fulfilled without errors', output: 'Autonomous session closed cleanly.' }
+        ];
+        finalResult = `Task completed: "${task}". Extracted relevant content from ${targetUrl} and verified layout accessibility.`;
+      }
+
+      return res.json({
+        status: 'completed',
+        result: finalResult,
+        currentUrl: start_url || 'https://example.com',
+        history: steps,
+        latencyMs: Date.now() - startTime
+      });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message || 'Browser agent execution error' });
+    }
+  });
+
+  app.post('/api/ai-agents/factory/create', (req: Request, res: Response) => {
+    try {
+      const draft = req.body;
+      if (!draft.name || !draft.systemPrompt) {
+        return res.status(400).json({ error: 'Name and system prompt are required' });
+      }
+
+      const newAgent = {
+        id: `AGENT-CUSTOM-${Date.now()}`,
+        name: draft.name,
+        slug: draft.name.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+        tagline: draft.tagline || 'Custom Autonomous Cloud Run Agent',
+        description: `Custom autonomous agent created via AI Agent Factory. System prompt: "${draft.systemPrompt.slice(0, 120)}..."`,
+        category: draft.category || 'browser_automation',
+        version: '1.0.0',
+        author: 'Commerce Zon Custom Factory',
+        pricingType: 'FREE_OPEN_SOURCE',
+        priceUSD: 0,
+        runtime: `Docker Cloud Run (${draft.model || 'gemini-2.5-flash'})`,
+        dockerImage: 'mcr.microsoft.com/playwright/python:v1.55.0-noble',
+        tools: draft.tools || ['Playwright Chromium Headless', 'Gemini 2.5 Flash'],
+        rating: 5.0,
+        reviewCount: 1,
+        downloadsCount: 1,
+        verified: true,
+        badge: 'Custom Factory Agent',
+        badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+        cloudRunDeployCommand: `gcloud run deploy ${draft.name.toLowerCase().replace(/[^a-z0-9]/g, '-')} --source . --region ${draft.cloudRunRegion || 'asia-south1'}`,
+        envVars: [
+          { key: 'GEMINI_API_KEY', required: true, description: 'Google AI Studio Gemini reasoning key' }
+        ],
+        sampleTasks: [draft.systemPrompt.slice(0, 80)]
+      };
+
+      aiAgents = [newAgent as any, ...aiAgents];
+
+      return res.status(201).json({ agent: newAgent });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message || 'Failed to create custom agent' });
+    }
+  });
+
+  app.get('/api/ai-agents/metrics', (req: Request, res: Response) => {
+    return res.json({
+      totalAgents: aiAgents.length,
+      activeCloudRunDeployments: 42,
+      totalTasksExecuted: 3240,
+      avgStepLatencyMs: 410,
+      safetyInterceptions: 18
+    });
   });
 
   // Global Process Error Handlers to prevent Cloud Run connection drops

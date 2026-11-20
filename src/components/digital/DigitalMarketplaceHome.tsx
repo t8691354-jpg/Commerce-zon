@@ -156,18 +156,15 @@ export const DigitalMarketplaceHome: React.FC<DigitalMarketplaceHomeProps> = ({
             </button>
           </div>
 
-          {/* Quick Switcher Back to Physical */}
-          <div className="flex items-center space-x-2">
-            <span className="text-[11px] font-mono text-slate-400 hidden sm:inline">
-              Mode 2 of 4: Digital Marketplace
+          {/* Digital Delivery & Vault Indicator */}
+          <div className="flex items-center space-x-3 text-xs">
+            <span className="text-[11px] font-mono text-indigo-300 bg-indigo-950/60 border border-indigo-500/30 px-2.5 py-1 rounded-lg flex items-center space-x-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Instant Digital Delivery Active</span>
             </span>
-            <button
-              onClick={onSwitchToPhysical}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[#febd69] font-bold text-xs transition border border-slate-700 flex items-center space-x-1"
-            >
-              <span>Switch to Physical Market</span>
-              <ArrowRight className="w-3 h-3" />
-            </button>
+            <span className="text-slate-400 font-mono text-[11px]">
+              Vault: <strong className="text-white">{vaultCount} items</strong>
+            </span>
           </div>
         </div>
       </div>

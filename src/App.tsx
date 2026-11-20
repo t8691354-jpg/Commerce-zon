@@ -49,9 +49,11 @@ import { shippingFulfillmentClient } from './services/shippingFulfillmentClient'
 import { MarketplaceMode } from './types/marketplaceModes';
 import { DigitalMarketplaceHome } from './components/digital/DigitalMarketplaceHome';
 import { FreelanceMarketplaceHome } from './components/freelance/FreelanceMarketplaceHome';
+import { AIAgentMarketplaceHome } from './components/aiAgents/AIAgentMarketplaceHome';
 import { MobileSellerPortalView } from './components/seller/MobileSellerPortalView';
 import { MobileBuyerStorefrontView } from './components/buyer/MobileBuyerStorefrontView';
 import { DeviceFrameWrapper } from './components/common/DeviceFrameWrapper';
+import { MarketplaceTopNav } from './components/common/MarketplaceTopNav';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<
@@ -699,68 +701,80 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-[#febd69] selection:text-slate-950">
-      {/* Top Enterprise Role Portal Header Strip */}
-      <RolePortalHeaderBar
-        currentPortal={currentPortal}
-        onSelectPortal={handleSelectPortal}
-        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
-        onNavigateTab={setActiveTab}
-        activeTab={activeTab}
-      />
+      {/* Top Header Navigation: Isolated Top Nav for Non-Physical Marketplaces; Physical Amazon Header only for Physical Goods */}
+      {marketplaceMode !== 'physical' ? (
+        <MarketplaceTopNav
+          currentMode={marketplaceMode}
+          onSelectMode={setMarketplaceMode}
+          walletBalance={wallet.balance}
+          onOpenSettings={() => setIsSettingsOpen(true)}
+        />
+      ) : (
+        <>
+          {/* Top Enterprise Role Portal Header Strip */}
+          <RolePortalHeaderBar
+            currentPortal={currentPortal}
+            onSelectPortal={handleSelectPortal}
+            onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+            onNavigateTab={setActiveTab}
+            activeTab={activeTab}
+          />
 
-      {/* Header Bar */}
-      <MarketplaceHeader
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
-        onOpenCart={() => setIsCartOpen(true)}
-        serverStatus={serverStatus}
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        onSearchSubmit={async () => {
-          if (activeTab !== 'catalog') {
-            setActiveTab('catalog');
-          }
-          if (searchTerm.trim()) {
-            try {
-              const queryUrl = `/api/products/search?q=${encodeURIComponent(searchTerm.trim())}${
-                selectedCategory !== 'all' ? `&category=${encodeURIComponent(selectedCategory)}` : ''
-              }`;
-              const res = await fetch(queryUrl);
-              if (res.ok) {
-                const data = await res.json();
-                if (data.products) {
-                  setProducts(data.products);
-                  if (data.aiExplanation) setAiExplanation(data.aiExplanation);
-                  else setAiExplanation('');
+          {/* Header Bar */}
+          <MarketplaceHeader
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            cartCount={cart.reduce((sum, item) => sum + item.quantity, 0)}
+            onOpenCart={() => setIsCartOpen(true)}
+            serverStatus={serverStatus}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            onSearchSubmit={async () => {
+              if (activeTab !== 'catalog') {
+                setActiveTab('catalog');
+              }
+              if (searchTerm.trim()) {
+                try {
+                  const queryUrl = `/api/products/search?q=${encodeURIComponent(searchTerm.trim())}${
+                    selectedCategory !== 'all' ? `&category=${encodeURIComponent(selectedCategory)}` : ''
+                  }`;
+                  const res = await fetch(queryUrl);
+                  if (res.ok) {
+                    const data = await res.json();
+                    if (data.products) {
+                      setProducts(data.products);
+                      if (data.aiExplanation) setAiExplanation(data.aiExplanation);
+                      else setAiExplanation('');
+                    }
+                  }
+                } catch (e) {
+                  console.error('Search submit fetch error:', e);
+                }
+              } else {
+                try {
+                  const pRes = await fetch('/api/products');
+                  if (pRes.ok) {
+                    const d = await pRes.json();
+                    if (d.products) setProducts(d.products);
+                  }
+                  setAiExplanation('');
+                } catch (e) {
+                  console.error('Reset products error:', e);
                 }
               }
-            } catch (e) {
-              console.error('Search submit fetch error:', e);
-            }
-          } else {
-            try {
-              const pRes = await fetch('/api/products');
-              if (pRes.ok) {
-                const d = await pRes.json();
-                if (d.products) setProducts(d.products);
-              }
-              setAiExplanation('');
-            } catch (e) {
-              console.error('Reset products error:', e);
-            }
-          }
-        }}
-        walletBalance={wallet.balance}
-        deliverLocation={deliverLocation}
-        currentRole={currentRole}
-        currency={currency}
-        onOpenSettings={() => setIsSettingsOpen(true)}
-        marketplaceMode={marketplaceMode}
-        onSelectMarketplaceMode={setMarketplaceMode}
-      />
+            }}
+            walletBalance={wallet.balance}
+            deliverLocation={deliverLocation}
+            currentRole={currentRole}
+            currency={currency}
+            onOpenSettings={() => setIsSettingsOpen(true)}
+            marketplaceMode={marketplaceMode}
+            onSelectMarketplaceMode={setMarketplaceMode}
+          />
+        </>
+      )}
 
       {/* Command Palette Search Modal */}
       <GlobalCommandPaletteModal
@@ -769,8 +783,15 @@ export default function App() {
         onNavigateTab={setActiveTab}
       />
 
-      {/* Primary Workspace: Mode 3 Freelancer OR Mode 2 Digital Marketplace OR Mode 1 Physical Marketplace */}
-      {marketplaceMode === 'freelancer' ? (
+      {/* Primary Workspace: Mode 4 AI Agent Marketplace OR Mode 3 Freelancer OR Mode 2 Digital Marketplace OR Mode 1 Physical Marketplace */}
+      {marketplaceMode === 'ai' ? (
+        <AIAgentMarketplaceHome
+          walletBalance={wallet.balance}
+          onSwitchToPhysical={() => setMarketplaceMode('physical')}
+          onSwitchToDigital={() => setMarketplaceMode('digital')}
+          onSwitchToFreelancer={() => setMarketplaceMode('freelancer')}
+        />
+      ) : marketplaceMode === 'freelancer' ? (
         <FreelanceMarketplaceHome
           walletBalance={wallet.balance}
           onSwitchToPhysical={() => setMarketplaceMode('physical')}

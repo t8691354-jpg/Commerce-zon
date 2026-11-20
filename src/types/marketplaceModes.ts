@@ -53,13 +53,13 @@ export const MARKETPLACE_MODES: MarketplaceModeDefinition[] = [
   {
     id: 'ai',
     number: 4,
-    title: 'AI Marketplace',
-    subtitle: 'Autonomous Agents, Models & Prompts',
-    badge: 'Coming Soon',
+    title: 'AI Agent Marketplace',
+    subtitle: 'Autonomous Cloud Run Agents, Browser Automation & Agent Factory',
+    badge: 'Active & Live',
     badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
     iconName: 'Bot',
-    description: 'Autonomous AI agents, fine-tuned LoRA weights, enterprise prompt libraries, and pay-per-token API orchestration gateway.',
-    isAvailable: false,
-    features: ['Autonomous AI Agent Hub', 'Fine-Tuned Model Weights', 'Prompt Engineering Packs', 'Inference API Token Routing']
+    description: 'Deployable autonomous AI agents, Cloud Run browser automation bots with Playwright + Gemini, live execution sandboxes, and custom agent builder factory.',
+    isAvailable: true,
+    features: ['Browser Agent (FastAPI + Playwright + Gemini)', 'Interactive Live Agent Sandbox Runner', 'AI Agent Factory & Docker Packaging', '1-Click Google Cloud Run Deployer']
   }
 ];

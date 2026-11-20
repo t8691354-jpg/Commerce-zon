@@ -248,20 +248,15 @@ export const FreelanceMarketplaceHome: React.FC<FreelanceMarketplaceHomeProps> =
             </button>
           </div>
 
-          {/* Quick Cross-Marketplace Jump */}
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={onSwitchToDigital}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-xs transition border border-slate-700"
-            >
-              Digital Market
-            </button>
-            <button
-              onClick={onSwitchToPhysical}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[#febd69] font-bold text-xs transition border border-slate-700"
-            >
-              Physical Market
-            </button>
+          {/* Escrow Protection Indicator */}
+          <div className="flex items-center space-x-3 text-xs">
+            <span className="text-[11px] font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-1 rounded-lg flex items-center space-x-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>100% Escrow Protection Active</span>
+            </span>
+            <span className="text-slate-400 font-mono text-[11px] hidden sm:inline">
+              Locked Escrow: <strong className="text-emerald-400">${metrics.totalEscrowLockedUSD?.toLocaleString()} USD</strong>
+            </span>
           </div>
         </div>
       </div>

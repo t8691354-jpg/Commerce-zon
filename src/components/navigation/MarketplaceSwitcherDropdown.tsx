@@ -60,38 +60,49 @@ export const MarketplaceSwitcherDropdown: React.FC<MarketplaceSwitcherDropdownPr
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg border transition font-medium ${
+        className={`flex items-center space-x-2 px-3 py-1.5 rounded-xl border transition font-medium ${
           isOpen
             ? 'bg-[#febd69] text-slate-950 border-[#febd69] ring-2 ring-amber-400/50'
             : currentMode === 'digital'
-            ? 'bg-indigo-950/80 text-indigo-200 border-indigo-500/50 hover:border-indigo-400'
+            ? 'bg-indigo-950/90 text-indigo-200 border-indigo-500/60 hover:border-indigo-400'
+            : currentMode === 'freelancer'
+            ? 'bg-emerald-950/90 text-emerald-200 border-emerald-500/60 hover:border-emerald-400'
+            : currentMode === 'ai'
+            ? 'bg-purple-950/90 text-purple-200 border-purple-500/60 hover:border-purple-400'
             : 'bg-slate-900/90 text-slate-200 border-slate-700 hover:border-slate-500 hover:bg-slate-800'
         }`}
-        title="Commerce Zon Multi-Marketplace Hub (1. Physical, 2. Digital, 3. Freelancer, 4. AI)"
+        title="Marketplaces Switcher (Click ... to switch between Physical, Digital, Freelancer, and AI Agent Marketplace)"
       >
-        <div className="flex items-center space-x-1">
-          <MoreHorizontal className="w-4 h-4 stroke-[2.5]" />
-          <span className="text-xs font-bold font-mono tracking-tight">
-            {currentMode === 'digital' ? 'Digital Market' : 'Marketplaces'}
+        <div className="flex items-center space-x-1.5">
+          <span className="text-xs font-black tracking-tight uppercase font-mono">Marketplaces</span>
+          <span className="flex items-center px-1.5 py-0.5 rounded-md bg-black/40 text-[#febd69] font-black text-xs border border-white/10">
+            <MoreHorizontal className="w-4 h-4 stroke-[2.5]" />
           </span>
         </div>
-        <span className="text-[10px] font-mono px-1 rounded bg-black/40 text-[#febd69] font-bold">
-          {activeDef.number}/4
+        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-black/40 text-[#febd69] font-black border border-amber-400/20">
+          {activeDef.title}
         </span>
       </button>
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="origin-top-left absolute left-0 mt-2 w-80 rounded-2xl shadow-2xl bg-slate-900 border border-slate-700 divide-y divide-slate-800 focus:outline-none z-50 overflow-hidden animate-scale-up">
+        <div className="origin-top-left absolute left-0 mt-2 w-84 rounded-2xl shadow-2xl bg-slate-900 border border-slate-700 divide-y divide-slate-800 focus:outline-none z-50 overflow-hidden animate-scale-up">
           {/* Header */}
           <div className="px-4 py-3 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Sparkles className="w-4 h-4 text-[#febd69]" />
-              <span className="text-xs font-extrabold uppercase tracking-wider text-slate-200 font-mono">
-                Marketplace Switcher
-              </span>
+              <div>
+                <span className="text-xs font-extrabold uppercase tracking-wider text-slate-200 font-mono block">
+                  Marketplaces Hub
+                </span>
+                <span className="text-[10px] text-slate-400 font-mono">
+                  Select active view (others stay hidden)
+                </span>
+              </div>
             </div>
-            <span className="text-[10px] text-slate-400 font-mono">4-Core Modes</span>
+            <span className="text-[10px] text-amber-400 font-mono font-bold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+              4 Marketplaces
+            </span>
           </div>
 
           {/* List of 4 Marketplaces */}

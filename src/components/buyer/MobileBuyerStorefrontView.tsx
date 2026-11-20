@@ -76,12 +76,12 @@ const DEALS_BANNERS = [
   },
   {
     id: 3,
-    title: 'Top Digital Code & SaaS',
-    subtitle: 'Zero Shipping, Instant Access in 1 Click',
-    tag: 'INSTANT DELIVERY',
+    title: 'Smart Home & Robotics',
+    subtitle: 'Exclusive discounts on smart gadgets & appliances',
+    tag: 'NEW ARRIVALS',
     gradient: 'from-emerald-600 via-teal-700 to-cyan-700',
-    btnText: 'Browse Digital',
-    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&auto=format&fit=crop&q=80'
+    btnText: 'Shop Smart Tech',
+    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80'
   }
 ];
 
@@ -195,64 +195,6 @@ export const MobileBuyerStorefrontView: React.FC<MobileBuyerStorefrontViewProps>
         </div>
       </div>
 
-      {/* 3. Marketplace 4-Mode Quick Switcher Strip */}
-      <div className="px-4 py-2.5 bg-slate-900/40 border-b border-slate-800/60 overflow-x-auto no-scrollbar">
-        <div className="flex items-center space-x-2 min-w-max">
-          <span className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider pr-1">
-            Markets:
-          </span>
-          <button
-            onClick={() => onSelectMarketplaceMode('physical')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
-              marketplaceMode === 'physical'
-                ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
-                : 'bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700'
-            }`}
-          >
-            <Package className="w-3.5 h-3.5" />
-            <span>1. Physical Goods</span>
-          </button>
-
-          <button
-            onClick={() => onSelectMarketplaceMode('digital')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
-              marketplaceMode === 'digital'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20'
-                : 'bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700'
-            }`}
-          >
-            <Code className="w-3.5 h-3.5" />
-            <span>2. Digital Assets</span>
-            <span className="text-[9px] px-1 bg-white/20 text-white rounded">NEW</span>
-          </button>
-
-          <button
-            onClick={() => onSelectMarketplaceMode('freelancer')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
-              marketplaceMode === 'freelancer'
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/20'
-                : 'bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700'
-            }`}
-          >
-            <Briefcase className="w-3.5 h-3.5" />
-            <span>3. Freelancers</span>
-            <span className="text-[9px] px-1 bg-emerald-400/20 text-emerald-300 rounded font-bold">LIVE</span>
-          </button>
-
-          <button
-            onClick={() => onSelectMarketplaceMode('ai')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition ${
-              marketplaceMode === 'ai'
-                ? 'bg-purple-600 text-white shadow-md shadow-purple-600/20'
-                : 'bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700'
-            }`}
-          >
-            <Bot className="w-3.5 h-3.5" />
-            <span>4. AI Marketplace</span>
-          </button>
-        </div>
-      </div>
-
       <div className="px-4 py-3 space-y-5">
         {/* 4. Promotional Hero Carousel Banner (Reference 1) */}
         <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-800">
@@ -300,7 +242,7 @@ export const MobileBuyerStorefrontView: React.FC<MobileBuyerStorefrontViewProps>
         </div>
 
         {/* 5. Horizontal Categories Strip with Icons */}
-        <div className="space-y-2">
+        <div id="mobile-categories-strip" className="space-y-2">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
               <span>Categories</span>
@@ -490,23 +432,17 @@ export const MobileBuyerStorefrontView: React.FC<MobileBuyerStorefrontViewProps>
         </button>
 
         <button
-          onClick={() => onSelectMarketplaceMode('digital')}
+          onClick={() => {
+            setActiveBottomNav('categories');
+            const el = document.getElementById('mobile-categories-strip');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
           className={`flex flex-col items-center space-y-0.5 transition ${
-            marketplaceMode === 'digital' ? 'text-indigo-400' : 'hover:text-slate-200'
+            activeBottomNav === 'categories' ? 'text-[#febd69]' : 'hover:text-slate-200'
           }`}
         >
-          <Code className="w-5 h-5" />
-          <span className="text-[10px] font-bold">Digital</span>
-        </button>
-
-        <button
-          onClick={() => onSelectMarketplaceMode('freelancer')}
-          className={`flex flex-col items-center space-y-0.5 transition ${
-            marketplaceMode === 'freelancer' ? 'text-emerald-400' : 'hover:text-slate-200'
-          }`}
-        >
-          <Briefcase className="w-5 h-5" />
-          <span className="text-[10px] font-bold">Talent</span>
+          <Tag className="w-5 h-5" />
+          <span className="text-[10px] font-bold">Deals</span>
         </button>
 
         <button
@@ -533,6 +469,19 @@ export const MobileBuyerStorefrontView: React.FC<MobileBuyerStorefrontViewProps>
             </span>
           )}
           <span className="text-[10px] font-bold text-[#febd69]">Cart</span>
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveBottomNav('profile');
+            if (onOpenSettings) onOpenSettings();
+          }}
+          className={`flex flex-col items-center space-y-0.5 transition ${
+            activeBottomNav === 'profile' ? 'text-[#febd69]' : 'hover:text-slate-200'
+          }`}
+        >
+          <User className="w-5 h-5" />
+          <span className="text-[10px] font-bold">Profile</span>
         </button>
       </div>
     </div>

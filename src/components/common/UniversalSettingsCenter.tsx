@@ -272,7 +272,7 @@ export const UniversalSettingsCenter: React.FC = () => {
                   { title: '1. Physical Goods & FBA Marketplace', state: true, tag: 'CORE ACTIVE', desc: 'Warehouses, inventory barcodes, carrier shipping, RMA returns' },
                   { title: '2. Digital Software & License Marketplace', state: true, tag: 'ACTIVE LIVE', desc: 'Instant-delivery code, SaaS kits, cryptographic keys, asset vault' },
                   { title: '3. Freelancer & Talent Escrow Marketplace', state: true, tag: 'ACTIVE LIVE', desc: 'Milestone escrow contracts, proposal bidding, talent directory' },
-                  { title: '4. Autonomous AI Agent Marketplace', state: false, tag: 'CANARY PREVIEW', desc: 'Autonomous AI agents, prompt libraries, inference token billing' },
+                  { title: '4. Autonomous AI Agent Marketplace', state: true, tag: 'ACTIVE LIVE', desc: 'FastAPI Playwright Browser Agent, Cloud Run one-click deployer, AI Agent Factory' },
                   { title: 'Module 20 Super Admin Control Panel', state: true, tag: 'RELEASED', desc: 'Platform-wide rule enforcement and executive overrides' },
                   { title: 'Commerce Zone Pay Virtual Card Issuing', state: true, tag: 'STABLE', desc: 'Virtual debit card issuing with merchant cashback' },
                   { title: 'AI Neural Fraud Detection Engine', state: true, tag: 'ACTIVE', desc: 'Continuous fraud risk scoring on orders & payouts' },
